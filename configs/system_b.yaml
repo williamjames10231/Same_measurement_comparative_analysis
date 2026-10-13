@@ -1,0 +1,19 @@
+inherits: base.yaml
+
+llm:
+  model_name: unsloth/Qwen3-1.7B-GGUF
+  temperature: 0.1
+  top_p: 1.0
+  max_new_tokens: 16
+  gguf_filename: configs/Qwen3-1.7B-Q4_K_M.gguf
+
+llm_topics:
+  method: discovery
+  n_topics: 6                      # ← must equal System A's K
+  discovery_sample: 200
+  topic_min_length: 2
+  topic_max_length: 60
+
+outputs:
+  topics_csv:     data/System_B/bulacan_camanava_lda_topic_word.csv
+  sentiment_csv:  data/System_B/bulacan_camanava_sentiment.csv

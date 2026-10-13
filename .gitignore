@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.idea/
+.vscode/
+
+# Local model weights and caches
+*.gguf
+.cache/
+
+# Generated datasets and intermediate outputs
+#/data/System_B/*.csv
+#/data/system_a/*_enriched.csv
+
+# Temporary and log files
+*.log
+*~
