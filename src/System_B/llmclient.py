@@ -24,6 +24,15 @@ def extract_json_array(text: str) -> list | None:
         except json.JSONDecodeError:
             pass
 
+    if text.startswith("{"):
+        text = "[" + text
+    if text.endswith("}") or text.endswith("},"):
+        text = text.rstrip(",") + "]"
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+
     return None
 
 class LLMClient:

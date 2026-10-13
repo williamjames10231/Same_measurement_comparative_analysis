@@ -6,13 +6,15 @@ Your task is to analyze a batch of text documents and synthesize a canonical tax
 GUIDELINES:
 - Focus on the core ACTION, PROBLEM, or THEME (e.g., medical relief, structural damage, supply distribution).
 - Strictly omit all proper nouns, locations, regions, and geographic identifiers.
-- Each topic must have a short 'label' (2-4 lowercase words) and a clear 'description' (1 sentence explaining what this topic covers).
-- Respond ONLY with a valid JSON array of objects. No markdown, no explanations, no conversational text.
+- Each topic must have a short 'label' (2-4 lowercase words), a 'description' (1 sentence), and actual 'keywords' (bag-of-words) extracted directly from the texts.
+- Respond ONLY with a valid JSON array of objects. No markdown, no explanations.
+- CRITICAL: Your output MUST start with "[" and end with "]".
 
-FORMAT:
+EXAMPLE OUTPUT:
 [
-  {{"label": "topic label", "description": "One sentence description."}},
-  ...
+  {{"label": "rescue efforts", "keywords": ["rescue", "stranded", "volunteer", "bagal", "rescuers"]}},
+  {{"label": "flood impact", "keywords": ["baha", "tubig", "lubog", "taas", "stranded"]}},
+  {{"label": "health risks", "keywords": ["leptospirosis", "sintomas", "check-up", "baho"]}}
 ]
 /no_think"""
 

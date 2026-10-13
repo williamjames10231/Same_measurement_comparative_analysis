@@ -15,13 +15,13 @@ class JointClassifier:
 
     def classify(self, df: pd.DataFrame, taxonomy: pd.DataFrame) -> pd.DataFrame:
         df = pd.DataFrame(df)
-        df = df[1:2000] #input control
+        df = df[1:50] #input control
         df.columns = ["text"]
         valid_labels = set()
         topic_lines = []
         for t in taxonomy.itertuples():
             label = t.label.strip().lower()
-            desc = t.description.strip()
+            desc = t.keywords.strip()
             valid_labels.add(label)
             topic_lines.append(f"- {label}: {desc}")
 

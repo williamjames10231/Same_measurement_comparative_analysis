@@ -1,7 +1,7 @@
-topic_id,label,description
-0,flood impact,Description of flood impact on communities.
-1,relief distribution,Description of relief goods distribution.
-2,rescue efforts,Description of rescue efforts and volunteers.
-3,flood control,Description of flood control improvements.
-4,community response,Description of community response and actions.
-5,flood warning,Description of flood warning and alerts.
+topic_id,label,keywords
+0,flood impact,"['tubig', 'baha', 'gen', 'luna', 'lubog', 'stranded']"
+1,rescue efforts,"['rescue', 'volunteer', 'rescuers', 'contact', 'contact number', 'volunteer']"
+2,relief distribution,"['relief goods', 'distribution', 'relief', 'distribution', 'goods', 'barangay', 'distribution']"
+3,health risks,"['leptospirosis', 'sintomas', 'check-up', 'health', 'risk', 'medical']"
+4,flood control,"['flood', 'control', 'project', 'improvement', 'flood control', 'project']"
+5,community support,"['support', 'community', 'help', 'tulungan', 'volunteer', 'rescue', 'support']"

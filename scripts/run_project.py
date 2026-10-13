@@ -12,6 +12,7 @@ from src.System_A import (
 
 from src.System_B import (
     pipeline as pipeline_b,
+    joint_matrix_llm as joint_matrix_b,
 )
 
 import pandas as pd
@@ -49,8 +50,15 @@ def system_b(
     #topic_discovery, topic = system_b.run_topic_discovery()
 
     topic = pd.read_csv(PROJECT_ROOT / "data/System_B/bulacan_camanava_topic_discovery.csv")
-    joint_classification = system_b.run_sentiment_classifier(topic)
+    #joint_classification = system_b.run_sentiment_classifier(topic)
+    joint_classification = pd.read_csv(PROJECT_ROOT / "data/System_B/bulacan_camanava_sentiment_classification.csv")
 
+    joint_matrix = joint_matrix_b.JointMatrix(
+        topic,
+        joint_classification,
+        PROJECT_ROOT
+    )
+    output, norm = joint_matrix.compute_matrices()
     pass
 
 if __name__ == "__main__":

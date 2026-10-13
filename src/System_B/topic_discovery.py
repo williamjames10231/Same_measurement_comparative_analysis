@@ -46,7 +46,7 @@ class TopicDiscovery:
         )
 
         try:
-            raw_output = self.llm.generate(prompt_sys, prompt_usr, max_new_tokens=1024)
+            raw_output = self.llm.generate(prompt_sys, prompt_usr, max_new_tokens=2048)
         except Exception as e:
             if self.log:
                 self.log.error(f"LLM failed during topic discovery: {e}")
@@ -63,9 +63,9 @@ class TopicDiscovery:
         for item in parsed:
             if isinstance(item, dict) and "label" in item:
                 label = str(item["label"]).strip().lower()
-                desc = str(item.get("description", "")).strip()
+                desc = str(item.get("keywords", "")).strip()
                 if 2 <= len(label) <= 60:
-                    canonical.append({"label": label, "description": desc})
+                    canonical.append({"label": label, "keywords": desc})
 
         K = self.cfg["n_topics"]
         if len(canonical) > K:
@@ -83,6 +83,6 @@ class TopicDiscovery:
 
     def _fallback_taxonomy(self) -> list[dict]:
         return [
-            {"label": f"topic_{i+1}", "description": "Fallback topic due to LLM parsing error."}
+            {"label": f"topic_{i+1}", "keywords": "[fallback]"}
             for i in range(self.cfg["n_topics"])
         ]

@@ -46,7 +46,7 @@ class Pipeline:
             {
                 "topic_id": range(len(topics)),
                 "label": decoy["label"],
-                "description": decoy["description"],
+                "keywords": decoy["keywords"],
             }
         )
 
