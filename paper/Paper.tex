@@ -41,6 +41,16 @@
 \titleformat{\subsubsection}{\normalfont\normalsize\bfseries\itshape}{\thesubsubsection}{1em}{}
 \setcounter{tocdepth}{2}
 
+\lstset{
+	basicstyle=\ttfamily\small, % Slightly smaller font helps fit text
+	breaklines=true,            % Enables line wrapping
+	showspaces=false,           % Hides the visible space glyphs (␣)
+	showstringspaces=false,
+	xleftmargin=0pt,            % Resets left margin offset
+	xrightmargin=0pt,
+	gobble=0
+}
+
 \captionsetup[table]{position=top,font=normalsize,labelfont=bf}
 \captionsetup[figure]{font=normalsize,labelfont=bf}
 
@@ -1123,14 +1133,45 @@ prompt directs the model to focus on core actions, problems, or themes rather
 than proper nouns, locations, or geographic identifiers. Each topic must have a
 short label and a set of keywords extracted from the representative sample.
 
-\begin{lstlisting}[
-	language=Python,
-	caption={Stage 1 Prompt}]
-	def factorial(n):
-	if n == 0:
-	return 1
-	return n * factorial(n - 1)
-\end{lstlisting}
+\begin{figure}[htbp]
+	\centering
+	\label{ls:stage-1-prompt}
+	\begin{minipage}{0.9\textwidth}
+	\begin{lstlisting}[
+		language=Python,
+		showspaces=false,
+		showstringspaces=false,
+		caption={Stage 1 Prompt}]
+TOPIC_DISCOVERY_SYSTEM = """
+You are an expert qualitative data analyst. Your task is to analyze a batch of text documents and synthesize a canonical taxonomy of exactly {n_topics} distinct topics.
+		
+GUIDELINES:
+- Focus on the core ACTION, PROBLEM, or THEME (e.g., medical relief, structural damage, supply distribution).
+- Strictly omit all proper nouns, locations, regions, and geographic identifiers.
+- Each topic must have a short 'label' (2-4 lowercase words), and actual 'keywords' (bag-of-words) extracted directly from the texts.
+- Respond ONLY with a valid JSON array of objects. No markdown, no explanations.
+- CRITICAL: Your output MUST start with "[" and end with "]".
+		
+EXAMPLE OUTPUT:
+[
+{{"label": "rescue efforts", "keywords": ["rescue", "stranded", "volunteer", "bagal", "rescuers"]}},
+{{"label": "flood impact", "keywords": ["baha", "tubig", "lubog", "taas", "stranded"]}},
+{{"label": "health risks", "keywords": ["leptospirosis", "sintomas", "check-up", "baho"]}}
+]
+/no_think
+"""
+		
+TOPIC_DISCOVERY_USER = """
+Here is a representative sample of {n_docs} documents from the dataset:
+		
+{documents_block}
+		
+Generate the JSON array of exactly {n_topics} topics based on the themes present in these documents.
+JSON Output:
+"""
+	\end{lstlisting}
+	\end{minipage}
+\end{figure}
 
 The model returns a JSON array of topic objects. The prompt enforces strict
 JSON output with no markdown or explanations. This discovered taxonomy is
@@ -1157,6 +1198,51 @@ The sentiment must be exactly one of the following: \texttt{POS},
   \item \texttt{NEU}: the text is purely informational, factual, asking for
         help, or expresses a balanced or mixed view.
 \end{itemize}
+
+\begin{figure}[htbp]
+	\centering
+	\label{ls:stage-2-prompt}
+	\begin{minipage}{0.9\textwidth}
+		\begin{lstlisting}[
+			language=Python,
+			showspaces=false,
+			showstringspaces=false,
+			caption={Stage 2 Prompt}]
+JOINT_SYSTEM = """
+You are an expert analyst classifying social media posts. You must output TWO labels: SENTIMENT and TOPIC.
+			
+SENTIMENT must be exactly one of: "POS", "NEG", "NEU".
+- POS: The text expresses joy, gratitude, hope, relief, or praise.
+- NEG: The text expresses anger, sadness, fear, frustration, or criticism.
+- NEU: The text is purely informational, factual, or expresses a balanced/mixed view. Do not assume factual requests are negative.
+			
+TOPIC must be exactly one of the 'label' values from the provided taxonomy list.
+			
+Respond ONLY with a valid JSON object. No markdown, no explanations.
+FORMAT:
+{{"sentiment": "LABEL", "topic": "exact topic label from list"}}
+/no_think
+"""
+			
+JOINT_USER = """Available taxonomy (label and description): {topic_list_with_descriptions}
+			
+Examples:
+Text: "Salamat sa mga rescuers! Ligtas na kami."
+JSON: {{"sentiment": "POS", "topic": "rescue efforts"}}
+			
+Text: "Base sa PAGASA, tuloy-tuloy ang ulan hanggang weekend. Maghanda po."
+JSON: {{"sentiment": "NEU", "topic": "flood warning"}}
+			
+Text: "Nakakagalit! Ang bagal ng rescue. Ilang oras na kaming stranded."
+JSON: {{"sentiment": "NEG", "topic": "flood impact"}}
+			
+Text to classify:"{text}"
+			
+JSON Response:
+"""
+		\end{lstlisting}
+	\end{minipage}
+\end{figure}
 
 The prompt explicitly instructs the model not to assume that factual requests
 are negative, addressing a common failure mode in disaster text classification.
@@ -1546,8 +1632,8 @@ configurations without introducing data dilution.
 \subsection{Blind Evaluation Stakeholder Panel (System Evaluation)}
 
 To execute the blind comparative evaluation between the lightweight hybrid model
-(\sysA: LDA + \xlmr) and the state-of-the-art open-weight baseline (\sysB:
-\qwen), a total panel of 10 to 20 evaluators will be recruited. This panel is
+(\sysA: LDA + \xlmr) and the state-of-the-art open-weight
+(\sysB: \qwen), a total panel of 10 to 20 evaluators will be recruited. This panel is
 divided equally into two specialized cohorts.
 
 \begin{table}[htbp]
@@ -1568,7 +1654,7 @@ divided equally into two specialized cohorts.
     of the CICT at Bulacan State University. \\
     \addlinespace
     \textit{Operational Role.} These practitioners evaluate the practical
-    applicability, operational fidelity, and situational severity derived from
+    applicability, operational fidelity, and functional alignment derived from
     the models without knowing which system generated the output. They provide
     judgment on whether the extracted sentiment and disaster urgency accurately
     reflect actual field conditions. &
