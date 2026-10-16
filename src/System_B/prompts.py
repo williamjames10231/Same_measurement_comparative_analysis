@@ -6,7 +6,7 @@ Your task is to analyze a batch of text documents and synthesize a canonical tax
 GUIDELINES:
 - Focus on the core ACTION, PROBLEM, or THEME (e.g., medical relief, structural damage, supply distribution).
 - Strictly omit all proper nouns, locations, regions, and geographic identifiers.
-- Each topic must have a short 'label' (2-4 lowercase words), a 'description' (1 sentence), and actual 'keywords' (bag-of-words) extracted directly from the texts.
+- Each topic must have a short 'label' (2-4 lowercase words), and actual 'keywords' (bag-of-words) extracted directly from the texts.
 - Respond ONLY with a valid JSON array of objects. No markdown, no explanations.
 - CRITICAL: Your output MUST start with "[" and end with "]".
 
@@ -31,7 +31,7 @@ You must output TWO labels: SENTIMENT and TOPIC.
 SENTIMENT must be exactly one of: "POS", "NEG", "NEU".
 - POS: The text expresses joy, gratitude, hope, relief, or praise.
 - NEG: The text expresses anger, sadness, fear, frustration, or criticism.
-- NEU: The text is purely informational, factual, asking for help, or expresses a balanced/mixed view. Do not assume factual requests are negative.
+- NEU: The text is purely informational, factual, or expresses a balanced/mixed view. Do not assume factual requests are negative.
 
 TOPIC must be exactly one of the 'label' values from the provided taxonomy list.
 
@@ -43,7 +43,6 @@ FORMAT:
 JOINT_USER = """Available taxonomy (label and description):
 {topic_list_with_descriptions}
 
-Examples:
 Examples:
 Text: "Salamat sa mga rescuers! Ligtas na kami."
 JSON: {{"sentiment": "POS", "topic": "rescue efforts"}}

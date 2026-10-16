@@ -18,7 +18,7 @@ class TopicDiscovery:
         self.log = logger
 
     #200 topics
-    def discover(self, df: pd.DataFrame, sample_n: int = 200) -> list[dict]:
+    def discover(self, df: pd.DataFrame, sample_n: int = 500) -> list[dict]:
         if "disaster_event" in df.columns:
             n_events = df["disaster_event"].nunique()
             per_event = max(1, sample_n // n_events)

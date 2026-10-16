@@ -34,7 +34,7 @@ class Pipeline:
 
     def lda_model(
             self
-    ) -> pd.DataFrame:
+    ):
         lda_model = LDAModel(self.data)
         dtm, count_vec = lda_model.count_vectorizer()
         lda_result,lda = lda_model.run_lda(
@@ -42,12 +42,20 @@ class Pipeline:
             count_vec
         )
 
-        lda_diagnotics(
+        diagnostics = lda_diagnotics(
             lda,
             count_vec
         )
 
-        return lda_result
+        return lda_result, diagnostics
+
+    def test_k(
+        self
+    ):
+        lda_model = LDAModel(self.data)
+        dtm, count_vec = lda_model.count_vectorizer()
+        lda_model.coherence_sweep(dtm, count_vec)
+
 
     def fusion(
             self,
@@ -64,9 +72,5 @@ class Pipeline:
 
         print(chi_square_test(hard_matrix))
         print(joint_matrix.topic_sentiment_mutual_info())
-
-        hard_matrix.to_csv("../data/system_a/bulacan_camanava_hard_matrix_enriched.csv")
-        hard_matrix_norm.to_csv("../data/system_a/bulacan_camanava_hard_matrix_norm_enriched.csv")
-        soft_matrix.to_csv("../data/system_a/bulacan_camanava_soft_matrix_enriched.csv")
 
         return hard_matrix, hard_matrix_norm, soft_matrix

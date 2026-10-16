@@ -15,7 +15,6 @@ class RobertaClassifier:
         self.RoBERTa_model_name = "cardiffnlp/twitter-xlm-roberta-base-sentiment"
         self.batch_size = 64
         self.max_len = 128
-        self.csv_out = "../data/system_a/bulacan_camanava_roberta_enriched.csv"
 
         #sentiment labels
         self.idx_neg, self.idx_neu, self.idx_pos = 0, 1, 2
@@ -118,4 +117,4 @@ class RobertaClassifier:
               .head(10)
               .round(3))
 
-        copy.to_csv(self.csv_out, index=False)
+        return copy

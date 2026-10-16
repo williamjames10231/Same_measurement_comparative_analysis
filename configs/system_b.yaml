@@ -9,8 +9,8 @@ llm:
 
 llm_topics:
   method: discovery
-  n_topics: 6                      # ← must equal System A's K
-  discovery_sample: 200
+  n_topics: 10                      # ← must equal System A's K
+  discovery_sample: 500
   topic_min_length: 2
   topic_max_length: 60
 
