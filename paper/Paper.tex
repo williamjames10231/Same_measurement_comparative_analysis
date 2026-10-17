@@ -67,7 +67,7 @@
 % ============================== TITLE PAGE ===============================
 \begin{titlepage}
 \centering
-{\Large\bfseries SAKLOLO.: A Hybrid Semantic-Probabilistic Framework for
+{\Large\bfseries SAKLOLO: A Hybrid Semantic-Probabilistic Framework for
 Analysing Social Media Emergency Feeds in Bulacan and CAMANAVA\par}
 \vspace{2.5cm}
 
@@ -81,13 +81,11 @@ Degree Bachelor of Science in Mathematics\\
 with Specialization in Computer Science\\[2.5cm]
 
 By\\[0.6cm]
-Alvarado, Mariel\\
-Dela Paz, Jaizel\\
-Jornal, Juliana Rojimherie B.\\
-Landicho, William James N.\\[2.5cm]
+Lastname, First name\\ %Alvarado, Mariel
+Lastname, First name\\ %Dela Paz, Jaizel
+Lastname, First name\\ %Jornal, Juliana Rojimherie B.
+Lastname, First name\\[2.5cm] %Landicho, William James N.
 
-\rule{6cm}{0.4pt}\\
-Advisor
 \end{titlepage}
 
 \tableofcontents
@@ -188,7 +186,7 @@ implying that sophisticated ways to process information and deliver actionable
 insights to stakeholders could help communities become more resilient and
 responsive in conducting disaster response.
 
-To bridge this gap, this study proposes \emph{SAKLOLO.: A Hybrid
+To bridge this gap, this study proposes \emph{SAKLOLO: A Hybrid
 Semantic-Probabilistic Framework for Analysing Social Media Emergency Feeds in
 Bulacan and CAMANAVA}. This framework introduces a novel hybrid architecture
 (\sysA) that combines Count Vectorization, Latent Dirichlet Allocation (LDA),
@@ -255,7 +253,7 @@ answer the following questions:
 
 \section{Significance of the Study}
 
-\emph{SAKLOLO.: A Hybrid Semantic-Probabilistic Framework for Analysing Social
+\emph{SAKLOLO: A Hybrid Semantic-Probabilistic Framework for Analysing Social
 Media Emergency Feeds in Bulacan and CAMANAVA} is a computational information
 system for disaster response decision-making. It evaluates how unstructured
 information in disaster situations can be optimally processed using a Hybrid
@@ -328,10 +326,10 @@ in Tagalog, English, and Taglish that meet the established inclusion criteria
 regarding natural disasters (e.g., typhoons, flooding).
 
 The evaluation framework is strictly delimited to specific mathematical and
-statistical metrics. Classification performance is measured solely using
+statistical metrics. Classification performance is measured solely using Relative-reference
 Precision, Recall, Macro-F1, and Cohen's Kappa. Joint Matrix analysis is to be
 conducted to analytically test the categorical associations of words to their
-sentiment using Chi-squared, $p$-values, and Cramer's V. The operational
+sentiment using Chi-squared, and Cramer's V. The operational
 utility of the systems is evaluated through a purposive blind stakeholder panel
 assessed using Agreement Rates and McNemar's Test.
 
@@ -342,9 +340,19 @@ social media post backend aggregation with respect to the Data Privacy Act of
 of the Facebook users. \sysA{} features a pre-trained \xlmr{}
 (\texttt{cardiffnlp/twitter-XLM-RoBERTa-base-sentiment}) that features
 approximately one million Tagalog social media posts as part of its training
-dataset alongside vast numbers of other languages. This study will not employ
-human-annotated sentiments and will be run as-is, with few-shot prompting on
-\sysB{} as an exception.
+dataset alongside vast numbers of other languages.
+
+Regarding system implementation, the backend computational pipeline is 
+encapsulated within a \textbf{localized analytical web dashboard} developed 
+using a lightweight Python-based web framework (e.g., Streamlit). This 
+dashboard is strictly delimited to an offline, local-host analytical tool 
+designed for the researchers and the expert stakeholder panel. It serves 
+to visualize the Joint Matrices, topic distributions, and sentiment clusters, 
+and acts as the digital instrument for the blind stakeholder evaluation 
+(Research Question 3). This study does not produce a publicly hosted, 
+enterprise-grade web application, nor does it include real-time cloud 
+deployment, multi-user authentication, or live integration into actual 
+LGU command centers.
 
 \section{Definition of Terms}
 
@@ -407,7 +415,7 @@ human-annotated sentiments and will be run as-is, with few-shot prompting on
 % =========================================================================
 
 This chapter outlines the foundations supporting the development of
-\emph{SAKLOLO.: A Hybrid Semantic-Probabilistic Framework for Analysing Social
+\emph{SAKLOLO: A Hybrid Semantic-Probabilistic Framework for Analysing Social
 Media Emergency Feeds in Bulacan and CAMANAVA}. It is grounded in Vector Space
 Semantics, the Distributional Hypothesis, and Bayesian Generative Theory,
 justifying the probabilistic extraction of semantic structures from
@@ -1309,6 +1317,42 @@ framework to ensure comparative integrity in the evaluation results. Each
 statistic will be run separately on each system prior to comparing and making
 relative findings.
 
+\section{System Implementation: The Analytical Dashboard}
+
+To operationalize the backend computational pipelines of System A and System B for both analytical visualization
+and stakeholder evaluation, a localized web dashboard is developed. While the core processing relies on heavy backend machine learning operations (LDA, XLM-RoBERTa, and Qwen3 interface), the dashboard provides a graphical user interface (GUI) that translates these mathematical output into interactive visual analytics.
+
+The dashboard will have these primary modules:
+\begin{enumerate}
+	\item \textbf{Corpus and Pipeline Ingestion Module.} This module handles 
+	the loading of the pre-processed, cleaned corpus and executes the backend 
+	pipelines of System A and System B. It manages the generation of the 
+	Joint Matrices and stores the resulting sentiment and topic classifications 
+	in structured data formats (CSV) for frontend rendering.
+	
+	\item \textbf{Visual Analytics and Joint Matrix Module.} This module 
+	renders the mathematical outputs of the study. It displays interactive 
+	bar charts for sentiment distributions, topic-word probability heatmaps, 
+	and the $M \times N$ Joint Matrix contingency tables. This allows the 
+	researchers and technical experts (Cohort B) to visually validate the 
+	coherence of the LDA topics and the alignment of the sentiment 
+	classifications without parsing raw code.
+	
+	\item \textbf{Blind Evaluation Instrument Module.} To execute Research 
+	Question 3, the dashboard features a specialized evaluation interface. 
+	It randomly samples documents from the corpus and presents the 
+	system-generated sentiment and topic classifications side-by-side in a 
+	blinded format (labeled only as ``Output X'' and ``Output Y''). The 
+	stakeholder panel (Cohort A and B) interacts directly with this web 
+	interface, utilizing a check-or-cross GUI to record their agreement or 
+	disagreement. The dashboard automatically logs these interactions into 
+	a secure database for the subsequent McNemar's Test and Agreement Rate 
+	computations.
+\end{enumerate}
+
+By utilizing a lightweight python web framework, the dashboard ensures the the system remains entirely dependent on local backend environment satisfying the need for
+an interactive visual analytical system.
+
 \subsection{Research Question 1: Reference-Relative Classification Performance}
 
 The purpose of Research Question 1 is to assess the overall sentiment
@@ -1722,7 +1766,7 @@ across observations.
 
 This study observes ethical considerations for the safety of participants and
 maintains the integrity of this paper throughout the development of
-\emph{SAKLOLO.: A Hybrid Semantic-Probabilistic Framework for Analysing Social
+\emph{SAKLOLO: A Hybrid Semantic-Probabilistic Framework for Analysing Social
 Media Emergency Feeds in Bulacan and CAMANAVA}. The researchers will follow
 ethical guidelines such as collecting data from identified sources, obtaining
 consent, ensuring the confidentiality of participants and voluntary
