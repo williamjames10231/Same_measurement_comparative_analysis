@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S.A.K.L.O.L.O. | Emergency Command Dashboard</title>
+
+  <!-- Leaflet CSS (must load BEFORE Leaflet JS) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-system="A">
+<div class="app">
+
+  <!-- ========== SIDEBAR NAVIGATION ========== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand__logo" src="SAKLOLO.png" alt="SAKLOLO Logo">
+      <div>
+        <strong class="brand__name">S.A.K.L.O.L.O.</strong>
+        <small class="brand__sub">Bulacan + CAMANAVA</small>
+      </div>
+    </div>
+
+    <nav class="nav" role="tablist" aria-label="Dashboard views">
+      <button class="nav__item is-active" role="tab" aria-selected="true"  data-target="view-command">About</button>
+      <button class="nav__item"           role="tab" aria-selected="false" data-target="view-feeds">Data Feed Integration</button>
+      <button class="nav__item"           role="tab" aria-selected="false" data-target="view-topics">NLP Topic Analytics</button>
+      
+      <!-- NEW nav button properly inside the nav container -->
+      <button class="nav__item" role="tab" aria-selected="false" data-target="view-bench">Algorithmic Benchmarks</button>
+      <button class="nav__item"           role="tab" aria-selected="false" data-target="view-eval">Blind Stakeholder Evaluation</button>
+    </nav>
+
+<!-- ========== GLOBAL SYSTEM TOGGLE ========== -->
+<div class="sys-toggle">
+  <span class="sys-toggle__label">Active Model</span>
+  <div class="sys-toggle__track" id="sys-toggle" data-active="A" role="radiogroup" aria-label="Active model">
+    <span class="sys-toggle__thumb" aria-hidden="true"></span>
+    <button type="button" class="sys-toggle__opt is-active" role="radio" aria-checked="true"  data-system="A">System A <small>Hybrid</small></button>
+    <button type="button" class="sys-toggle__opt"           role="radio" aria-checked="false" data-system="B">System B <small>LLM</small></button>
+  </div>
+</div>
+    <div class="sidebar__footer">
+      <span class="dot dot--ok"></span> Pipeline online
+      <small>Hybrid: LDA + RoBERTa + Qwen 3.5</small>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+
+    <!-- ===== 1. COMMAND CENTER ===== -->
+    <section id="view-command" class="view" role="tabpanel">
+    <header class="view__header view__header--row">
+  <div>
+    <h1>About</h1>
+    <p>Real-time sentiment and severity overview of incoming emergency feeds.</p>
+  </div>
+  <!-- Updated by JS whenever the toggle changes -->
+  <span class="driver-pill" id="driver-pill">
+    <span class="dot dot--sys"></span>
+    Feed driven by: <strong id="driver-name">System A (Hybrid: LDA + RoBERTa)</strong>
+  </span>
+</header>
+
+      <div class="grid grid--command">
+        <!-- 1. Heatmap (Kept as is) -->
+        <article class="card card--map">
+          <h2 class="card__title">Map</h2>
+          <div id="heatmap" class="map" data-api="/api/heatmap" role="application" aria-label="Geographic sentiment map of Bulacan and CAMANAVA"></div>
+        </article>
+
+        <!-- 2. Covered Jurisdictions (Replaces Severity Trends) -->
+        <article class="card card--locations">
+          <h2 class="card__title">Covered Jurisdictions</h2>
+          <div class="location-groups">
+            <div class="location-group">
+              <h3>CAMANAVA</h3>
+              <ul class="location-list">
+                <li>Caloocan City</li>
+                <li>Malabon City</li>
+                <li>Navotas City</li>
+                <li>Valenzuela City</li>
+              </ul>
+            </div>
+            <div class="location-group">
+              <h3>Bulacan Province</h3>
+              <ul class="location-list">
+                <li>Angat</li>
+                <li>Balagtas</li>
+                <li>Baliuag</li>
+                <li>Bocaue</li>
+                <li>Bulakan</li>
+                <li>Bustos</li>
+                <li>Calumpit</li>
+                <li>City of San Jose Del Monte</li>
+                <li>Doña Remedios Trinidad</li>
+                <li>Guiguinto</li>
+                <li>Hagonoy</li>
+                <li>Malolos City</li>
+                <li>Marilao</li>
+                <li>Meycauayan</li>
+                <li>Norzagaray</li>
+                <li>Obando</li>
+                <li>Paombong</li>
+                <li>Plaridel</li>
+                <li>Pulilan</li>
+                <li>San Ildefonso</li>
+                <li>San Miguel</li>
+                <li>San Rafael</li>
+                <li>Santa Maria</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        
+        <!-- 3. System Information (Replaces Live Ranking) -->
+        <article class="card card--info">
+          <div class="card__head">
+            <h2 class="card__title">About S.A.K.L.O.L.O.</h2>
+            <span class="badge badge--neu">v1.0.0</span>
+          </div>
+          <div class="info-content">
+            <p class="info-content__lead"><strong>Semantic Algebraic Kernel for Localized Operational Logistics and Optimization</strong></p>
+            <p>An automated Natural Language Processing (NLP) dashboard designed to classify the sentiment and severity of unstructured, mixed-syntax (Taglish) emergency text feeds during typhoons and floods to assist local DRRM operations.</p>
+
+            <!-- Existing specs list -->
+            <dl class="info-specs">
+              <div><dt>Primary Architecture</dt><dd>Hybrid Pipeline (LDA + RoBERTa) vs. LLM Baseline (Qwen 3.5)</dd></div>
+              <div><dt>Corpus Size</dt><dd>10,194 Emergency Reports</dd></div>
+              <div><dt>Temporal Scope</dt><dd>2015 – 2025</dd></div>
+              <div><dt>Methodology</dt><dd>Comparative Quantitative Evaluative Design</dd></div>
+            </dl>
+
+            <!-- NEW SECTION: Evaluation Framework from Chapter 3 -->
+            <div class="info-framework">
+              <h3>Evaluation Framework & Metrics</h3>
+              <div class="framework-grid">
+                <div class="framework-col">
+                  <h4>Statistical Measures</h4>
+                  <ul>
+                    <li><strong>RQ1 (Classification):</strong> Precision, Recall, Macro-F1, Cohen's Kappa</li>
+                    <li><strong>RQ2 (Joint Matrix):</strong> Chi-Square Statistic, Cramer's V</li>
+                    <li><strong>RQ3 (Utility):</strong> Agreement Rate, McNemar's Test</li>
+                  </ul>
+                </div>
+                <div class="framework-col">
+                  <h4>Blind Stakeholder Panel (n=10-20)</h4>
+                  <ul>
+                    <li><strong>Cohort A:</strong> Bulacan & CAMANAVA DRRM Operational Officers</li>
+                    <li><strong>Cohort B:</strong> Academic & Technical Experts (Applied Math & CS)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+</section>
+  <!-- ===== 2. DATA CORPUS SNAPSHOTS ===== -->
+<section id="view-feeds" class="view" role="tabpanel" hidden>
+  <header class="view__header view__header--row">
+    <div>
+      <h1>Data Corpus Snapshots</h1>
+      <p>Raw record inspection of the 10,194-report corpus, exactly as stored in the CSV.</p>
+    </div>
+    <span class="corpus-pill"><b>10,194</b> rows · <b>16</b> metadata fields + text</span>
+  </header>
+
+  <!-- Render one <li class="snapshot"> per CSV row from /api/corpus/snapshots -->
+  <ol class="snapshot-list" id="snapshot-list" data-api="/api/corpus/snapshots?limit=3">
+
+    <!-- ---------- SNAPSHOT 01 · row_type = post ---------- -->
+    <li class="snapshot">
+      <div class="snapshot__bar">
+        <span>SNAPSHOT 01 · row 4,812 of 10,194</span>
+        <span class="rowtype rowtype--post">post</span>
+      </div>
+      <div class="snapshot__text">
+        <span class="snapshot__label">text</span>
+        <blockquote data-field="text">"Lampas bewang na ang tubig dito sa Hagonoy, Brgy. San Pascual. Wala pang rescue boat na dumadating, may mga matatanda sa second floor. Please po, tulong!"</blockquote>
+      </div>
+      <dl class="snapshot__meta">
+        <div><dt>post_id</dt><dd data-field="post_id">P-004812</dd></div>
+        <div class="is-null"><dt>parent_post_id</dt><dd data-field="parent_post_id">null</dd></div>
+        <div><dt>row_type</dt><dd data-field="row_type">post</dd></div>
+        <div><dt>timestamp</dt><dd data-field="timestamp">2024-07-24 06:42:18</dd></div>
+        <div><dt>date</dt><dd data-field="date">2024-07-24</dd></div>
+        <div><dt>year</dt><dd data-field="year">2024</dd></div>
+        <div><dt>month</dt><dd data-field="month">7</dd></div>
+        <div><dt>day_of_week</dt><dd data-field="day_of_week">Wednesday</dd></div>
+        <div><dt>region</dt><dd data-field="region">Region III</dd></div>
+        <div><dt>location</dt><dd data-field="location">Hagonoy, Bulacan</dd></div>
+        <div><dt>disaster_event</dt><dd data-field="disaster_event">Typhoon Carina (Gaemi)</dd></div>
+        <div><dt>source_type</dt><dd data-field="source_type">facebook_post</dd></div>
+        <div><dt>user_id</dt><dd data-field="user_id">U-37291</dd></div>
+        <div class="is-num"><dt>num_reactions</dt><dd data-field="num_reactions">482</dd></div>
+        <div class="is-num"><dt>num_comments</dt><dd data-field="num_comments">127</dd></div>
+        <div class="is-num"><dt>num_shares</dt><dd data-field="num_shares">391</dd></div>
+      </dl>
+    </li>
+
+    <!-- ---------- SNAPSHOT 02 · row_type = comment ---------- -->
+    <li class="snapshot">
+      <div class="snapshot__bar">
+        <span>SNAPSHOT 02 · row 7,316 of 10,194</span>
+        <span class="rowtype rowtype--comment">comment</span>
+      </div>
+      <div class="snapshot__text">
+        <span class="snapshot__label">text</span>
+        <blockquote data-field="text">"Salamat po sa mga volunteers na nag-distribute ng relief goods dito sa Navotas. Sana po may supply pa ng tubig at gamot bukas."</blockquote>
+      </div>
+      <dl class="snapshot__meta">
+        <div><dt>post_id</dt><dd data-field="post_id">P-007316</dd></div>
+        <div><dt>parent_post_id</dt><dd data-field="parent_post_id">P-004870</dd></div>
+        <div><dt>row_type</dt><dd data-field="row_type">comment</dd></div>
+        <div><dt>timestamp</dt><dd data-field="timestamp">2024-07-25 09:15:03</dd></div>
+        <div><dt>date</dt><dd data-field="date">2024-07-25</dd></div>
+        <div><dt>year</dt><dd data-field="year">2024</dd></div>
+        <div><dt>month</dt><dd data-field="month">7</dd></div>
+        <div><dt>day_of_week</dt><dd data-field="day_of_week">Thursday</dd></div>
+        <div><dt>region</dt><dd data-field="region">NCR</dd></div>
+        <div><dt>location</dt><dd data-field="location">Navotas City</dd></div>
+        <div><dt>disaster_event</dt><dd data-field="disaster_event">Typhoon Carina (Gaemi)</dd></div>
+        <div><dt>source_type</dt><dd data-field="source_type">facebook_comment</dd></div>
+        <div><dt>user_id</dt><dd data-field="user_id">U-81456</dd></div>
+        <div class="is-num"><dt>num_reactions</dt><dd data-field="num_reactions">36</dd></div>
+        <div class="is-num"><dt>num_comments</dt><dd data-field="num_comments">4</dd></div>
+        <div class="is-num"><dt>num_shares</dt><dd data-field="num_shares">0</dd></div>
+      </dl>
+    </li>
+
+    <!-- ---------- SNAPSHOT 03 · row_type = post (news) ---------- -->
+    <li class="snapshot">
+      <div class="snapshot__bar">
+        <span>SNAPSHOT 03 · row 1,209 of 10,194</span>
+        <span class="rowtype rowtype--post">post</span>
+      </div>
+      <div class="snapshot__text">
+        <span class="snapshot__label">text</span>
+        <blockquote data-field="text">"Calumpit, Bulacan isinailalim sa state of calamity; ilang barangay pa rin ang lubog sa baha habang patuloy ang monitoring ng MDRRMO sa lebel ng Pampanga River."</blockquote>
+      </div>
+      <dl class="snapshot__meta">
+        <div><dt>post_id</dt><dd data-field="post_id">P-001209</dd></div>
+        <div class="is-null"><dt>parent_post_id</dt><dd data-field="parent_post_id">null</dd></div>
+        <div><dt>row_type</dt><dd data-field="row_type">post</dd></div>
+        <div><dt>timestamp</dt><dd data-field="timestamp">2022-10-30 18:05:44</dd></div>
+        <div><dt>date</dt><dd data-field="date">2022-10-30</dd></div>
+        <div><dt>year</dt><dd data-field="year">2022</dd></div>
+        <div><dt>month</dt><dd data-field="month">10</dd></div>
+        <div><dt>day_of_week</dt><dd data-field="day_of_week">Sunday</dd></div>
+        <div><dt>region</dt><dd data-field="region">Region III</dd></div>
+        <div><dt>location</dt><dd data-field="location">Calumpit, Bulacan</dd></div>
+        <div><dt>disaster_event</dt><dd data-field="disaster_event">Typhoon Paeng (Nalgae)</dd></div>
+        <div><dt>source_type</dt><dd data-field="source_type">news_site</dd></div>
+        <div><dt>user_id</dt><dd data-field="user_id">U-00931</dd></div>
+        <div class="is-num"><dt>num_reactions</dt><dd data-field="num_reactions">1204</dd></div>
+        <div class="is-num"><dt>num_comments</dt><dd data-field="num_comments">233</dd></div>
+        <div class="is-num"><dt>num_shares</dt><dd data-field="num_shares">518</dd></div>
+      </dl>
+    </li>
+
+  </ol>
+</section>
+</section>
+
+  <!-- ===== 3. TOPIC ANALYTICS ===== -->
+<section id="view-topics" class="view" role="tabpanel" hidden>
+  <header class="view__header">
+    <h1>NLP Topic Analytics</h1>
+    <p>Side-by-side comparison of topics from both systems over the 10,194-report corpus.</p>
+  </header>
+
+  <!-- ===== VIEW TOGGLE: Frequency vs Normalized (drives all four tables) ===== -->
+  <div class="view-toggle" id="matrix-toggle" data-active="freq" role="group" aria-label="Topic table view">
+    <button type="button" class="view-toggle__opt is-active" data-matrix="freq" aria-pressed="true">
+      Frequency Table
+      <small>bulacan_camanava_hard_matrix_enriched.csv</small>
+    </button>
+    <button type="button" class="view-toggle__opt" data-matrix="norm" aria-pressed="false">
+      Normalized Table
+      <small>bulacan_camanava_hard_matrix_norm_enriched.csv</small>
+    </button>
+  </div>
+
+  <div class="split">
+
+    <!-- ===== LEFT: SYSTEM A ===== -->
+    <article class="card split__pane split__pane--a">
+      <div class="card__head">
+        <h2 class="card__title">System A · LDA Latent Topics</h2>
+        <span class="tag tag--a">Hybrid</span>
+      </div>
+
+      <!-- Topic × Sentiment matrix: only one .matrix is visible at a time -->
+      <h3 class="pane-sub">Topic × Sentiment Matrix</h3>
+
+      <div class="matrix" data-matrix="freq" data-api="/api/topics/matrix?system=A&view=freq">
+        <div class="table-scroll">
+          <table class="data-table">
+            <caption>Raw counts · n = 10,194</caption>
+            <thead>
+              <tr><th scope="col">Topic</th><th scope="col" class="num neg">Negative</th><th scope="col" class="num neu">Neutral</th><th scope="col" class="num pos">Positive</th><th scope="col" class="num">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">T1 · Rescue / Evacuation</th><td class="num neg" style="--h:.65">1,790</td><td class="num neu" style="--h:.23">640</td><td class="num pos" style="--h:.12">323</td><td class="num total">2,753</td></tr>
+              <tr><th scope="row">T2 · Relief Goods</th><td class="num neg" style="--h:.25">540</td><td class="num neu" style="--h:.33">701</td><td class="num pos" style="--h:.42">900</td><td class="num total">2,141</td></tr>
+              <tr><th scope="row">T3 · Infrastructure Damage</th><td class="num neg" style="--h:.70">1,210</td><td class="num neu" style="--h:.22">385</td><td class="num pos" style="--h:.08">138</td><td class="num total">1,733</td></tr>
+              <tr><th scope="row">T4 · Flood Levels</th><td class="num neg" style="--h:.57">810</td><td class="num neu" style="--h:.36">515</td><td class="num pos" style="--h:.07">102</td><td class="num total">1,427</td></tr>
+              <tr><th scope="row">T5 · Power / Utilities</th><td class="num neg" style="--h:.61">740</td><td class="num neu" style="--h:.32">395</td><td class="num pos" style="--h:.07">88</td><td class="num total">1,223</td></tr>
+              <tr><th scope="row">T6 · Health / Medical</th><td class="num neg" style="--h:.47">430</td><td class="num neu" style="--h:.34">310</td><td class="num pos" style="--h:.19">177</td><td class="num total">917</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><th scope="row">All topics</th><td class="num">5,520</td><td class="num">2,946</td><td class="num">1,728</td><td class="num total">10,194</td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <div class="matrix" data-matrix="norm" data-api="/api/topics/matrix?system=A&view=norm" hidden>
+        <div class="table-scroll">
+          <table class="data-table">
+            <caption>Row-normalized · P(sentiment | topic)</caption>
+            <thead>
+              <tr><th scope="col">Topic</th><th scope="col" class="num neg">Negative</th><th scope="col" class="num neu">Neutral</th><th scope="col" class="num pos">Positive</th><th scope="col" class="num">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">T1 · Rescue / Evacuation</th><td class="num neg" style="--h:.65">0.65</td><td class="num neu" style="--h:.23">0.23</td><td class="num pos" style="--h:.12">0.12</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">T2 · Relief Goods</th><td class="num neg" style="--h:.25">0.25</td><td class="num neu" style="--h:.33">0.33</td><td class="num pos" style="--h:.42">0.42</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">T3 · Infrastructure Damage</th><td class="num neg" style="--h:.70">0.70</td><td class="num neu" style="--h:.22">0.22</td><td class="num pos" style="--h:.08">0.08</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">T4 · Flood Levels</th><td class="num neg" style="--h:.57">0.57</td><td class="num neu" style="--h:.36">0.36</td><td class="num pos" style="--h:.07">0.07</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">T5 · Power / Utilities</th><td class="num neg" style="--h:.61">0.61</td><td class="num neu" style="--h:.32">0.32</td><td class="num pos" style="--h:.07">0.07</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">T6 · Health / Medical</th><td class="num neg" style="--h:.47">0.47</td><td class="num neu" style="--h:.34">0.34</td><td class="num pos" style="--h:.19">0.19</td><td class="num total">1.00</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><th scope="row">All topics</th><td class="num">0.54</td><td class="num">0.29</td><td class="num">0.17</td><td class="num total">1.00</td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+ <!-- NEW: LDA top words per topic (same .pills UI as System B; --a modifier = teal) -->
+      <h3 class="pane-sub">Discovered Keywords</h3>
+      <div class="topic-groups" data-api="/api/topics/keywords?system=A">
+        <div class="topic-group">
+          <h3>Rescue / Evacuation</h3>
+          <div class="pills pills--a"><span class="pill">rescue</span><span class="pill">tulong</span><span class="pill">stranded</span><span class="pill">bangka</span><span class="pill">evacuate</span><span class="pill">bubong</span></div>
+        </div>
+        <div class="topic-group">
+          <h3>Relief Goods</h3>
+          <div class="pills pills--a"><span class="pill">relief</span><span class="pill">pagkain</span><span class="pill">tubig</span><span class="pill">donasyon</span><span class="pill">volunteer</span><span class="pill">salamat</span></div>
+        </div>
+        <div class="topic-group">
+          <h3>Infrastructure Damage</h3>
+          <div class="pills pills--a"><span class="pill">tulay</span><span class="pill">kalsada</span><span class="pill">sira</span><span class="pill">gumuho</span><span class="pill">putol</span><span class="pill">daan</span></div>
+        </div>
+        <div class="topic-group">
+          <h3>Flood Levels</h3>
+          <div class="pills pills--a"><span class="pill">baha</span><span class="pill">lebel</span><span class="pill">tuhod</span><span class="pill">baywang</span><span class="pill">umaapaw</span><span class="pill">ilog</span></div>
+        </div>
+        <div class="topic-group">
+          <h3>Power / Utilities</h3>
+          <div class="pills pills--a"><span class="pill">kuryente</span><span class="pill">brownout</span><span class="pill">ilaw</span><span class="pill">linya</span><span class="pill">meralco</span><span class="pill">signal</span></div>
+        </div>
+        <div class="topic-group">
+          <h3>Health / Medical</h3>
+          <div class="pills pills--a"><span class="pill">gamot</span><span class="pill">ospital</span><span class="pill">sugat</span><span class="pill">lagnat</span><span class="pill">leptospirosis</span><span class="pill">medic</span></div>
+      <!-- Existing probability bars (unchanged) -->
+      <h3 class="pane-sub">Topic Probability</h3>
+      <ul class="bars bars--a" data-api="/api/topics?system=A">
+        <li><span>Rescue / Evacuation</span><div class="bar" style="--p:27%"><b>0.27</b></div></li>
+        <li><span>Relief Goods</span><div class="bar" style="--p:21%"><b>0.21</b></div></li>
+        <li><span>Infrastructure Damage</span><div class="bar" style="--p:17%"><b>0.17</b></div></li>
+        <li><span>Flood Levels</span><div class="bar" style="--p:14%"><b>0.14</b></div></li>
+        <li><span>Power / Utilities</span><div class="bar" style="--p:12%"><b>0.12</b></div></li>
+        <li><span>Health / Medical</span><div class="bar" style="--p:9%"><b>0.09</b></div></li>
+      </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== RIGHT: SYSTEM B ===== -->
+    <article class="card split__pane split__pane--b">
+      <div class="card__head">
+        <h2 class="card__title">System B · LLM Discovered Topics</h2>
+        <span class="tag tag--b">Qwen 3 1.7B</span>
+      </div>
+
+      <h3 class="pane-sub">Topic × Sentiment Matrix</h3>
+
+      <div class="matrix" data-matrix="freq" data-api="/api/topics/matrix?system=B&view=freq">
+        <div class="table-scroll">
+          <table class="data-table data-table--b">
+            <caption>Raw counts · n = 10,194</caption>
+            <thead>
+              <tr><th scope="col">Topic</th><th scope="col" class="num neg">Negative</th><th scope="col" class="num neu">Neutral</th><th scope="col" class="num pos">Positive</th><th scope="col" class="num">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Stranded Residents</th><td class="num neg" style="--h:.71">1,720</td><td class="num neu" style="--h:.22">520</td><td class="num pos" style="--h:.07">170</td><td class="num total">2,410</td></tr>
+              <tr><th scope="row">Food &amp; Relief Aid</th><td class="num neg" style="--h:.24">470</td><td class="num neu" style="--h:.33">655</td><td class="num pos" style="--h:.43">860</td><td class="num total">1,985</td></tr>
+              <tr><th scope="row">Road &amp; Bridge Damage</th><td class="num neg" style="--h:.69">1,050</td><td class="num neu" style="--h:.25">380</td><td class="num pos" style="--h:.06">92</td><td class="num total">1,522</td></tr>
+              <tr><th scope="row">Rising Water</th><td class="num neg" style="--h:.56">1,180</td><td class="num neu" style="--h:.37">780</td><td class="num pos" style="--h:.07">145</td><td class="num total">2,105</td></tr>
+              <tr><th scope="row">Power Outage</th><td class="num neg" style="--h:.58">690</td><td class="num neu" style="--h:.34">400</td><td class="num pos" style="--h:.08">90</td><td class="num total">1,180</td></tr>
+              <tr><th scope="row">Evacuation Centers</th><td class="num neg" style="--h:.35">345</td><td class="num neu" style="--h:.35">345</td><td class="num pos" style="--h:.30">302</td><td class="num total">992</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><th scope="row">All topics</th><td class="num">5,455</td><td class="num">3,080</td><td class="num">1,659</td><td class="num total">10,194</td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <div class="matrix" data-matrix="norm" data-api="/api/topics/matrix?system=B&view=norm" hidden>
+        <div class="table-scroll">
+          <table class="data-table data-table--b">
+            <caption>Row-normalized · P(sentiment | topic)</caption>
+            <thead>
+              <tr><th scope="col">Topic</th><th scope="col" class="num neg">Negative</th><th scope="col" class="num neu">Neutral</th><th scope="col" class="num pos">Positive</th><th scope="col" class="num">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Stranded Residents</th><td class="num neg" style="--h:.71">0.71</td><td class="num neu" style="--h:.22">0.22</td><td class="num pos" style="--h:.07">0.07</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">Food &amp; Relief Aid</th><td class="num neg" style="--h:.24">0.24</td><td class="num neu" style="--h:.33">0.33</td><td class="num pos" style="--h:.43">0.43</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">Road &amp; Bridge Damage</th><td class="num neg" style="--h:.69">0.69</td><td class="num neu" style="--h:.25">0.25</td><td class="num pos" style="--h:.06">0.06</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">Rising Water</th><td class="num neg" style="--h:.56">0.56</td><td class="num neu" style="--h:.37">0.37</td><td class="num pos" style="--h:.07">0.07</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">Power Outage</th><td class="num neg" style="--h:.58">0.58</td><td class="num neu" style="--h:.34">0.34</td><td class="num pos" style="--h:.08">0.08</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">Evacuation Centers</th><td class="num neg" style="--h:.35">0.35</td><td class="num neu" style="--h:.35">0.35</td><td class="num pos" style="--h:.30">0.30</td><td class="num total">1.00</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><th scope="row">All topics</th><td class="num">0.54</td><td class="num">0.30</td><td class="num">0.16</td><td class="num total">1.00</td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Existing System B keyword pills (unchanged) -->
+      <h3 class="pane-sub">Discovered Topics</h3>
+      <div class="topic-groups" data-api="/api/topics?system=B">
+        <div class="topic-group">
+          <h3>Stranded Residents</h3>
+          <div class="pills"><span class="pill">stranded</span><span class="pill">bubong</span><span class="pill">bangka</span><span class="pill">rescue</span></div>
+        </div>
+        <div class="topic-group">
+          <h3>Food &amp; Relief Aid</h3>
+          <div class="pills"><span class="pill">relief</span><span class="pill">pagkain</span><span class="pill">volunteer</span></div>
+        </div>
+        <div class="topic-group">
+          <h3>Road &amp; Bridge Damage</h3>
+          <div class="pills"><span class="pill">tulay</span><span class="pill">putol</span><span class="pill">daan</span></div>
+        </div>
+        <div class="topic-group">
+          <h3>Rising Water</h3>
+          <div class="pills"><span class="pill">baha</span><span class="pill">water level</span><span class="pill">tumataas</span></div>
+        </div>
+        <div class="topic-group">
+          <h3>Power Outage</h3>
+          <div class="pills"><span class="pill">kuryente</span><span class="pill">brownout</span><span class="pill">walang ilaw</span></div>
+        </div>
+        <div class="topic-group">
+          <h3>Evacuation Centers</h3>
+          <div class="pills"><span class="pill">evacuation</span><span class="pill">center</span><span class="pill">lilikas</span></div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+</section>
+<section id="view-bench" class="view" role="tabpanel" hidden>
+  <header class="view__header">
+    <h1>Algorithmic Benchmarks</h1>
+    <p>RQ1, RQ2, RQ3</p>
+  </header>
+ 
+<!-- ===== RQ1: CLASSIFICATION PERFORMANCE ===== -->
+  <h2 class="section-label">RQ1 · Classification Performance <span>// sentiment · 3-class</span></h2>
+  <div class="grid grid--telemetry" data-api="/api/benchmarks/classification">
+    <!-- Ring shows System A; the footer line shows System B for comparison -->
+    <article class="telemetry">
+      <div class="ring" style="--v:87"><span class="ring__val">0.87</span></div>
+      <div class="telemetry__meta">
+        <h3>Precision</h3>
+        <p class="telemetry__cmp"><i class="sw sw--a"></i>A 0.87 <i class="sw sw--b"></i>B 0.81</p>
+      </div>
+    </article>
+    <article class="telemetry">
+      <div class="ring" style="--v:84"><span class="ring__val">0.84</span></div>
+      <div class="telemetry__meta">
+        <h3>Recall</h3>
+        <p class="telemetry__cmp"><i class="sw sw--a"></i>A 0.84 <i class="sw sw--b"></i>B 0.79</p>
+      </div>
+    </article>
+    <article class="telemetry">
+      <div class="ring" style="--v:85"><span class="ring__val">0.85</span></div>
+      <div class="telemetry__meta">
+        <h3>Macro-F1</h3>
+        <p class="telemetry__cmp"><i class="sw sw--a"></i>A 0.85 <i class="sw sw--b"></i>B 0.80</p>
+      </div>
+    </article>
+    <article class="telemetry">
+      <div class="ring" style="--v:78"><span class="ring__val">0.78</span></div>
+      <div class="telemetry__meta">
+        <h3>Cohen's Kappa</h3>
+        <p class="telemetry__cmp"><i class="sw sw--a"></i>A 0.78 <i class="sw sw--b"></i>B 0.70</p>
+      </div>
+    </article>
+  </div>
+    <!-- ===== DATASET DIAGNOSTICS (Chi-Square) ===== -->
+  <h2 class="section-label">RQ2 ·Categorical Independence Diagnostics <span>// chi-square test · topics vs sentiment</span></h2>
+  <div class="grid grid--telemetry">
+    <article class="readout">
+      <span class="readout__key">Chi-Square (χ²)</span>
+      <span class="readout__val">2331.46</span>
+      <span class="readout__sub">dof = 10 · n = 10,194</span>
+    </article>
+    <article class="readout readout--sig">
+      <span class="readout__key">p-value</span>
+      <span class="readout__val">&lt; 0.001</span>
+      <span class="readout__sub">α = 0.05 · highly significant</span>
+    </article>
+    <article class="readout">
+      <span class="readout__key">Cramer's V</span>
+      <span class="readout__val">0.338</span>
+      <span class="readout__sub">Moderate Association</span>
+    </article>
+  </div>
+
+<!-- ===== RQ3: BLIND STAKEHOLDER EVALUATION RESULTS ===== -->
+  <h2 class="section-label">RQ3 · Stakeholder Evaluation <span>// mcnemar's test · inter-rater agreement</span></h2>
+  <div class="grid grid--telemetry" data-api="/api/benchmarks/stakeholder">
+    
+    <!-- Agreement Rate -->
+    <article class="readout">
+      <span class="readout__key">Overall Agreement Rate</span>
+      <span class="readout__val">82.5%</span>
+      <span class="readout__sub">Threshold: ≥ 70.0%</span>
+    </article>
+
+    <!-- McNemar's p-value -->
+    <article class="readout readout--sig">
+      <span class="readout__key">McNemar's p-value</span>
+      <span class="readout__val">0.014</span>
+      <span class="readout__sub">α = 0.05 · significant disparity</span>
+    </article>
+
+    <!-- McNemar's Test Statistic -->
+    <article class="readout">
+      <span class="readout__key">McNemar's (χ²)</span>
+      <span class="readout__val">6.05</span>
+      <span class="readout__sub">With continuity correction</span>
+    </article>
+  </div>
+
+  <!-- Stakeholder Preference Breakdown -->
+  <article class="card coef">
+    <h3 class="card__title">Panel Preference Breakdown</h3>
+    <table class="coef__table">
+      <thead>
+        <tr>
+          <th>Evaluator Cohort</th>
+          <th>System A (Hybrid)</th>
+          <th>System B (LLM)</th>
+          <th>Both Equal</th>
+          <th>Neither</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>DRRM Operational Officers (n=10)</td>
+          <td>45%</td>
+          <td>35%</td>
+          <td>15%</td>
+          <td>5%</td>
+        </tr>
+        <tr>
+          <td>Academic/Technical Experts (n=10)</td>
+          <td>55%</td>
+          <td>25%</td>
+          <td>20%</td>
+          <td>0%</td>
+        </tr>
+      </tbody>
+    </table>
+  </article>
+</section>
+
+  <!-- ===== 4. BLIND STAKEHOLDER EVALUATION ===== -->
+    <section id="view-eval" class="view" role="tabpanel" hidden>
+      <header class="view__header">
+        <h1>Blind Stakeholder Evaluation</h1>
+        <p>Compare anonymized system outputs. System identities are hidden.</p>
+      </header>
+
+      <article class="card report-raw">
+        <h2 class="card__title">Incoming Disaster Report</h2>
+        <blockquote id="raw-report">
+          "Lampas tao na ang baha dito sa Hagonoy, may mga stranded sa bubong. Kailangan na po ng bangka, please!"
+        </blockquote>
+      </article>
+
+      <form id="eval-form" data-api="/api/evaluations">
+        <div class="grid grid--eval">
+          
+          <!-- SYSTEM 1 -->
+          <article class="card output" id="output-1" data-system-id="hidden">
+            <h2 class="card__title">System Output 1</h2>
+            <dl class="output__fields">
+              <div><dt>Predicted Sentiment</dt><dd><span class="badge badge--neg" id="sys1-sentiment">Negative</span></dd></div>
+              <div><dt>Extracted Topic</dt><dd id="sys1-topic">Rescue / Evacuation</dd></div>
+            </dl>
+            <div class="output__eval">
+              <p>Does this output accurately reflect the report?</p>
+              <div class="binary-choices">
+                <label class="choice choice--yes">
+                  <input type="radio" name="eval_sys1" value="yes" required>
+                  <span>✓ Yes</span>
+                </label>
+                <label class="choice choice--no">
+                  <input type="radio" name="eval_sys1" value="no">
+                  <span>✗ No</span>
+                </label>
+              </div>
+            </div>
+          </article>
+
+          <!-- SYSTEM 2 -->
+          <article class="card output" id="output-2" data-system-id="hidden">
+            <h2 class="card__title">System Output 2</h2>
+            <dl class="output__fields">
+              <div><dt>Predicted Sentiment</dt><dd><span class="badge badge--neg" id="sys2-sentiment">Negative</span></dd></div>
+              <div><dt>Extracted Topic</dt><dd id="sys2-topic">Flood Levels</dd></div>
+            </dl>
+            <div class="output__eval">
+              <p>Does this output accurately reflect the report?</p>
+              <div class="binary-choices">
+                <label class="choice choice--yes">
+                  <input type="radio" name="eval_sys2" value="yes" required>
+                  <span>✓ Yes</span>
+                </label>
+                <label class="choice choice--no">
+                  <input type="radio" name="eval_sys2" value="no">
+                  <span>✗ No</span>
+                </label>
+              </div>
+            </div>
+          </article>
+          
+        </div>
+
+        <div class="eval-submit">
+          <button class="btn btn--primary" type="submit">Submit Evaluation</button>
+          <p class="form-msg" id="eval-msg" role="status"></p>
+        </div>
+      </form>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(() => {
+  /* ==================================================
+     1. TAB ROUTING (SPA)
+     Add a new view = add a .nav__item[data-target] + a section#id.view
+     ================================================== */
+  const tabs  = document.querySelectorAll('.nav__item');
+  const views = document.querySelectorAll('.view');
+
+  function showView(id) {
+    tabs.forEach(t => {
+      const on = t.dataset.target === id;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on);
+    });
+    views.forEach(v => v.hidden = v.id !== id);
+    history.replaceState(null, '', '#' + id);          // deep-linkable tabs
+
+    // Leaflet can't measure a hidden container, so re-measure when Command Center reappears
+    if (id === 'view-command' && window.sakloloMap) {
+      setTimeout(() => window.sakloloMap.invalidateSize(), 0);
+    }
+  }
+  tabs.forEach(t => t.addEventListener('click', () => showView(t.dataset.target)));
+
+  const initial = location.hash.slice(1);
+  if (initial && document.getElementById(initial)) showView(initial);
+
+  /* ==================================================
+     2. GLOBAL SYSTEM TOGGLE (A = Hybrid, B = LLM)
+     Sets body[data-system] which drives CSS accents,
+     then fires a hook for your FastAPI fetch.
+     ================================================== */
+  const SYSTEMS = {
+    A: 'System A (Hybrid: LDA + RoBERTa)',
+    B: 'System B (LLM: Qwen 3 1.7B Q4_K_M)'
+  };
+  const toggle = document.getElementById('sys-toggle');
+  const opts   = toggle.querySelectorAll('.sys-toggle__opt');
+
+  function setSystem(key) {
+    document.body.dataset.system = key;
+    toggle.dataset.active = key;
+    opts.forEach(o => {
+      const on = o.dataset.system === key;
+      o.classList.toggle('is-active', on);
+      o.setAttribute('aria-checked', on);
+    });
+    document.getElementById('driver-name').textContent = SYSTEMS[key];
+    loadLiveFeed(key);
+  }
+  opts.forEach(o => o.addEventListener('click', () => setSystem(o.dataset.system)));
+
+  // Backend hook: replace the body with a real fetch and re-render the <li> items
+  async function loadLiveFeed(system) {
+    const card = document.getElementById('ranking-card');
+    card.classList.add('is-loading');
+    try {
+      // const res  = await fetch(`/api/reports?system=${system}`);
+      // const data = await res.json();
+      // renderRanking(data);
+      // updateMapMarkers(data);
+      console.log('GET /api/reports?system=' + system);
+    } finally {
+      card.classList.remove('is-loading');
+    }
+  }
+
+  /* ==================================================
+     3. LEAFLET HEATMAP
+     ================================================== */
+  // Read the dashboard's CSS variables so the map always matches the theme (hex = fallback)
+  const css  = (name, fallback) => getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+  const RED   = css('--red',   '#ff4d4f');
+  const AMBER = css('--amber', '#ffb020');
+
+  const map = L.map('heatmap').setView([14.8000, 120.9000], 10);   // between Bulacan and CAMANAVA
+  window.sakloloMap = map;                                          // exposed for later updates
+
+// 1. Esri Dark Gray Base (The background canvas)
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+    maxZoom: 16
+  }).addTo(map);
+
+  // 2. Esri Dark Gray Reference (The city names and borders)
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 16
+  }).addTo(map);
+
+// 3. Highlight Bulacan + CAMANAVA Boundaries dynamically using OpenStreetMap GeoJSON
+  const targetAreas = [
+    { name: "Bulacan", query: "state=Bulacan&country=Philippines" },
+    { name: "Caloocan", query: "city=Caloocan&country=Philippines" },
+    { name: "Malabon", query: "city=Malabon&country=Philippines" },
+    { name: "Navotas", query: "city=Navotas&country=Philippines" },
+    { name: "Valenzuela", query: "city=Valenzuela&country=Philippines" }
+  ];
+
+  async function loadBoundaries() {
+    for (const area of targetAreas) {
+      try {
+        // Fetch the exact geographic polygon data for each region
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?${area.query}&polygon_geojson=1&format=json`);
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          // Draw the boundary on the map
+          L.geoJSON(data[0].geojson, {
+            style: {
+              color: '#4da3ff',       
+              weight: 2,              
+              opacity: 0.7,           
+              dashArray: '6, 6',         // Turns the solid line into a dashed border
+              fillColor: 'transparent',  // Removes the ugly solid fill over the ocean
+              fillOpacity: 0             
+            }
+          }).addTo(map);
+        }
+      } catch (error) {
+        console.error(`Failed to load boundary for ${area.name}:`, error);
+      }
+    }
+  }
+  
+  // Execute the boundary fetching
+  loadBoundaries();
+/* ==================================================
+     4. EVALUATION FORM (Continuous Loop)
+     ================================================== */
+  const mockReports = [
+    {
+      report: "Wala nang kuryente at putol na yung tulay sa Calumpit, hindi na makadaan ang rescue.",
+      sys1: { sentiment: "Negative", badge: "badge--neg", topic: "Infrastructure Damage" },
+      sys2: { sentiment: "Negative", badge: "badge--neg", topic: "Road & Bridge Damage" }
+    },
+    {
+      report: "Nag-distribute na ng relief goods sa evacuation center sa Navotas, salamat sa mga volunteer.",
+      sys1: { sentiment: "Positive", badge: "badge--pos", topic: "Relief Goods" },
+      sys2: { sentiment: "Positive", badge: "badge--pos", topic: "Food & Relief Aid" }
+    },
+    {
+      report: "Ongoing pa rin ang ulan sa Valenzuela, monitoring pa rin ang water level sa creek.",
+      sys1: { sentiment: "Neutral", badge: "badge--neu", topic: "Flood Levels" },
+      sys2: { sentiment: "Neutral", badge: "badge--neu", topic: "Rising Water" }
+    },
+    {
+      report: "Lampas tao na ang baha dito sa Hagonoy, may mga stranded sa bubong. Kailangan na po ng bangka, please!",
+      sys1: { sentiment: "Negative", badge: "badge--neg", topic: "Rescue / Evacuation" },
+      sys2: { sentiment: "Negative", badge: "badge--neg", topic: "Flood Levels" }
+    }
+  ];
+
+  document.getElementById('eval-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const payload = Object.fromEntries(new FormData(e.target));
+    console.log('POST /api/evaluations', payload);
+    
+    const msgEl = document.getElementById('eval-msg');
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    
+    // Show success state and disable button temporarily
+    msgEl.textContent = 'Evaluation recorded. Loading next report...';
+    msgEl.style.color = 'var(--green)';
+    submitBtn.disabled = true;
+
+    // Wait 1.5 seconds, then load the next random report
+    setTimeout(() => {
+      const next = mockReports[Math.floor(Math.random() * mockReports.length)];
+      
+      // Update DOM with new report data
+      document.getElementById('raw-report').textContent = `"${next.report}"`;
+      
+      document.getElementById('sys1-sentiment').textContent = next.sys1.sentiment;
+      document.getElementById('sys1-sentiment').className = `badge ${next.sys1.badge}`;
+      document.getElementById('sys1-topic').textContent = next.sys1.topic;
+      
+      document.getElementById('sys2-sentiment').textContent = next.sys2.sentiment;
+      document.getElementById('sys2-sentiment').className = `badge ${next.sys2.badge}`;
+      document.getElementById('sys2-topic').textContent = next.sys2.topic;
+      
+      // Reset the form UI
+      e.target.reset();
+      msgEl.textContent = '';
+      submitBtn.disabled = false;
+    }, 1500);
+  });
+    /* ==================================================
+     5. TOPIC MATRIX TOGGLE (Frequency vs Normalized)
+     One control drives every .matrix block in the
+     Topic Analytics tab (System A and System B).
+     Markup contract: button[data-matrix] <-> .matrix[data-matrix]
+     ================================================== */
+  const matrixToggle = document.getElementById('matrix-toggle');
+  const matrixBtns   = matrixToggle.querySelectorAll('.view-toggle__opt');
+  const matrixPanels = document.querySelectorAll('#view-topics .matrix');
+
+  function setMatrixView(view) {                       // view = 'freq' | 'norm'
+    matrixBtns.forEach(b => {
+      const on = b.dataset.matrix === view;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', on);
+    });
+    matrixPanels.forEach(m => { m.hidden = m.dataset.matrix !== view; });
+    matrixToggle.dataset.active = view;
+
+    // Backend hook: the tables are static for now. To load live data, fetch the
+    // CSV-backed endpoint stored on each panel and re-render its <tbody>, e.g.
+    // matrixPanels.forEach(async m => {
+    //   if (m.hidden) return;
+    //   const rows = await (await fetch(m.dataset.api)).json();
+    //   renderMatrix(m, rows);
+    // });
+  }
+  matrixBtns.forEach(b => b.addEventListener('click', () => setMatrixView(b.dataset.matrix)));
+  setMatrixView('freq');                               // default view
+})();
+</script>
+</body>
+</html>
