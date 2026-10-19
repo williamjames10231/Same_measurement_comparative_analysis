@@ -81,10 +81,10 @@ Degree Bachelor of Science in Mathematics\\
 with Specialization in Computer Science\\[2.5cm]
 
 By\\[0.6cm]
-Lastname, First name\\ %Alvarado, Mariel
-Lastname, First name\\ %Dela Paz, Jaizel
-Lastname, First name\\ %Jornal, Juliana Rojimherie B.
-Lastname, First name\\[2.5cm] %Landicho, William James N.
+Alvarado, Mariel\\ %Alvarado, Mariel
+Dela Paz, Jaizel\\ %Dela Paz, Jaizel
+Jornal, Juliana Rojimherie B.\\ %Jornal, Juliana Rojimherie B.
+Landicho, William James N.\\[2.5cm] %Landicho, William James N.
 
 \end{titlepage}
 
@@ -675,8 +675,15 @@ textual data from the Bulacan and CAMANAVA area within the study period. The
 two systems are designed to be evaluated on multiple complementary measures
 rather than a single measure of performance. These measures correspond to the
 three main research questions: classification performance, latent
-topic--sentiment association analysis, and sampled comparative evaluation of
+topic-sentiment association analysis, and sampled comparative evaluation of
 their outputs.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/IPO.png}
+	\caption{Input Process Output(IPO)}
+	\label{fig:IPO}
+\end{figure}
 
 This study follows the common comparative pipeline that collects
 disaster-related textual data, filters, preprocesses, and prepares it for
@@ -802,9 +809,7 @@ assessed under the same evaluation conditions.
 
 \begin{figure}[htbp]
   \centering
-  % \includegraphics[width=0.9\textwidth]{figures/fig3_1_pipeline.png}
-  \fbox{\parbox[c][6cm][c]{0.85\textwidth}{\centering
-        \textbf{[INSERT FIGURE 3.1]}\\ Overall Research Pipeline}}
+   \includegraphics[width=0.7\textwidth]{figures/fig3_1_pipeline.png}
   \caption{Overall Research Pipeline}
   \label{fig:pipeline}
 \end{figure}
@@ -1091,9 +1096,7 @@ such as Wikipedia and CommonCrawl \parencite{barbieri2021}.
 
 \begin{figure}[htbp]
   \centering
-  % \includegraphics[width=0.9\textwidth]{figures/fig3_2_systemA.png}
-  \fbox{\parbox[c][6cm][c]{0.85\textwidth}{\centering
-        \textbf{[INSERT FIGURE 3.2]}\\ System A Architecture}}
+   \includegraphics[width=0.9\textwidth]{figures/fig3_2_systemA.png}
   \caption{System A Architecture}
   \label{fig:systemA}
 \end{figure}
@@ -1260,10 +1263,8 @@ valid JSON with no markdown or explanations.
 
 \begin{figure}[htbp]
   \centering
-  % \includegraphics[width=0.9\textwidth]{figures/fig3_3_systemB.png}
-  \fbox{\parbox[c][6cm][c]{0.85\textwidth}{\centering
-        \textbf{[INSERT FIGURE 3.3]}\\ System B Architecture}}
-  \caption{System B Architecture}
+   \includegraphics[width=0.9\textwidth]{figures/fig3_3_systemB.png}
+    \caption{System B Architecture}
   \label{fig:systemB}
 \end{figure}
 
@@ -1291,11 +1292,11 @@ table with marginal totals is defined as
 \begin{equation}
   J =
   \begin{pmatrix}
-    j_{11}   & j_{12}   & \cdots & j_{1N}   & R_1 \\
-    j_{21}   & j_{22}   & \cdots & j_{2N}   & R_2 \\
+    j_{11}   & j_{12}   & \cdots & j_{1N}   & n_{1N} \\
+    j_{21}   & j_{22}   & \cdots & j_{2N}   & n_{2N} \\
     \vdots   & \vdots   & \ddots & \vdots   & \vdots \\
-    j_{M1}   & j_{M2}   & \cdots & j_{MN}   & R_M \\
-    C_1      & C_2      & \cdots & C_N      & n
+    j_{M1}   & j_{M2}   & \cdots & j_{MN}   & n_{MN} \\
+    n_{M1}      & n_{M2}      & \cdots & n_{MN}      & n
   \end{pmatrix}
   \label{eq:jointmatrix}
 \end{equation}
@@ -1317,7 +1318,7 @@ framework to ensure comparative integrity in the evaluation results. Each
 statistic will be run separately on each system prior to comparing and making
 relative findings.
 
-\section{System Implementation: The Analytical Dashboard}
+\subsection{System Implementation: The Analytical Dashboard}
 
 To operationalize the backend computational pipelines of System A and System B for both analytical visualization
 and stakeholder evaluation, a localized web dashboard is developed. While the core processing relies on heavy backend machine learning operations (LDA, XLM-RoBERTa, and Qwen3 interface), the dashboard provides a graphical user interface (GUI) that translates these mathematical output into interactive visual analytics.
@@ -1354,6 +1355,102 @@ The dashboard will have these primary modules:
 
 By utilizing a lightweight python web framework, the dashboard ensures the the system remains entirely dependent on local backend environment satisfying the need for
 an interactive visual analytical system.
+
+\subsection{Waterfall Development Methodology}
+
+The Waterfall model is a plan-driven software process in which development
+moves through requirements, design, implementation, verification, and
+maintenance in sequence \parencite{sommerville2016}. The model suits projects whose requirements are well
+understood and unlikely to change, and it produces clear documentation at the
+end of each phase \parencite{pressman2020}.
+
+SAKLOLO fits these conditions. The disaster types, sentiment categories, the
+two systems, the evaluation metrics, and the inclusion and exclusion criteria
+are defined in this proposal before implementation begins. Because the study
+compares two fixed systems on a fixed corpus, changes in the middle of
+development would also weaken the comparison.
+
+The phases map onto the study as follows.
+
+\paragraph{Requirements analysis.} The corpus criteria (public Facebook posts
+and comments in Tagalog, English, and Taglish about natural disasters in
+Bulacan and CAMANAVA, 2020 to 2025), the common output format, and the
+evaluation metrics are fixed. The deliverable is the finalized scope and
+evaluation plan.
+
+\paragraph{System design.} The System A and System B architectures, the Joint
+Matrix, and the dashboard layout are specified. The deliverable is the
+architecture diagrams and the data schema.
+
+\paragraph{Implementation.} The data pipeline (collection, cleaning,
+anonymization), the two systems, the evaluation scripts, and the dashboard are
+built. The deliverable is the working prototype.
+
+\paragraph{Testing and verification.} Outputs are checked against the common
+format, both systems are run on the same corpus, the statistical analyses are
+computed, and the blind stakeholder evaluation is conducted. The deliverable is
+the results tables and test report.
+
+\paragraph{Maintenance.} Documentation is completed and recommendations for
+future work are recorded. Because the study excludes real-time integration into
+DRRM command centers, maintenance is limited to documentation and handover.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.3\textwidth]{figures/waterfall.png}
+	\caption{Waterfall Development Model}
+	\label{fig:waterfall}
+\end{figure}
+
+A known weakness of Waterfall is its limited flexibility once a phase is
+complete \parencite{sommerville2016}, which is reduced here by fixing the
+requirements and metrics in advance.
+
+\subsection{System Flowchart}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/image2.png}
+	\caption{Master dashboard navigation}
+	\label{fig:Master_navigation}
+\end{figure}
+
+The system is a single page application,
+that utilizes the sidebar to trigger state changes that will direct the user to their respective sub-modules.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/image5.png}
+	\caption{View Command}
+	\label{fig:view command}
+\end{figure}
+
+This figure \ref{fig:view command}  outlines the initialization sequence for the Leaflet maps, dynamic OSM boundary fetching, and the rendering of the SAKLOLO evaluation framework.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/image1.png}
+	\caption{Data Feed Integration}
+	\label{fig:data_feed_integration}
+\end{figure}
+
+This figure \ref{fig:data_feed_integration} details the extraction and dynamic DOM mapping of the 10,194-report corpus, displaying how conditional styling is applied based on raw metadata attributes.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.4\textwidth]{figures/image4.png}
+	\caption{Algorithm Benchmarks}
+	\label{fig:algorithm-benchmarks}
+\end{figure}
+This figure \ref{fig:algorithm-benchmarks} demonstrates the sequential rendering process of the statistical evaluation modules, summarizing the data visualization for Research Questions 1, 2, and 3.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.4\textwidth]{figures/image3.png}
+	\caption{Blind stakeholder evaluation}
+	\label{fig:blind-stakeholder-evaluation}
+\end{figure}
+This figure \ref{fig:blind-stakeholder-evaluation} demonstrates the sequential rendering process of the statistical evaluation modules, summarizing the data visualization for Research Questions 1, 2, and 3.
+
 
 \subsection{Research Question 1: Reference-Relative Classification Performance}
 
