@@ -15,7 +15,7 @@ class JointClassifier:
 
     def classify(self, df: pd.DataFrame, taxonomy: pd.DataFrame) -> pd.DataFrame:
         df = pd.DataFrame(df)
-        df = df[1:2500] #input control
+        df = df[1:5000] #input control
         df.columns = ["text"]
         valid_labels = set()
         topic_lines = []
