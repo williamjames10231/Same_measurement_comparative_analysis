@@ -49,7 +49,7 @@ class LDAModel:
             "sana", "kita", "same", "naiintindihan",
         }
 
-        self.N_topics = 6
+        self.N_topics = 12
 
     def count_vectorizer(
             self

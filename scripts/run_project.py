@@ -93,7 +93,7 @@ def system_b(
         PROJECT_ROOT
     )
 
-    topic_discovery, topic = system_b.run_topic_discovery()
+    #topic_discovery, topic = system_b.run_topic_discovery()
 
     topic = pd.read_csv(PROJECT_ROOT / "data/System_B/bulacan_camanava_topic_discovery.csv")
     #joint_classification = system_b.run_sentiment_classifier(topic)
@@ -105,17 +105,23 @@ def system_b(
         PROJECT_ROOT
     )
     output, norm = joint_matrix.compute_matrices()
-    readings = chi_square_test(output)
+    diagnostics = chi_square_test(output)
+
+    pd.DataFrame([diagnostics]).to_csv(
+        PROJECT_ROOT / "data/System_B/bulacan_camanava_diagnostics.csv",
+    )
+
     pass
 
 if __name__ == "__main__":
     raw_data = DataCollection()
     raw_data = raw_data.collect_data()
-    system_b(raw_data)
-    pass
+    #system_b(raw_data)
+
     system_a(
         raw_data,
         False,
         PROJECT_ROOT
     )
+
     pass

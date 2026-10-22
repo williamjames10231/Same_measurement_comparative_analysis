@@ -1,8 +1,13 @@
 topic,NEG,NEU,POS,total
-community response,0,0,100,100
-flood control,0,54,0,54
-flood impact,492,544,0,1036
-flood warning,26,179,44,249
-relief distribution,0,53,147,200
-rescue efforts,47,60,253,360
-total,565,890,544,1999
+community support,0,0,371,371
+emergency response,0,74,0,74
+flood control,0,69,0,69
+flood impact,609,137,127,873
+flood warnings,1,11,0,12
+health advisories,0,84,0,84
+health risks,121,27,10,158
+healthcare access,72,55,0,127
+relief distribution,64,56,178,298
+rescue efforts,0,0,142,142
+unknown_topic,138,153,0,291
+total,1005,666,828,2499

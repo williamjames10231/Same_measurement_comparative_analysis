@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>S.A.K.L.O.L.O. | Emergency Command Dashboard</title>
+  <title>SAKLOLO | Emergency Command Dashboard</title>
 
   <!-- Leaflet CSS (must load BEFORE Leaflet JS) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -22,7 +22,7 @@
     <div class="brand">
       <img class="brand__logo" src="SAKLOLO.png" alt="SAKLOLO Logo">
       <div>
-        <strong class="brand__name">S.A.K.L.O.L.O.</strong>
+        <strong class="brand__name">SAKLOLO</strong>
         <small class="brand__sub">Bulacan + CAMANAVA</small>
       </div>
     </div>
@@ -60,7 +60,7 @@
     <header class="view__header view__header--row">
   <div>
     <h1>About</h1>
-    <p>Real-time sentiment and severity overview of incoming emergency feeds.</p>
+    <p>Real-time sentiment and latent topics overview of incoming emergency feeds.</p>
   </div>
   <!-- Updated by JS whenever the toggle changes -->
   <span class="driver-pill" id="driver-pill">
@@ -123,17 +123,17 @@
         <!-- 3. System Information (Replaces Live Ranking) -->
         <article class="card card--info">
           <div class="card__head">
-            <h2 class="card__title">About S.A.K.L.O.L.O.</h2>
+            <h2 class="card__title">About SAKLOLO</h2>
             <span class="badge badge--neu">v1.0.0</span>
           </div>
           <div class="info-content">
-            <p class="info-content__lead"><strong>Semantic Algebraic Kernel for Localized Operational Logistics and Optimization</strong></p>
-            <p>An automated Natural Language Processing (NLP) dashboard designed to classify the sentiment and severity of unstructured, mixed-syntax (Taglish) emergency text feeds during typhoons and floods to assist local DRRM operations.</p>
+            <p class="info-content__lead"><strong>A Hybrid Semantic-Probabilistic Framework for Analysing Social Media Emergency Feeds in Bulacan and CAMANAVA</strong></p>
+            <p>An automated Natural Language Processing (NLP) dashboard designed to classify the sentiment and latent topics of unstructured, mixed-syntax (Taglish) emergency social media feeds feeds during typhoons and floods to assist local DRRM operations.</p>
 
             <!-- Existing specs list -->
             <dl class="info-specs">
-              <div><dt>Primary Architecture</dt><dd>Hybrid Pipeline (LDA + RoBERTa) vs. LLM Baseline (Qwen 3.5)</dd></div>
-              <div><dt>Corpus Size</dt><dd>10,194 Emergency Reports</dd></div>
+              <div><dt>Primary Architecture</dt><dd> Reference-Relative Hybrid Pipeline (LDA + RoBERTa) vs. LLM (Qwen 3.5)</dd></div>
+              <div><dt>Corpus Size</dt><dd>10,194 emergency social media feeds [PROTOTYPE: SYNTHETIC CORPUS] </dd></div>
               <div><dt>Temporal Scope</dt><dd>2015 – 2025</dd></div>
               <div><dt>Methodology</dt><dd>Comparative Quantitative Evaluative Design</dd></div>
             </dl>
@@ -145,7 +145,7 @@
                 <div class="framework-col">
                   <h4>Statistical Measures</h4>
                   <ul>
-                    <li><strong>RQ1 (Classification):</strong> Precision, Recall, Macro-F1, Cohen's Kappa</li>
+                    <li><strong>RQ1 (Classification):</strong> Reference-Relative Precision, Recall, Macro-F1, and Inter-system Cohen's Kappa</li>
                     <li><strong>RQ2 (Joint Matrix):</strong> Chi-Square Statistic, Cramer's V</li>
                     <li><strong>RQ3 (Utility):</strong> Agreement Rate, McNemar's Test</li>
                   </ul>
@@ -485,7 +485,12 @@
       <div class="ring" style="--v:87"><span class="ring__val">0.87</span></div>
       <div class="telemetry__meta">
         <h3>Precision</h3>
-        <p class="telemetry__cmp"><i class="sw sw--a"></i>A 0.87 <i class="sw sw--b"></i>B 0.81</p>
+        <p class="telemetry__cmp">
+          <i class="sw sw--a">
+            </i>A 0.87 </br>
+          <i class="sw sw--b">
+            </i>B 0.81 </br>
+        </p>
       </div>
     </article>
     <article class="telemetry">
@@ -511,82 +516,112 @@
     </article>
   </div>
     <!-- ===== DATASET DIAGNOSTICS (Chi-Square) ===== -->
-  <h2 class="section-label">RQ2 ·Categorical Independence Diagnostics <span>// chi-square test · topics vs sentiment</span></h2>
-  <div class="grid grid--telemetry">
-    <article class="readout">
-      <span class="readout__key">Chi-Square (χ²)</span>
-      <span class="readout__val">2331.46</span>
-      <span class="readout__sub">dof = 10 · n = 10,194</span>
-    </article>
-    <article class="readout readout--sig">
-      <span class="readout__key">p-value</span>
-      <span class="readout__val">&lt; 0.001</span>
-      <span class="readout__sub">α = 0.05 · highly significant</span>
-    </article>
-    <article class="readout">
-      <span class="readout__key">Cramer's V</span>
-      <span class="readout__val">0.338</span>
-      <span class="readout__sub">Moderate Association</span>
-    </article>
+  <section class="section-label">RQ2 · Categorical Independence Diagnostics <span>// chi-square test · topics vs sentiment</span></section>
+
+<div class="grid grid--telemetry">
+  <!-- Chi-Square Statistic -->
+  <div class="telemetry">
+    <div class="ring" style="--v: 90;">
+      <span class="ring__val">χ²</span>
+    </div>
+    <div class="telemetry__meta">
+      <h3>Chi-Square Statistic</h3>
+      <div class="telemetry__cmp">
+        <span class="sw sw--a"></span> A: 2,331.46
+        <span class="sw sw--b"></span> B: 2,104.82
+      </div>
+      <div class="telemetry__cmp" style="margin-top: .5rem; color: var(--muted);">
+        dof = 10 · n = 10,194
+      </div>
+    </div>
   </div>
+
+  <!-- Cramer's V -->
+  <div class="telemetry">
+    <div class="ring" style="--v: 68;">
+      <span class="ring__val">V</span>
+    </div>
+    <div class="telemetry__meta">
+      <h3>Cramer's V</h3>
+      <div class="telemetry__cmp">
+        <span class="sw sw--a"></span> A: 0.338
+        <span class="sw sw--b"></span> B: 0.312
+      </div>
+      <div class="telemetry__cmp" style="margin-top: .5rem; color: var(--muted);">
+        Moderate Association
+      </div>
+    </div>
+  </div>
+
+  <!-- P-Value -->
+  <div class="telemetry">
+    <div class="ring" style="--v: 99;">
+      <span class="ring__val">p</span>
+    </div>
+    <div class="telemetry__meta">
+      <h3>P-Value</h3>
+      <div class="telemetry__cmp">
+        <span class="sw sw--a"></span> A: &lt; 0.001
+        <span class="sw sw--b"></span> B: &lt; 0.001
+      </div>
+      <div class="telemetry__cmp" style="margin-top: .5rem; color: var(--green);">
+        α = 0.05 · Highly Significant
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===== RQ3: BLIND STAKEHOLDER EVALUATION RESULTS ===== -->
-  <h2 class="section-label">RQ3 · Stakeholder Evaluation <span>// mcnemar's test · inter-rater agreement</span></h2>
-  <div class="grid grid--telemetry" data-api="/api/benchmarks/stakeholder">
-    
-    <!-- Agreement Rate -->
-    <article class="readout">
-      <span class="readout__key">Overall Agreement Rate</span>
-      <span class="readout__val">82.5%</span>
-      <span class="readout__sub">Threshold: ≥ 70.0%</span>
-    </article>
+<section class="section-label">RQ3 · Stakeholder Evaluation <span>// mcnemar's test · inter-rater agreement</span></section>
 
-    <!-- McNemar's p-value -->
-    <article class="readout readout--sig">
-      <span class="readout__key">McNemar's p-value</span>
-      <span class="readout__val">0.014</span>
-      <span class="readout__sub">α = 0.05 · significant disparity</span>
-    </article>
-
-    <!-- McNemar's Test Statistic -->
-    <article class="readout">
-      <span class="readout__key">McNemar's (χ²)</span>
-      <span class="readout__val">6.05</span>
-      <span class="readout__sub">With continuity correction</span>
-    </article>
+<div class="grid grid--telemetry">
+  <!-- Agreement Rate -->
+  <div class="telemetry">
+    <div class="ring" style="--v: 84;">
+      <span class="ring__val">%</span>
+    </div>
+    <div class="telemetry__meta">
+      <h3>Agreement Rate</h3>
+      <div class="telemetry__cmp">
+        <span class="sw sw--a"></span> A: 84.2%
+        <span class="sw sw--b"></span> B: 80.8%
+      </div>
+      <div class="telemetry__cmp" style="margin-top: .5rem; color: var(--green);">
+        Threshold: ≥ 70.0% · Passed
+      </div>
+    </div>
   </div>
 
-  <!-- Stakeholder Preference Breakdown -->
-  <article class="card coef">
-    <h3 class="card__title">Panel Preference Breakdown</h3>
-    <table class="coef__table">
-      <thead>
-        <tr>
-          <th>Evaluator Cohort</th>
-          <th>System A (Hybrid)</th>
-          <th>System B (LLM)</th>
-          <th>Both Equal</th>
-          <th>Neither</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>DRRM Operational Officers (n=10)</td>
-          <td>45%</td>
-          <td>35%</td>
-          <td>15%</td>
-          <td>5%</td>
-        </tr>
-        <tr>
-          <td>Academic/Technical Experts (n=10)</td>
-          <td>55%</td>
-          <td>25%</td>
-          <td>20%</td>
-          <td>0%</td>
-        </tr>
-      </tbody>
-    </table>
-  </article>
+  <!-- McNemar's P-Value -->
+  <div class="telemetry">
+    <div class="ring" style="--v: 95;">
+      <span class="ring__val">p</span>
+    </div>
+    <div class="telemetry__meta">
+      <h3>McNemar's P-Value</h3>
+      <div class="telemetry__cmp">
+        <span class="sw sw--a"></span> A vs B: 0.014
+      </div>
+      <div class="telemetry__cmp" style="margin-top: .5rem; color: var(--amber);">
+        α = 0.05 · Significant Disparity
+      </div>
+    </div>
+  </div>
+
+  <!-- McNemar's Chi-Square -->
+  <div class="telemetry">
+    <div class="ring" style="--v: 60;">
+      <span class="ring__val">χ²</span>
+    </div>
+    <div class="telemetry__meta">
+      <h3>McNemar's Statistic</h3>
+      <div class="telemetry__cmp">
+        <span class="sw sw--a"></span> A vs B: 6.05
+      </div>
+      <div class="telemetry__cmp" style="margin-top: .5rem; color: var(--muted);">
+        With continuity correction
+      </div>
+      
 </section>
 
   <!-- ===== 4. BLIND STAKEHOLDER EVALUATION ===== -->
