@@ -196,9 +196,9 @@ and pre-trained \xlmr-based contextual representations into a Joint Matrix.
 This approach preserves mathematical interpretability while achieving high
 classification accuracy on chaotic, mixed-syntax Taglish text. Furthermore,
 the study conducts a rigorous comparative benchmark of this lightweight system
-against a state-of-the-art open-weight dense transformer (\sysB: \qwen)
-operating under few-shot prompting conditions, which is also expected to yield
-a joint matrix.
+against a state-of-the-art open-weight dense transformer (\sysB: Qwen3-1.7B\\
+-Instruct-Q4\_K\_M) operating under few-shot prompting conditions, 
+which is also expected to yield a joint matrix.
 
 The study is relevant to modern-day climate risks and high social media
 penetration in the Philippines, as understanding the digital sentiments and
@@ -215,14 +215,14 @@ influx of digital noise.
 
 This study evaluates and compares the performance of a hybrid joint matrix
 pipeline as the baseline (\sysA) against a state-of-the-art large language
-model joint matrix output (\sysB) in processing unstructured disaster-related
+model joint matrix output (Qwen3-1.7B\\-Instruct-Q4\_K\_M) in processing unstructured disaster-related
 text to generate actionable sentiment classifications and latent topic
 discovery for the Bulacan and CAMANAVA regions. Specifically, it seeks to
 answer the following questions:
 
 \begin{enumerate}[label=\arabic*.]
   \item Under a relativist comparative evaluation framework, how does \sysB{}
-        (\qwen) perform relative to \sysA{} (LDA + \xlmr{} Joint Matrix),
+        (Qwen3-1.7B-Instruct-Q4\_K\_M) perform relative to \sysA{} (LDA + \xlmr{} Joint Matrix),
         which serves as the relative reference standard, when both categorize
         the same corpus of disaster-related textual documents into Negative,
         Neutral, and Positive sentiments, as measured through:
@@ -312,7 +312,7 @@ effectively. This study will benefit several individuals and institutions:
 \section{Scope and Delimitation}
 
 This study focuses on the comparative quantitative evaluation of two
-computational systems designed to perform sentiment and severity analysis on
+computational systems designed to perform latent topics and sentiment analysis on
 unstructured disaster-related reports. \sysA{} is a hybrid pipeline utilizing
 Count Vectorization, Latent Dirichlet Allocation (LDA), and \xlmr{}
 contextual representations combined into a Joint Matrix as the baseline system
@@ -358,7 +358,7 @@ LGU command centers.
 
 \section{Definition of Terms}
 
-\begin{description}[style=nextline,leftmargin=0pt]
+\begin{description}[style=sameline,leftmargin=0pt]
   \item[Agreement Rate.] A statistical metric utilized during the blind
   stakeholder evaluation to determine the proportion of assessments in which
   the human expert agrees with the system-generated output.
@@ -401,7 +401,7 @@ LGU command centers.
   text feeds.
 
   \item[Few-Shot Prompting.] An inference paradigm utilized by \sysB{}
-  (\qwen) in which the model performs sentiment and latent semantic analysis
+  (Qwen3-1.7B-Instruct-Q4\_K\_M) in which the model performs sentiment and latent semantic analysis
   based on natural-language task descriptions and is given some task-specific
   training examples.
   
@@ -681,7 +681,7 @@ ensuring participant privacy and data integrity.
 This study utilizes a comparative quantitative evaluative research design to
 evaluate the performance of two disaster-related sentiment and semantic
 analysis systems: \sysA, a hybrid LDA + \xlmr{} Joint Matrix System, and
-\sysB, \qwen. Both systems will have the same corpus of disaster-related
+\sysB, Qwen3-1.7B-Instruct-Q4\_K\_M. Both systems will have the same corpus of disaster-related
 textual data from the Bulacan and CAMANAVA area within the study period. The
 two systems are designed to be evaluated on multiple complementary measures
 rather than a single measure of performance. These measures correspond to the
@@ -1051,7 +1051,7 @@ analytical suitability checks before being fed to the two systems.
 
 This study evaluates two computational systems for disaster-related sentiment
 and latent topic analysis: \sysA, a hybrid LDA--\xlmr{} Joint Matrix System, and
-\sysB, \qwen. Though the two different systems employ different processing
+\sysB, Qwen3-1.7B-Instruct-Q4\_K\_M. Though the two different systems employ different processing
 approaches, both receive the same prepared disaster-related textual corpus and
 produce sentiment and latent topic outputs that are evaluated using the common
 measurement framework of the study. This arrangement allows the study to
@@ -1488,8 +1488,8 @@ representing its assigned sentiment classification.
 
 The information collected from the two systems will be processed, coded, and
 analysed with suitable performance measures that correspond to the three
-research questions of this investigation. \sysA, the Hybrid LDA + \xlmr{} Joint
-Matrix System, and \sysB, \qwen, will be assessed using the exact evaluation
+research questions of this investigation. System A, the Hybrid LDA + XLM-RoBERTa Joint
+Matrix System, and System B, $Qwen3-1.7B-Instruct-Q4\_K\_M$, will be assessed using the exact evaluation
 framework to ensure comparative integrity in the evaluation results. Each
 statistic will be run separately on each system prior to comparing and making
 relative findings.
@@ -1963,7 +1963,7 @@ population has an equal probability and capacity to provide valid data.
 The evaluation of the proposed framework, however, is not a demographic survey
 but rather an experimental computational benchmark. The study requires human
 evaluators to audit the classification outputs of a hybrid pipeline
-(LDA + \xlmr) and an open-weight transformer (\qwen).
+(LDA + XLM-RoBERTa) and an open-weight transformer $Qwen3-1.7B-Instruct-Q4\_K\_M$.
 
 Evaluating contextual embeddings, coherence, and algorithmic classification
 disparities requires calibrated judgment from domain specialists. Using a
@@ -1976,7 +1976,7 @@ configurations without introducing data dilution.
 
 To execute the blind comparative evaluation between the lightweight hybrid model
 (\sysA: LDA + \xlmr) and the state-of-the-art open-weight
-(\sysB: \qwen), a total panel of 10 to 20 evaluators will be recruited. This panel is
+(\sysB: $Qwen3-1.7B-Instruct-Q4\_K\_M$), a total panel of 10 to 20 evaluators will be recruited. This panel is
 divided equally into two specialized cohorts.
 
 \begin{table}[htbp]
@@ -2021,8 +2021,7 @@ divided equally into two specialized cohorts.
     \midrule
     DRRM Practitioner Panel & 5--10 & Purposive &
     Bulacan and CAMANAVA DRRM Offices &
-    Blind evaluation of system outputs; assesses operational applicability and
-    severity relevance. \\
+    Blind evaluation of system outputs; assesses operational applicability and relevance. \\
     \addlinespace
     Academic Technical Panel & 5--10 & Purposive &
     Mathematics and Computer Science Faculty (College of Science / CICT) &
