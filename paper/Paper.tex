@@ -178,10 +178,8 @@ response is not uniformly developed for all aspects, with man-made disasters
 not as developed compared to natural disasters in utilization, while COVID-19
 and vegetation fires have not been explored as a means for disaster response.
 
-It also found an interesting phenomenon regarding how social media was used for
-disaster response during disasters. Its utilization was heavy during response
-and recovery and minimal during preparation. Misinformation, noise, and
-infrastructure limitations are a concern. It was found to be highly effective
+Its utilization was heavy during response and recovery and minimal during preparation. 
+Misinformation, noise, and infrastructure limitations are a concern. It is highly effective
 in coordinating recovery and providing updates, provided they are filtered
 between the informative and the controversial \parencite{inferio2025}---possibly
 implying that sophisticated ways to process information and deliver actionable
@@ -200,15 +198,15 @@ against a state-of-the-art open-weight dense transformer (\sysB: Qwen3-1.7B\\
 -Instruct-Q4\_K\_M) operating under few-shot prompting conditions, 
 which is also expected to yield a joint matrix.
 
-The study is relevant to modern-day climate risks and high social media
+The study is focuses on modern-day climate risks and high social media
 penetration in the Philippines, as understanding the digital sentiments and
 operational needs of vulnerable communities is crucial. This automated
 processing allows for a tailored response to specific community needs rather
 than a generalized strategy, enabling informed resource allocation of goods,
 effort, and time. By benchmarking deterministic and probabilistic machine
-learning models against generative AI baselines, the study ensures that
-disaster management offices can focus on their core competencies---dispatching
-aid and saving lives---rather than manually parsing through an overwhelming
+learning models as a relative reference against generative AI LLMs, the study ensures that
+disaster management offices can focus on their core competencies effective and well aligned 
+information processing and dissemination. Rather than manually parsing through an overwhelming
 influx of digital noise.
 
 \section{Statement of the Problem}
@@ -227,19 +225,18 @@ answer the following questions:
         the same corpus of disaster-related textual documents into Negative,
         Neutral, and Positive sentiments, as measured through:
         \begin{enumerate}[label=\alph*.]
-          \item Reference-relative Precision;
-          \item Reference-relative Recall;
           \item Reference-relative Macro-F1 Score;
           \item Inter-system agreement with Cohen's Kappa.
         \end{enumerate}
 
-  \item To what extent do the latent topic structures from the joint matrix of
+  \item Under Bivariate Analysis, to what extent do the latent topic structures from the joint matrix of
         both systems show statistically significant association with sentiment
         classifications, and which system produces the joint matrix with the
         tighter topic--sentiment dependency, as measured by:
         \begin{enumerate}[label=\alph*.]
-          \item Chi-Squared;
-          \item Cramer's V.
+          \item Chi-Square to establish baseline existence of relationship between
+          latent topics and sentiment classifications via goodness of fit test;
+          \item Cramer's V to determine strength of association between the two.
         \end{enumerate}
 
   \item Is there a statistically significant operational difference between
@@ -265,7 +262,7 @@ contextual sentiment---from unstructured emergency feeds, the study establishes
 a mathematically rigorous framework to understand a disaster and respond to it
 effectively. This study will benefit several individuals and institutions:
 
-\begin{description}[style=nextline,leftmargin=0pt]
+\begin{description}[style=sameline,leftmargin=0pt]
   \item[Bulacan and CAMANAVA Disaster Response Offices.] The study is
   intended to aid disaster response offices in organizing and structuring the
   unorganized disaster-related information they receive through social media
@@ -411,7 +408,10 @@ LGU command centers.
    latent topic, the label shows what individuals are discussing and how 
    they feel about it. The three-label scheme is coarse and does not 
    separate emotions like fear and anger.
-  
+   
+   \item[latent topics / latent topic structures.]  is the unobserved thematic
+   patterns within a large collection of unstructured text corpus. In this study
+   it is the cluster of co-occuring words that have a common theme.
   
 
   \item[UMass Coherence.] A topic coherence metric that measures the
@@ -419,6 +419,7 @@ LGU command centers.
   higher values (closer to zero) indicate more coherent topics. Used in this
   study to select $K$, the number of latent topics in Latent Dirichlet
   Allocation.
+  
 \end{description}
 
 % =========================================================================
@@ -515,6 +516,20 @@ communities are met and restored rapidly. Finally, Disaster Rehabilitation and
 Recovery deals with the restoration of livelihoods, economic opportunities, and
 essential infrastructure that supports the physical and psychological
 rehabilitation of those affected \parencite{inferio2025}.
+
+The North Manila Bay Delta consists of the downstream part of the rivers of the Pampanga River Basin, including the coastal area. The wider basin has a catchment area of $10,000\text{ km}^2$ and is roughly divided into three river systems. These are the Pampanga main river system (about $8,000\text{ km}^2$), the Angat River system (about $1,085\text{ km}^2$), and the Pasac river system (about $1,371\text{ km}^2$), which originates from Mt. Pinatubo and is connected to the Pampanga River by the Bebe-San Esteban Cut-off Channel \parencite{RoyalHaskoningDHV}.
+
+This delta covers almost $3,000\text{ km}^2$ of the southern central valley of Luzon, stretching from Pampanga to Bataan, Bulacan, and the CAMANAVA area of Metro Manila. The plains are so flat and close to sea level that the 1-meter elevation line extends 10 to $20\text{ km}$ inland, so even a small rise in relative sea level translates to a large encroachment of the sea. The region is also a major rice, sugar, and fish producer, and groundwater is its main source of fresh water for households, industries, fishponds, and farms \parencite{Rodolfo2003}.
+
+\subsection{Hydrometeorological Characteristics}
+
+The coast is tide-dominated and has a mixed, predominantly diurnal tide with an average range of $1.2\text{ meters}$ during spring tide and $0.4\text{ meters}$ during neap tide. During the southwest monsoon from June to September, the tidal amplitude can increase by 80 percent, and wind waves of over $3\text{ meters}$ may occur. The wet season runs from June to November, with average monthly rainfall of 180 to $410\text{ mm}$. The area is affected on average by one to two cyclone-related storm surges per year, and rainfall at the peak of the cyclone period can reach $400\text{ mm}$ a day. The relative sea-level rise in Manila Bay is on average 1.5 to $2.5\text{ cm}$ per year, and land subsidence caused by groundwater over-extraction is occurring in several areas \parencite{RoyalHaskoningDHV}.
+
+\subsection{Linguistic Context and Geographic Scope Selection}
+
+There are four main Tagalog dialects: Northern Tagalog Dialects of Bulacan (Bulacan \& Nueva Ecija) and Bataan (Bataan \& Zambales), Central Tagalog Dialects of Laguna (Laguna \& Rizal) and Metro Manila, Southern Tagalog Dialects of Batangas (Cavite \& Batangas), Lubang (Mindoro), and Tayabas (Aurora, Camarines Norte, Camarines Sur, \& Quezon), and lastly Tagalog Dialects of Marinduque \parencite{Adriano2022}.
+
+The North Manila Bay Delta shares common hydrometeorological traits of natural disaster frequencies and structural instances. It consists of minor parts of Bataan, Pampanga, Bulacan, and CAMANAVA. Bataan was omitted from this study due to minor inclusions on the delta; while Pampanga was omitted due to not being included in major Tagalog dialects and having a different linguistic profile among its speakers. That leaves Bulacan and CAMANAVA as the geographic scope of the study due to sharing the same hydrometeorological profile and relatively similar linguistic profile of Tagalog (Northern and Central dialect), English, and Taglish.
 
 \section{Review of Related Studies}
 
