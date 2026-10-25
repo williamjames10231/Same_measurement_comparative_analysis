@@ -3,12 +3,14 @@
 % ----------------------------- PACKAGES ----------------------------------
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{fontaxes}
 \usepackage{amsmath,amssymb,bm}
 \usepackage{newtxtext,newtxmath}          % Times-equivalent; fall back to \usepackage{times}
 \usepackage[letterpaper,top=1in,bottom=1in,left=1.5in,right=1in]{geometry}
 \usepackage{setspace}
 \usepackage{booktabs,tabularx,array}
 \usepackage{graphicx}
+\usepackage{longtable}
 \usepackage{enumitem}
 \usepackage{caption}
 \usepackage{titlesec}
@@ -194,9 +196,9 @@ and pre-trained \xlmr-based contextual representations into a Joint Matrix.
 This approach preserves mathematical interpretability while achieving high
 classification accuracy on chaotic, mixed-syntax Taglish text. Furthermore,
 the study conducts a rigorous comparative benchmark of this lightweight system
-against a state-of-the-art open-weight dense transformer (\sysB: \qwen)
-operating under few-shot prompting conditions, which is also expected to yield
-a joint matrix.
+against a state-of-the-art open-weight dense transformer (\sysB: Qwen3-1.7B\\
+-Instruct-Q4\_K\_M) operating under few-shot prompting conditions, 
+which is also expected to yield a joint matrix.
 
 The study is relevant to modern-day climate risks and high social media
 penetration in the Philippines, as understanding the digital sentiments and
@@ -213,14 +215,14 @@ influx of digital noise.
 
 This study evaluates and compares the performance of a hybrid joint matrix
 pipeline as the baseline (\sysA) against a state-of-the-art large language
-model joint matrix output (\sysB) in processing unstructured disaster-related
+model joint matrix output (Qwen3-1.7B\\-Instruct-Q4\_K\_M) in processing unstructured disaster-related
 text to generate actionable sentiment classifications and latent topic
 discovery for the Bulacan and CAMANAVA regions. Specifically, it seeks to
 answer the following questions:
 
 \begin{enumerate}[label=\arabic*.]
   \item Under a relativist comparative evaluation framework, how does \sysB{}
-        (\qwen) perform relative to \sysA{} (LDA + \xlmr{} Joint Matrix),
+        (Qwen3-1.7B-Instruct-Q4\_K\_M) perform relative to \sysA{} (LDA + \xlmr{} Joint Matrix),
         which serves as the relative reference standard, when both categorize
         the same corpus of disaster-related textual documents into Negative,
         Neutral, and Positive sentiments, as measured through:
@@ -310,7 +312,7 @@ effectively. This study will benefit several individuals and institutions:
 \section{Scope and Delimitation}
 
 This study focuses on the comparative quantitative evaluation of two
-computational systems designed to perform sentiment and severity analysis on
+computational systems designed to perform latent topics and sentiment analysis on
 unstructured disaster-related reports. \sysA{} is a hybrid pipeline utilizing
 Count Vectorization, Latent Dirichlet Allocation (LDA), and \xlmr{}
 contextual representations combined into a Joint Matrix as the baseline system
@@ -334,7 +336,7 @@ utility of the systems is evaluated through a purposive blind stakeholder panel
 assessed using Agreement Rates and McNemar's Test.
 
 The study does not involve real-time integration into actual DRRM command
-centers, nor does it include the physical dispatch of rescue teams. It performs
+centers, \textbf{nor does it include the physical dispatch of rescue teams}. It performs
 social media post backend aggregation with respect to the Data Privacy Act of
 2012; all sampled posts and comments are anonymized and protect the identity
 of the Facebook users. \sysA{} features a pre-trained \xlmr{}
@@ -356,7 +358,7 @@ LGU command centers.
 
 \section{Definition of Terms}
 
-\begin{description}[style=nextline,leftmargin=0pt]
+\begin{description}[style=sameline,leftmargin=0pt]
   \item[Agreement Rate.] A statistical metric utilized during the blind
   stakeholder evaluation to determine the proportion of assessments in which
   the human expert agrees with the system-generated output.
@@ -399,9 +401,18 @@ LGU command centers.
   text feeds.
 
   \item[Few-Shot Prompting.] An inference paradigm utilized by \sysB{}
-  (\qwen) in which the model performs sentiment and latent semantic analysis
+  (Qwen3-1.7B-Instruct-Q4\_K\_M) in which the model performs sentiment and latent semantic analysis
   based on natural-language task descriptions and is given some task-specific
   training examples.
+  
+  \item[Sentiment Analysis.]  is the computational study of opinions,
+   evaluations, and emotions in text. In this study, each disaster-related 
+   post gets one label: Negative, Neutral, or Positive. Paired with a post’s
+   latent topic, the label shows what individuals are discussing and how 
+   they feel about it. The three-label scheme is coarse and does not 
+   separate emotions like fear and anger.
+  
+  
 
   \item[UMass Coherence.] A topic coherence metric that measures the
   document-level co-occurrence of a topic's top-$N$ words. Values are negative;
@@ -670,7 +681,7 @@ ensuring participant privacy and data integrity.
 This study utilizes a comparative quantitative evaluative research design to
 evaluate the performance of two disaster-related sentiment and semantic
 analysis systems: \sysA, a hybrid LDA + \xlmr{} Joint Matrix System, and
-\sysB, \qwen. Both systems will have the same corpus of disaster-related
+\sysB, Qwen3-1.7B-Instruct-Q4\_K\_M. Both systems will have the same corpus of disaster-related
 textual data from the Bulacan and CAMANAVA area within the study period. The
 two systems are designed to be evaluated on multiple complementary measures
 rather than a single measure of performance. These measures correspond to the
@@ -695,7 +706,7 @@ prompts for the same sentiment analysis and semantic assessment. The two
 systems thus fall under a common data source, allowing for a comparative
 evaluation to proceed.
 
-The study’s textual disaster-related data is geographically linked to Bulacan and CAMANAVA, an area consisting of Caloocan, Malabon, Navotas, and Valenzuela during the study period of 2020-2025. The corpus includes social media content, government or disaster-management reports, relevant news reports, and other accessible public textual sources on Facebook relative to the inclusion and exclusion criteria. The methodology identifies Bulacan and CAMANAVA as the geographic scope and specifies Tagalog, English, and Taglish as the principal language context of the textual data.
+The study’s textual disaster-related data is geographically linked to Bulacan and CAMANAVA, an area consisting of Caloocan, Malabon, Navotas, and Valenzuela during the study period of 2020-2025. The corpus includes social media content from government or disaster-management related public pages relative to the inclusion and exclusion criteria. The methodology identifies Bulacan and CAMANAVA as the geographic scope and specifies Tagalog, English, and Taglish as the principal language context of the textual data.
 
 
 The study will apply a common measurement approach to the eligible corpus. Each
@@ -831,6 +842,64 @@ expressions that may contain information on public sentiment and perceived
 disaster severity. The corpus will include textual content written in Tagalog,
 English, and Taglish.
 
+{\small
+	\setlength{\tabcolsep}{3pt}
+	\begin{longtable}{@{}
+			l                                     % Agency / Location (natural width)
+			l                                     % Region           (natural width)
+			l                                     % User ID          (natural width)
+			>{\raggedright\arraybackslash}p{5.75cm} % Facebook URL   (fixed, ragged-right)
+			@{}}
+		
+		\caption{Target agencies and Facebook source pages used in the comparative flood analysis}
+		\label{tab:target-agencies}\\
+		
+		\toprule
+		\textbf{Agency / Location} & \textbf{Region} & \textbf{User ID} & \textbf{Facebook URL} \\
+		\midrule
+		\endhead
+		
+		\midrule
+		\multicolumn{4}{r}{Continued on next page} \\
+		\endfoot
+		
+		\bottomrule
+		\endlastfoot
+		
+		% NOTE: rows transcribed from your screenshot; keep your own URL strings.
+		Bulacan (General) & Bulacan & bulacan\_pdrrmo & \url{https://www.facebook.com/share/1EYVEuEk1i/?mibextid=wwXIfr} \\
+		City of Malolos & Bulacan & malolos\_cdrrmo & \url{https://www.facebook.com/share/1D9yG4Ygq6/?mibextid=wwXIfr} \\
+		City of Meycauayan & Bulacan & meycauayan\_cdrrmo & \url{https://www.facebook.com/share/1Gku63fZAq/?mibextid=wwXIfr} \\
+		City of San Jose del Monte & Bulacan & csjdm\_cdrrmo & \url{https://www.facebook.com/share/1Di3r4DQXf/?mibextid=wwXIfr} \\
+		City of Baliuag & Bulacan & baliuag\_cdrrmo & \url{https://www.facebook.com/share/1rUFil22ejY4/?mibextid=wwXIfr} \\
+		Calumpit & Bulacan & calumpit\_mdrrmo & \url{https://www.facebook.com/share/1jNglrAcf7/?mibextid=wwXIfr} \\
+		Hagonoy & Bulacan & hagonoy\_mdrrmo & \url{https://www.facebook.com/share/1hD7WknPQZ/?mibextid=wwXIfr} \\
+		Marilao & Bulacan & marilao\_mdrrmo & \url{https://www.facebook.com/share/191rS6yyNg/?mibextid=wwXIfr} \\
+		Bocaue & Bulacan & bocaue\_mdrrmo & \url{https://www.facebook.com/share/1BxkjNSc962/?mibextid=wwXIfr} \\
+		Paombong & Bulacan & paombong\_mdrrmo & \url{https://www.facebook.com/share/1C4f8zAHnx/?mibextid=wwXIfr} \\
+		Obando & Bulacan & obando\_mdrrmo & \url{https://www.facebook.com/share/1HmARF9TcY/?mibextid=wwXIfr} \\
+		Bulakan & Bulacan & bulakan\_mdrrmo & \url{https://www.facebook.com/share/1QxQURuK69V/?mibextid=wwXIfr} \\
+		Bustos & Bulacan & bustos\_mdrrmo & \url{https://www.facebook.com/share/1JNzjIK9TH4/?mibextid=wwXIfr} \\
+		Plaridel & Bulacan & plaridel1\_mdrrmo & \url{https://www.facebook.com/share/1FImd5zyCY/?mibextid=wwXIfr} \\
+		Pulilan & Bulacan & pulilan\_mdrrmo & \url{https://www.facebook.com/share/19TQHLEXRX/?mibextid=wwXIfr} \\
+		Guiguinto & Bulacan & guiguinto\_mdrrmo & \url{https://www.facebook.com/share/1djYy9Ghab/?mibextid=wwXIfr} \\
+		Pandi & Bulacan & pandi\_mdrrmo & \url{https://www.facebook.com/share/1GWb8GXpD7h/?mibextid=wwXIfr} \\
+		Santa Maria & Bulacan & santamaria\_mdrrmo & \url{https://www.facebook.com/share/1CF9MHF83a/?mibextid=wwXIfr} \\
+		San Miguel & Bulacan & sanmiguel\_mdrrmo & \url{https://www.facebook.com/share/19fRTlWvuA/?mibextid=wwXIfr} \\
+		San Ildefonso & Bulacan & sanildefonso\_mdrrmo & \url{https://www.facebook.com/share/1c83yUQ9R/?mibextid=wwXIfr} \\
+		San Rafael & Bulacan & sanrafael\_mdrrmo & \url{https://www.facebook.com/share/19VnxKnack/?mibextid=wwXIfr} \\
+		Angat & Bulacan & angat\_mdrrmo & \url{https://www.facebook.com/share/1JbkbF9PpT/?mibextid=wwXIfr} \\
+		Norzagaray & Bulacan & norzagaray\_mdrrmo & \url{https://www.facebook.com/share/1DVq0VAd1B/?mibextid=wwXIfr} \\
+		Doña Remedios Trinidad & Bulacan & drt\_mdrrmo & \url{https://www.facebook.com/share/1G2Yq16Fec/?mibextid=wwXIfr} \\
+		Valenzuela City & CAMANAVA & valenzuela\_cdrrmo & \url{https://www.facebook.com/share/1Gku63fZAq/?mibextid=wwXIfr} \\
+		Malabon City & CAMANAVA & malabon\_cdrrmo & \url{https://www.facebook.com/share/1ELBPLYcVsJ/?mibextid=wwXIfr} \\
+		Navotas City & CAMANAVA & navotas\_cdrrmo & \url{https://www.facebook.com/share/1D6gb4XR6w/?mibextid=wwXIfr} \\
+		Caloocan City & CAMANAVA & caloocan\_cdrrmo & \url{https://www.facebook.com/share/1F78Zh77BW/?mibextid=wwXIfr} \\
+		
+	\end{longtable}
+} % end
+ \small
+
 Data collection will be a semi-automated manual extraction procedure supported
 by a web scraper browser extension to aid in extracting the textual data from
 posts and their comment threads. The relevant Facebook posts and their
@@ -838,6 +907,77 @@ available comments will be identified using the study's own inclusion and
 exclusion criteria. The web scraper extension will assist in the extraction and
 organization of available data, while manual procedures will identify relevant
 sources.
+
+\begin{longtable}{@{}p{0.22\textwidth} p{0.22\textwidth} p{0.22\textwidth} p{0.30\textwidth}@{}}
+	\caption{Keywords used for disaster and flood detection in the social media scraper}\label{tab:keywords}\\
+	\toprule
+	\textbf{Category} & \textbf{English Keyword} & \textbf{Tagalog/Local Term} & \textbf{Description} \\
+	\midrule
+	\endfirsthead
+	
+	\caption[]{Keywords used for disaster and flood detection in the social media scraper (continued)}\\
+	\toprule
+	\textbf{Category} & \textbf{English Keyword} & \textbf{Tagalog/Local Term} & \textbf{Description} \\
+	\midrule
+	\endhead
+	
+	\midrule
+	\multicolumn{4}{r}{Continued on next page} \\
+	\endfoot
+	
+	\bottomrule
+	\endlastfoot
+	
+	Historical Events & Typhoon Ulysses & Bagyo & Major tropical cyclone event \\
+	Historical Events & Typhoon Rolly & Bagyo & Major tropical cyclone event \\
+	Historical Events & Typhoon Quinta & Bagyo & Major tropical cyclone event \\
+	Historical Events & Typhoon Fabian & Bagyo & Major tropical cyclone event \\
+	Historical Events & Typhoon Karding & Bagyo & Major tropical cyclone event \\
+	Historical Events & Typhoon Paeng & Bagyo & Major tropical cyclone event \\
+	Historical Events & Typhoon Egay & Bagyo & Major tropical cyclone event \\
+	Historical Events & Typhoon Carina & Bagyo & Major tropical cyclone event \\
+	Water & Flooding & Pagbaha & Flooding condition \\
+	Water & Flood & Baha & Flood event \\
+	Water & Flash flood & Biglaang baha & Sudden flood surge \\
+	Water & Submerged & Lubog sa baha / Lubog & Waterlogged or submerged area \\
+	Water & Overflow & Umaapaw / Umapaw & Water exceeds capacity \\
+	Water & High Tide & Taib & Coastal water surge \\
+	Water & Dam release & Pagpapakawala ng tubig & Controlled drainage from dam \\
+	Water & Spillway & Spillway & Floodwater release outlet \\
+	Weather & Rainfall & Buhos ng ulan & Heavy rainfall \\
+	Weather & Rain & Ulan & Rainfall \\
+	Weather & Heavy Rain & Malakas na ulan & Intense rainfall \\
+	Weather & Thunderstorm & Kidlat at kulog & Storm with lightning \\
+	Weather & Monsoon & Habagat / Amihan & Seasonal wind and rain pattern \\
+	Weather & Low Pressure Area & LPA & Weather disturbance \\
+	Rescue & Rescue & Saklolo / Sagip & Emergency rescue action \\
+	Rescue & Help & Tulong & Assistance request \\
+	Rescue & Evacuate & Lumikas & Leaving threatened area \\
+	Rescue & Evacuation & Paglikas / Likas & Mass movement to shelter \\
+	Rescue & Evacuation Center & Sentro ng paglikas & Shelter for evacuees \\
+	Rescue & Trapped & Na-trap / Nakulong & Unable to evacuate \\
+	Rescue & Stranded & Naipit & Stuck due to flood or weather \\
+	Rescue & Missing & Nawawala & Missing persons report \\
+	Rescue & Casualty & Nasawi / Patay & Fatality or death \\
+	Rescue & Relief goods & Ayuda & Aid and support delivered \\
+	Warning & Advisory & Abiso & Public warning \\
+	Warning & Alert & Alerto & Warning alert issued \\
+	Warning & Hazard & Panganib & Hazard threat \\
+	Warning & Red Warning Level & Red Warning Level & Severe alert status \\
+	Warning & Orange Warning Level & Orange Warning Level & Moderate-to-high alert status \\
+	Warning & Yellow Warning Level & Yellow Warning Level & Precautionary alert status \\
+	Warning & Signal No. 1 & Signal No. 1 & Weather warning signal \\
+	Warning & Signal No. 2 & Signal No. 2 & Weather warning signal \\
+	Warning & Signal No. 3 & Signal No. 3 & Weather warning signal \\
+	Warning & Signal No. 4 & Signal No. 4 & Weather warning signal \\
+	Warning & Signal No. 5 & Signal No. 5 & Weather warning signal \\
+	Threat & Landslide & Pagguho ng lupa & Slope failure event \\
+	Threat & Class suspension & Walang pasok / Suspindido ang klase & School closure due to hazard \\
+	Threat & Threatening & Nagbabanta & Risk or threat warning \\
+	Infrastructure & Angat Dam & Angat Dam & Dam infrastructure \\
+	Infrastructure & Bustos Dam & Bustos Dam & Dam infrastructure \\
+	Infrastructure & Ipo Dam & Ipo Dam & Dam infrastructure \\
+\end{longtable}
 
 The data sourcing will target an approximate corpus size of 10,000-15,000
 records and above. It will source from publicly available pages of
@@ -867,6 +1007,27 @@ promotional materials, and other unrelated content; when they are duplicated
 records bearing the same content or corrupted text; and when they contain any
 mentions, hashtags, private information, or emojis.
 
+\begin{table}[htbp]
+	\centering
+	\caption{Inclusion and Exclusion Criteria for Facebook Posts and Comments}
+	\label{tab:screening_criteria}
+	\begin{tabular}{p{0.5cm} p{3.2cm} p{5.2cm} p{5.2cm}}
+		\toprule
+		\textbf{\#} & \textbf{Dimension} & \textbf{Inclusion Criteria} & \textbf{Exclusion Criteria} \\
+		\midrule
+		1 & Accessibility      & Publicly accessible & Not publicly accessible \\
+		2 & Topical relevance  & Related to disaster, disaster impact, response, recovery, or related themes & Unrelated to disasters or related themes \\
+		3 & Geographic scope   & Relevant to Bulacan or CAMANAVA & Outside the scope of Bulacan or CAMANAVA \\
+		4 & Time frame         & Within the 2020--2025 study period & Outside the 2020--2025 study period \\
+		5 & Text suitability   & Text suitable for sentiment and semantic analysis & No suitable textual content \\
+		6 & Language           & Tagalog, English, or Taglish & Other languages \\
+		7 & Content quality    & --- & Entirely spam, advertisements, or promotional content \\
+		8 & Record integrity   & --- & Duplicated or corrupted records \\
+		9 & Privacy/formatting & --- & Contains mentions, hashtags, private information, or emojis \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
 Together, the resulting eligible records constitute the common corpus used by
 both \sysA{} and \sysB{} under their individual procedures, so that differences
 in sentiment and latent topic outputs can be examined under a common data basis.
@@ -890,7 +1051,7 @@ analytical suitability checks before being fed to the two systems.
 
 This study evaluates two computational systems for disaster-related sentiment
 and latent topic analysis: \sysA, a hybrid LDA--\xlmr{} Joint Matrix System, and
-\sysB, \qwen. Though the two different systems employ different processing
+\sysB, Qwen3-1.7B-Instruct-Q4\_K\_M. Though the two different systems employ different processing
 approaches, both receive the same prepared disaster-related textual corpus and
 produce sentiment and latent topic outputs that are evaluated using the common
 measurement framework of the study. This arrangement allows the study to
@@ -1113,6 +1274,21 @@ sentiment and latent topic analysis. Unlike \sysA, which is a hybrid approach
 utilising multiple representations, \sysB{} processes the textual inputs
 directly through a predefined prompting procedure.
 
+Large language models are transformer-based neural networks
+\parencite{vaswani2017} trained on very large text collections. Their attention
+mechanism computes each token's representation from the other tokens, so the
+model uses context from the whole post, which helps with informal and
+code-switched text. They also show in-context learning: given a task
+description and a few labeled examples in the prompt, they can do a new task
+without any parameter updates \parencite{brown2020}.
+
+System B uses \qwen, a 4-bit quantized, open-weight (Apache 2.0) model
+\parencite{yang2025}. Qwen3 expanded language coverage from 29 to 119 languages
+and dialects, which is relevant to Tagalog and English but does not by itself
+show strong Taglish performance. Quantization saves memory at a possible cost
+in accuracy.
+
+
 The prompting procedure specifies the required sentiment categories and latent topics
 output format to ensure consistency and that comparative analysis assumptions
 are respected. For sentiment analysis, the system produces one of the three
@@ -1312,8 +1488,8 @@ representing its assigned sentiment classification.
 
 The information collected from the two systems will be processed, coded, and
 analysed with suitable performance measures that correspond to the three
-research questions of this investigation. \sysA, the Hybrid LDA + \xlmr{} Joint
-Matrix System, and \sysB, \qwen, will be assessed using the exact evaluation
+research questions of this investigation. System A, the Hybrid LDA + XLM-RoBERTa Joint
+Matrix System, and System B, $Qwen3-1.7B-Instruct-Q4\_K\_M$, will be assessed using the exact evaluation
 framework to ensure comparative integrity in the evaluation results. Each
 statistic will be run separately on each system prior to comparing and making
 relative findings.
@@ -1355,6 +1531,30 @@ The dashboard will have these primary modules:
 
 By utilizing a lightweight python web framework, the dashboard ensures the the system remains entirely dependent on local backend environment satisfying the need for
 an interactive visual analytical system.
+
+\subsection{Decision Support System (DSS)}
+
+Decision Support System (DSS) was first introduced as a system designed to aid decision makers in semi-structured issues that algorithms cannot resolve. It served to increase the managers capabilities rather than replace them in the decision making process. DSS provides a quantitative basis that supports managerial decisions instead of solely relying on personal intuition and experience~\cite{Rashidi2018}.
+
+A standard Decision Support System framework consists of four primary components:
+\begin{enumerate}
+	\item \textbf{Language System (LS):} Interprets recognizable messages.
+	\item \textbf{Presentation System (PS):} Manages all messages made by decision support systems.
+	\item \textbf{Knowledge System (KS):} Acts as the repository of integrated information within DSS.
+	\item \textbf{Problem-Processing System (PPS):} Acts to resolve the problem.
+\end{enumerate}
+
+To integrate latent topics and sentiment analysis into a DSS, unstructured text is collected from sources such as Twitter, Amazon, and Google Reviews. Preprocessing is applied to remove URLs, hashtags, usernames, special characters, stop words, and fake news. Topic modeling techniques, such as Latent Dirichlet Allocation (LDA), are then utilized to identify the discussed topics.
+
+Furthermore, sentiment analysis—using lexicon-based tools (e.g., VADER, SentiWordNet, TextBlob), machine learning models (e.g., SVM, Naive Bayes, LSTM), or hybrid approaches—is implemented to determine the sentiment associated with each topic. Two common integration methods include:
+\begin{itemize}
+	\item Executing LDA prior to sentiment analysis to assign each document to its dominant topic and calculating the average sentiment for every topic.
+	\item Implementing Aspect-Based Sentiment Analysis (ABSA).
+\end{itemize}
+
+The resulting output is a matrix mapping topics against sentiment scores along with volume and trend metrics. In the decision layer, this output is utilized in Multi-Criteria Decision Making (MCDM) to rank services in Importance-Performance Analysis (IPA) to determine priorities, predict demand, and assess business reputation~\parencite{AguilarMoreno2024}. Lastly, the insights appear on a dashboard featuring real-time monitoring and alerts.
+
+When implementing this framework, sentiment analysis limitations must be considered, including sarcasm and irony, domain-specific jargon, multiple sentiments within a single sentence, and the English-centric design of most existing tools, which necessitates custom training data for languages such as Filipino or Taglish. Additionally, consulting the original articles is recommended for specific implementation details~\parencite{AguilarMoreno2024}.
 
 \subsection{Waterfall Development Methodology}
 
@@ -1763,7 +1963,7 @@ population has an equal probability and capacity to provide valid data.
 The evaluation of the proposed framework, however, is not a demographic survey
 but rather an experimental computational benchmark. The study requires human
 evaluators to audit the classification outputs of a hybrid pipeline
-(LDA + \xlmr) and an open-weight transformer (\qwen).
+(LDA + XLM-RoBERTa) and an open-weight transformer $Qwen3-1.7B-Instruct-Q4\_K\_M$.
 
 Evaluating contextual embeddings, coherence, and algorithmic classification
 disparities requires calibrated judgment from domain specialists. Using a
@@ -1776,7 +1976,7 @@ configurations without introducing data dilution.
 
 To execute the blind comparative evaluation between the lightweight hybrid model
 (\sysA: LDA + \xlmr) and the state-of-the-art open-weight
-(\sysB: \qwen), a total panel of 10 to 20 evaluators will be recruited. This panel is
+(\sysB: $Qwen3-1.7B-Instruct-Q4\_K\_M$), a total panel of 10 to 20 evaluators will be recruited. This panel is
 divided equally into two specialized cohorts.
 
 \begin{table}[htbp]
@@ -1821,8 +2021,7 @@ divided equally into two specialized cohorts.
     \midrule
     DRRM Practitioner Panel & 5--10 & Purposive &
     Bulacan and CAMANAVA DRRM Offices &
-    Blind evaluation of system outputs; assesses operational applicability and
-    severity relevance. \\
+    Blind evaluation of system outputs; assesses operational applicability and relevance. \\
     \addlinespace
     Academic Technical Panel & 5--10 & Purposive &
     Mathematics and Computer Science Faculty (College of Science / CICT) &
