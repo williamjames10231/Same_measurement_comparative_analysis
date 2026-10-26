@@ -1,0 +1,72 @@
+\documentclass[12pt,a4paper]{report}
+
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{newtxtext,newtxmath}         
+\usepackage[letterpaper,top=1in,bottom=1in,left=1.5in,right=1in]{geometry}
+\usepackage{setspace}
+\usepackage{booktabs,tabularx,array}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{titlesec}
+
+\usepackage{etoolbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{diagbox}
+\usepackage{longtable}
+
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{reference.bib} 
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\doublespacing
+\AtBeginEnvironment{tabular}{\setstretch{1.0}}
+\AtBeginEnvironment{tabularx}{\setstretch{1.0}}
+\AtBeginEnvironment{figure}{\setstretch{1.0}}
+
+\titleformat{\chapter}[display]
+{\normalfont\Large\bfseries\centering}
+{CHAPTER~\Roman{chapter}}
+{0.6cm}
+{\centering\MakeUppercase}
+\titlespacing*{\chapter}{0pt}{0pt}{2pc}
+
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\itshape}{\thesubsubsection}{1em}{}
+\setcounter{tocdepth}{2}
+
+\lstset{
+	basicstyle=\ttfamily\small, 
+	breaklines=true,            
+	showspaces=false,           
+	showstringspaces=false,
+	xleftmargin=0pt,            
+	xrightmargin=0pt,
+	gobble=0
+}
+
+\captionsetup[table]{position=top,font=normalsize,labelfont=bf}
+\captionsetup[figure]{font=normalsize,labelfont=bf}
+
+
+\newcommand{\sysA}{\textbf{System A}}
+\newcommand{\sysB}{\textbf{System B}}
+\newcommand{\qwen}{\texttt{Qwen3-1.7B-Instruct-Q4\_K\_M}}
+\newcommand{\xlmr}{XLM-RoBERTa}
+\newcommand{\topic}[1]{\tau_{#1}}
+\newcommand{\sent}[1]{\sigma_{#1}}
+
+\begin{document}
+	\include{chapters/00-title}
+	\include{chapters/01-introduction}
+	\include{chapters/02-literature}
+	\include{chapters/03-methodology}
+	
+	\printbibliography
+\end{document}

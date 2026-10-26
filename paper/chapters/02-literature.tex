@@ -1,0 +1,249 @@
+\chapter{Theoretical Framework}
+
+This chapter outlines the foundations supporting the development of
+\emph{SAKLOLO: A Hybrid Semantic-Probabilistic Framework for Analysing Social
+	Media Emergency Feeds in Bulacan and CAMANAVA}. It is grounded in Vector Space
+Semantics, the Distributional Hypothesis, and Bayesian Generative Theory,
+justifying the probabilistic extraction of semantic structures from
+unstructured disaster text. The literature review discusses Count
+Vectorization mechanics, contextual language representations (\xlmr),
+generative large language models (LLMs), and Latent Dirichlet Allocation (LDA)
+applications in crisis environments. A synthesis highlights gaps in processing
+mixed-language (Taglish) emergency feeds and guides the proposed mathematical
+joint matrix model.
+
+\section{Related Theories}
+
+The conceptual foundation of this research is grounded in Sensemaking Theory,
+which asserts that in digital crisis environments, offloading the initial
+chaotic, high-velocity data to automated systems allows human responders to
+bypass information overload and focus directly on high-level resource
+allocation \parencite{pezanowski2022}. To mathematically achieve this automated
+sensemaking, the computational framework relies on the Distributional Hypothesis
+in computational semantics. \parencite{balkir2016} explain that this hypothesis
+assumes words occurring in similar contexts inherently share similar semantic
+meanings. This provides the theoretical justification for mapping text into
+vector spaces. It theorizes that even highly disorganized human crisis
+communication contains latent geometric patterns, allowing related disaster
+concepts to naturally cluster together when analyzed algebraically.
+
+Complementing this geometric assumption is the statistical principle of
+Exchangeability, rooted in De Finetti's theorem. \parencite{blei2003} utilized
+this theory to establish that when modeling text data, the joint probability of
+a sequence of terms is invariant to their specific grammatical order. This
+provides the core theoretical justification for the ``bag-of-words'' approach
+used in probabilistic topic modeling. Because the theory assumes that documents
+are the end result of a probabilistic generative process rather than rigid
+grammatical structures, the proposed system is mathematically validated in
+ignoring the broken syntax and informal structures typical of emergency posts,
+focusing purely on the statistical distribution of variables to uncover hidden
+situational categories.
+
+\section{Review of Related Literature}
+
+\subsection{Computational Frameworks in International Disaster Literature}
+
+The theoretical foundational framework for processing unstructured crisis
+communications relies on computational linear algebra, vector space modeling,
+and probabilistic generative models. According to \parencite{mihunov2022}, vector
+space mechanics represent qualitative narrative posts as numeric constructs in
+high-dimensional matrices to enable systematic computation during disasters.
+Within this space, a document--term matrix captures documents across unique
+vocabulary tokens, where raw text is mathematically transformed using Count
+Vectorization to systematically extract critical crisis keywords for downstream
+processing.
+
+Complementing these deterministic vector decompositions, probabilistic
+frameworks model the underlying semantic structure of text.
+\parencite{blei2003} introduced Latent Dirichlet Allocation (LDA) as a Bayesian
+generative probabilistic model that views each document as a multinomial
+distribution over latent topics, which are themselves multinomial
+distributions over vocabulary words governed by Dirichlet priors. Expanding on
+this by bridging probabilistic topic models with deep learning,
+\parencite{zang2026} highlights the integration of LDA with contextual transformer
+architectures (such as BERT). Inferring hidden topic assignment variables
+alongside deep contextual embeddings from observed social text feeds allows for
+highly accurate, granular identification and tracking of emergent situational
+themes as rapid disaster events unfold.
+
+\subsection{Social Media Utilization in Philippine Disaster Risk Reduction}
+
+A literature review on the role of social media in disaster response in the
+Philippines found that it was heavily employed in response to typhoons and
+earthquakes, but other disasters such as COVID-19, floods, and vegetation
+fires are not fully explored. The review indicated that the usage of social
+media was heavy during response and recovery but minimal during preparation.
+Because misinformation, noise, and infrastructure limitations remain a concern
+for its utilization as a reliable disaster response tool, a hybrid
+computational approach is recommended. Social media was found to be highly
+effective in coordinating recovery and updates, provided the data is
+computationally filtered to separate the informative from the controversial
+\parencite{inferio2025}.
+
+The Philippines has four thematic areas of Risk Reduction and Management.
+Disaster Prevention and Mitigation is aimed at strengthening community
+resilience by minimizing exposure to risks and increasing recovery capacity.
+Disaster Preparedness involves strengthening community and institutional
+capacity via collaborative policies and systems. Disaster Response focuses on
+the reduction of preventable casualties and ensures the basic needs of
+communities are met and restored rapidly. Finally, Disaster Rehabilitation and
+Recovery deals with the restoration of livelihoods, economic opportunities, and
+essential infrastructure that supports the physical and psychological
+rehabilitation of those affected \parencite{inferio2025}.
+
+The North Manila Bay Delta consists of the downstream part of the rivers of the Pampanga River Basin, including the coastal area. The wider basin has a catchment area of $10,000\text{ km}^2$ and is roughly divided into three river systems. These are the Pampanga main river system (about $8,000\text{ km}^2$), the Angat River system (about $1,085\text{ km}^2$), and the Pasac river system (about $1,371\text{ km}^2$), which originates from Mt. Pinatubo and is connected to the Pampanga River by the Bebe-San Esteban Cut-off Channel \parencite{RoyalHaskoningDHV}.
+
+This delta covers almost $3,000\text{ km}^2$ of the southern central valley of Luzon, stretching from Pampanga to Bataan, Bulacan, and the CAMANAVA area of Metro Manila. The plains are so flat and close to sea level that the 1-meter elevation line extends 10 to $20\text{ km}$ inland, so even a small rise in relative sea level translates to a large encroachment of the sea. The region is also a major rice, sugar, and fish producer, and groundwater is its main source of fresh water for households, industries, fishponds, and farms \parencite{Rodolfo2003}.
+
+\subsection{Hydrometeorological Characteristics}
+
+The coast is tide-dominated and has a mixed, predominantly diurnal tide with an average range of $1.2\text{ meters}$ during spring tide and $0.4\text{ meters}$ during neap tide. During the southwest monsoon from June to September, the tidal amplitude can increase by 80 percent, and wind waves of over $3\text{ meters}$ may occur. The wet season runs from June to November, with average monthly rainfall of 180 to $410\text{ mm}$. The area is affected on average by one to two cyclone-related storm surges per year, and rainfall at the peak of the cyclone period can reach $400\text{ mm}$ a day. The relative sea-level rise in Manila Bay is on average 1.5 to $2.5\text{ cm}$ per year, and land subsidence caused by groundwater over-extraction is occurring in several areas \parencite{RoyalHaskoningDHV}.
+
+\subsection{Linguistic Context and Geographic Scope Selection}
+
+There are four main Tagalog dialects: Northern Tagalog Dialects of Bulacan (Bulacan \& Nueva Ecija) and Bataan (Bataan \& Zambales), Central Tagalog Dialects of Laguna (Laguna \& Rizal) and Metro Manila, Southern Tagalog Dialects of Batangas (Cavite \& Batangas), Lubang (Mindoro), and Tayabas (Aurora, Camarines Norte, Camarines Sur, \& Quezon), and lastly Tagalog Dialects of Marinduque \parencite{Adriano2022}.
+
+The North Manila Bay Delta shares common hydrometeorological traits of natural disaster frequencies and structural instances. It consists of minor parts of Bataan, Pampanga, Bulacan, and CAMANAVA. Bataan was omitted from this study due to minor inclusions on the delta; while Pampanga was omitted due to not being included in major Tagalog dialects and having a different linguistic profile among its speakers. That leaves Bulacan and CAMANAVA as the geographic scope of the study due to sharing the same hydrometeorological profile and relatively similar linguistic profile of Tagalog (Northern and Central dialect), English, and Taglish.
+
+\section{Review of Related Studies}
+
+\subsection{Global Evaluations of Text Processing in Disaster Management}
+
+Empirical implementations across Asian and global disaster contexts demonstrate
+the practicality of combining probabilistic topic modeling with
+transformer-based deep learning to process high-velocity unstructured social
+text feeds. \parencite{zang2026} utilized the LDA topic modeling algorithm
+alongside prompt-BERT models to process unorganized short-text feeds during the
+2023 Hebei Floods in China, proving that hybrid architectures effectively
+categorize heterogeneous social discourse into actionable thematic clusters for
+crisis managers.
+
+Evaluating short-text social streams during major hydrometeorological events
+further highlights the necessity of strict statistical metric validation.
+\parencite{anggara2025} applied LDA topic modeling to Twitter data during the 2024
+West Sumatra flash floods, demonstrating that evaluating topic coherence
+scores ($C_U$) across various topic ranks ($K$) isolates the optimal matrix
+structure, ensuring distinct and semantically meaningful categories without
+topic overlap.
+
+In Western disaster management contexts, feature extraction and topic modeling
+have proven vital for real-time situational awareness. \parencite{mihunov2022} used
+LDA to analyze disaster impact feeds during Hurricane Harvey, successfully
+isolating 9 high-priority target topic vectors out of 24 computed themes to
+directly map physical infrastructure damage, power grid outages, and localized
+civilian entrapment locations.
+
+Further demonstrating the efficacy of localized text extraction during severe
+flooding in Southeast Asia, \parencite{rahmadan2020} investigated the Jakarta flash
+flood domain by applying Latent Dirichlet Allocation (LDA) to high-velocity
+Twitter streams. Their research successfully clustered unstructured text feeds
+by localized impact, utilizing the algorithm to map explicit target tokens that
+detailed specific flooded neighborhoods, severe water depth thresholds, and
+immediate rescue dispatch needs. Because the hydrology and social media usage
+in Jakarta closely mirror the urban--rural challenges found in Philippine
+municipalities, this study proves that probabilistic generative models can
+segment baseline social media noise from urgent environmental disaster events
+to directly support local municipal response.
+
+\subsection{Local Applications of Topic Modeling and Sentiment Analysis in
+	Crisis Studies}
+
+In a local context, Visayan scholars from the University of San Carlos of Cebu
+and Cebu Technological University utilized Latent Dirichlet Allocation (LDA)
+and the Hierarchical Dirichlet Process (HDP) to model a qualitative risk
+assessment for disaster risk reduction response. They attained qualitative data
+via the disaster risk reduction suggestions of Malasakit, a crowd-sourced
+disaster initiative across barangays focusing on how to service vulnerable
+populations \parencite{gorro2021}.
+
+Before conducting the LDA, they performed data cleaning to remove special
+characters, stop words, and strings under four letters. They then vectorized
+their entries as a computational prerequisite. For LDA, they measured
+perplexity scores to determine how stable the machine learning model was in the
+face of uncertainty, where a lower score indicated better performance. After
+fitting the models, they discovered the general structural trends: solid waste
+management, relief and emergency planning, and early warning systems were the
+most heavily weighted topic sets \parencite{gorro2021}. This study provides a
+quantitative approach to determining the optimal number of topics based on
+perplexity scores, which is a valuable methodological addition to local
+studies.
+
+Another local study utilized LDA in the context of the COVID-19 pandemic in
+Cagayan Valley, placing a specific emphasis on sentiment analysis. The study
+utilized Facebook posts from government agencies between March and June 2020,
+applying standard preprocessing protocols. Using a Java package called Mallet,
+they fed the data into an LDA model to extract core topics. The generated topic
+sets went through labeling to identify common themes with the help of the
+Municipal Disaster Risk Reduction and Management Office (MDRRMO) of Saguday,
+Quirino, utilizing six annotated tests judged by multiple public and private
+sector experts. The study identified five overarching themes capturing public
+sentiment: COVID-19 testing, relief operations, contact tracing, government
+programs, and community quarantine \parencite{pagudpud2020}.
+
+A separate study conducted by Silliman University researchers in Dumaguete City
+sourced qualitative data from Twitter (X) to conduct topic modeling and
+document clustering regarding localized sentiments. Utilizing the Twitter4j
+API, the program gathered 99,942 tweets between 2015 and 2016. After
+preprocessing the mixed-language texts (Tagalog and English) utilizing
+string-searching and dictionary-matching algorithms (Aho--Corasick and
+Damerau--Levenshtein Distance), 22,633 valid tweets remained for training and
+testing \parencite{montenegro2018}. The researchers utilized Gibbs Sampling to
+incorporate observed data into the LDA sampling process. Finally, they
+conducted sentiment analysis via Support Vector Machines (SVM) to classify the
+texts into positive, negative, or neutral sentiments. While the SVM approach
+proved functional, it highlights the methodological progression toward modern
+hybrid architectures and joint matrices that provide deeper contextual
+understanding than classical SVMs \parencite{montenegro2018}.
+
+\subsection{Related Undergraduate Theses in Bulacan State University}
+
+Bulacan State University has been instrumental in the development of
+technological applications related to disaster management through various
+undergraduate studies. An example of this is the study entitled
+\emph{LokaMatika: Two-Way Location Sharing and Automated Emergency Response
+	Systems with Trilateration and Kinematics} \parencite{manalo2024}. This study
+designed a mobile application utilizing Dart and Flutter that allows two-way
+location sharing to help users report and track the locations of vulnerable
+individuals during emergencies. The researchers utilized ISO/IEC 25010 to
+evaluate software quality with 243 respondents.
+
+Another related study is \emph{READI: A Modern Way of Saving Lives Using
+	Mobile Application: Real-Time Emergency Alerts and Disaster Information}
+\parencite{deguzman2019}. The researchers developed a mobile application providing
+real-time emergency alerts and awareness materials to the public, emphasizing
+the importance of mobile technology in improving communication during
+emergencies.
+
+While both studies successfully provided a technological basis for disaster
+management, they focused strictly on the manual emergency response and
+communication aspects. Neither study attempted to implement natural language
+processing pipelines, such as contextual Joint Matrices or generative AI Large
+Language Models (LLMs), to automatically analyze, cluster, and score sentiments
+on the unstructured text data inherent to disaster communications.
+
+\section{Synthesis of Literature and Studies, Research Gaps, and Justification}
+
+Literature at the international, national, and institutional levels
+demonstrates the effective use of probabilistic modeling, specifically Latent
+Dirichlet Allocation (LDA) and contextual transformers, in processing
+unstructured data into highly interpretable thematic clusters.
+
+Although existing studies have demonstrated significant advancements, critical
+computational gaps remain. The institutional studies reviewed rely primarily on
+sensor data, manual user inputs, and GPS hardware, leaving them unequipped to
+automatically parse high-velocity, multilingual disaster reports. Conversely,
+international studies successfully integrate Natural Language Processing (NLP)
+and contextual embeddings, but these methodologies have yet to be rigorously
+benchmarked for localized Philippine deployment. Local Disaster Risk Reduction
+and Management Offices (LDRRMOs) currently lack the computational
+infrastructure to process mixed-syntax Taglish text at scale.
+
+The present study seeks to bridge this gap through a novel comparative
+methodology. Instead of relying on classical classifiers or manual GPS
+tracking, the proposed framework introduces a Joint Matrix architecture
+integrating LDA topic probabilities with \xlmr{} contextual embeddings to
+preserve interpretability while mapping urgent distress signals. By benchmarking
+this hybrid system against a state-of-the-art open-weight dense large language
+model (Qwen3-1.7B-Instruct) operating under few-shot conditions, this research
+provides the necessary empirical validation to integrate advanced, automated
+semantic and sentiment modeling of natural disaster-related social media posts.

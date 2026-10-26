@@ -1,0 +1,327 @@
+\chapter{The Problem and Its Background}
+
+This chapter highlights the critical challenges currently hindering effective
+disaster management in Bulacan and CAMANAVA, specifically focusing on the
+inefficiency of traditional response mechanisms in processing the massive
+influx of unstructured digital communications during disasters and
+emergencies. This provides the contextual background and foundation for
+implementing this computational solution within the local disaster response
+infrastructure.
+
+\section{Background of the Study}
+
+During severe hydrometeorological events, local disaster management offices
+are consistently overwhelmed by a massive influx of unorganized, high-velocity
+digital communications from affected citizens. While these localized text
+feeds contain critical, actionable information regarding immediate rescue
+needs and structural damage, the sheer volume and unstructured nature of the
+data render manual processing highly inefficient. To address this information
+bottleneck, modern computational semantics relies on vector space mechanics to
+mathematically transform qualitative narrative posts into numeric matrices. As
+established by \parencite{mihunov2022}, mapping unstructured disaster text into a
+high-dimensional geometric space allows automated systems to systematically
+extract abstract semantic relationships. This mathematical transformation
+reduces chaotic crisis communications into distinct spatial coordinates,
+enabling the systematic and automated categorization of emergency surveillance
+data.
+
+Building upon this mathematical vectorization, recent computational research
+has successfully deployed probabilistic generative models to filter, group,
+and route these high-volume disaster reports in real time. Previous empirical
+studies demonstrate that algorithms such as Latent Dirichlet Allocation (LDA)
+effectively manage the linguistic noise, broken syntax, and data sparsity
+inherent in online text feeds during acute natural hazards. For instance,
+during the 2023 Hebei Floods, \parencite{zang2026} utilized LDA topic modeling to
+process unorganized short-text feeds, proving that probabilistic topic
+distributions can successfully categorize heterogeneous public discourse into
+actionable, distinct thematic clusters. By treating each text report as a
+probabilistic mixture of latent topics rather than relying on rigid
+string-matching, these models allow crisis managers to bypass information
+overload and automatically isolate urgent, localized operational needs from
+general baseline noise.
+
+While these computational frameworks have demonstrated profound efficacy in
+international applications, their deployment is most critical in regions
+facing compounding, high-frequency environmental crises. The necessity for
+automated, real-time sensemaking tools becomes acutely apparent when
+contextualizing the hyper-vulnerable geographic landscape of the Philippine
+archipelago. In an environment where municipal emergency management offices
+are repeatedly overwhelmed by simultaneous localized crises, the rapid
+algorithmic extraction of actionable disaster data is not merely a logistical
+optimization, but a fundamental requirement for survival and resilience. This
+operational urgency is directly driven by the country's severe climatic
+reality.
+
+Disaster-related risks in the Philippines are numerous, as the country is
+heavily exposed to natural disasters. It is ranked eighth as the most affected
+globally by extreme weather events, and at least seventy-four (74)\% of
+Filipinos are vulnerable to multiple hazards. Among these hazards, the most
+catastrophic are tropical cyclones, flooding, storm surges, droughts,
+earthquakes, and volcanic eruptions. Climate change has caused these events to
+increase in intensity, as over the past five years the country has experienced
+destructive typhoons. These disasters have caused economic losses and
+casualties \parencite{worldbank2023}.
+
+Key challenges in mitigating these risks are the lack of coordination and
+insufficient capacity in implementing Disaster Risk Management (DRM) programs,
+as most lack integration and cohesiveness to respond to the needs of those
+exposed to disasters. Major causes are the lack of execution capacity of
+relevant authorities to efficiently mitigate and address adverse events; the
+limited coordination between relevant authorities to tackle the increasing
+magnitude and frequency of disasters; and the overlapping functions,
+competencies, and duplications of roles causing confusion, delays, and
+resource misallocations. A core concern is that the timeline of post-disaster
+response takes a long time and delays rehabilitation and recovery
+\parencite{worldbank2023}.
+
+While social media is utilized for disaster response, the way it is utilized,
+and in what context, might point to a more nuanced landscape regarding its
+limitations and the nature of its usage by residents in a certain area. A
+literature review by \parencite{inferio2025} found that social media disaster
+response is not uniformly developed for all aspects, with man-made disasters
+not as developed compared to natural disasters in utilization, while COVID-19
+and vegetation fires have not been explored as a means for disaster response.
+
+Its utilization was heavy during response and recovery and minimal during preparation. 
+Misinformation, noise, and infrastructure limitations are a concern. It is highly effective
+in coordinating recovery and providing updates, provided they are filtered
+between the informative and the controversial \parencite{inferio2025}---possibly
+implying that sophisticated ways to process information and deliver actionable
+insights to stakeholders could help communities become more resilient and
+responsive in conducting disaster response.
+
+To bridge this gap, this study proposes \emph{SAKLOLO: A Hybrid
+	Semantic-Probabilistic Framework for Analysing Social Media Emergency Feeds in
+	Bulacan and CAMANAVA}. This framework introduces a novel hybrid architecture
+(\sysA) that combines Count Vectorization, Latent Dirichlet Allocation (LDA),
+and pre-trained \xlmr-based contextual representations into a Joint Matrix.
+This approach preserves mathematical interpretability while achieving high
+classification accuracy on chaotic, mixed-syntax Taglish text. Furthermore,
+the study conducts a rigorous comparative benchmark of this lightweight system
+against a state-of-the-art open-weight dense transformer (\sysB: Qwen3-1.7B\\
+-Instruct-Q4\_K\_M) operating under few-shot prompting conditions, 
+which is also expected to yield a joint matrix.
+
+The study is focuses on modern-day climate risks and high social media
+penetration in the Philippines, as understanding the digital sentiments and
+operational needs of vulnerable communities is crucial. This automated
+processing allows for a tailored response to specific community needs rather
+than a generalized strategy, enabling informed resource allocation of goods,
+effort, and time. By benchmarking deterministic and probabilistic machine
+learning models as a relative reference against generative AI LLMs, the study ensures that
+disaster management offices can focus on their core competencies effective and well aligned 
+information processing and dissemination. Rather than manually parsing through an overwhelming
+influx of digital noise.
+
+\section{Statement of the Problem}
+
+This study evaluates and compares the performance of a hybrid joint matrix
+pipeline as the baseline (\sysA) against a state-of-the-art large language
+model joint matrix output (Qwen3-1.7B\\-Instruct-Q4\_K\_M) in processing unstructured disaster-related
+text to generate actionable sentiment classifications and latent topic
+discovery for the Bulacan and CAMANAVA regions. Specifically, it seeks to
+answer the following questions:
+
+\begin{enumerate}[label=\arabic*.]
+	\item Under a relativist comparative evaluation framework, how does \sysB{}
+	(Qwen3-1.7B-Instruct-Q4\_K\_M) perform relative to \sysA{} (LDA + \xlmr{} Joint Matrix),
+	which serves as the relative reference standard, when both categorize
+	the same corpus of disaster-related textual documents into Negative,
+	Neutral, and Positive sentiments, as measured through:
+	\begin{enumerate}[label=\alph*.]
+		\item Reference-relative Macro-F1 Score;
+		\item Inter-system agreement with Cohen's Kappa.
+	\end{enumerate}
+	
+	\item Under Bivariate Analysis, to what extent do the latent topic structures from the joint matrix of
+	both systems show statistically significant association with sentiment
+	classifications, and which system produces the joint matrix with the
+	tighter topic--sentiment dependency, as measured by:
+	\begin{enumerate}[label=\alph*.]
+		\item Chi-Square to establish baseline existence of relationship between
+		latent topics and sentiment classifications via goodness of fit test;
+		\item Cramer's V to determine strength of association between the two.
+	\end{enumerate}
+	
+	\item Is there a statistically significant operational difference between
+	the outputs of \sysA{} and \sysB{} when subjected to a blind
+	comparative evaluation by a purposive stakeholder panel (DRRM
+	operational officers and academic technical experts), as measured
+	through:
+	\begin{enumerate}[label=\alph*.]
+		\item Stakeholder Agreement Rate;
+		\item McNemar's Test (with continuity correction).
+	\end{enumerate}
+\end{enumerate}
+
+\section{Significance of the Study}
+
+\emph{SAKLOLO: A Hybrid Semantic-Probabilistic Framework for Analysing Social
+	Media Emergency Feeds in Bulacan and CAMANAVA} is a computational information
+system for disaster response decision-making. It evaluates how unstructured
+information in disaster situations can be optimally processed using a Hybrid
+LDA + \xlmr{} Joint Matrix baseline compared against a \qwen{} joint matrix
+pipeline. By extracting meaningful information---including semantic themes and
+contextual sentiment---from unstructured emergency feeds, the study establishes
+a mathematically rigorous framework to understand a disaster and respond to it
+effectively. This study will benefit several individuals and institutions:
+
+\begin{description}[style=sameline,leftmargin=0pt]
+	\item[Bulacan and CAMANAVA Disaster Response Offices.] The study is
+	intended to aid disaster response offices in organizing and structuring the
+	unorganized disaster-related information they receive through social media
+	posts. By determining whether a lightweight hybrid architecture or a massive
+	open-weight transformer is more operationally viable for joint latent
+	semantic analysis and its respective sentiment, DRRMO employees are provided
+	with an optimized method to see what disaster-related posts exist and what
+	the sentiments regarding these posts are as received by the concerned
+	communities. This enables personnel to better understand localized field
+	problems and provides them with empirical insight when planning response
+	strategies and disseminating information.
+	
+	\item[Local Government Units (LGUs).] The study assists LGUs in understand-
+	ing emergency situations occurring in their specific jurisdictions by
+	automatically structuring localized reports. Identifying the most urgent
+	issues through sentiment and latent semantic analysis helps LGUs gain
+	insights into the current state and emotions their respective citizens have
+	during natural disasters. This will aid in assessing the disaster situation
+	locally and assist LGUs in making decisions that are more aligned, and in
+	conducting messaging that takes into consideration how their citizens talk
+	about sets of words that have latent themes, and what their sentiment is
+	around those co-occurring sets of words in social media posts.
+	
+	\item[Emergency Responders.] The study may be beneficial to emergency
+	responders by providing disaster-related information in a more organized
+	format. As opposed to reviewing social media posts as isolated and
+	unorganized streams of information, responders can evaluate co-occurring
+	words, their sentiments, and how their respective joint matrices relate to
+	each other. This organized intelligence enables emergency responders to make
+	highly informed, emotionally intelligent, and community-aligned messaging
+	that aids disaster response.
+	
+	\item[Researchers and Future Developers.] The study acts as a mathematical
+	and computational foundation for those interested in natural language
+	processing within high-stress, low-resource languages (Taglish).
+	Specifically, the novel joint matrix approach combining LDA topic
+	probabilities with \xlmr{} contextual embeddings provides reproducible
+	evidence on hybrid architecture performance versus dense large language
+	models. The integration of Bayesian inference, information theory, and
+	comparative deep learning establishes a robust baseline for future researchers
+	pursuing text optimization in Philippine disaster management.
+\end{description}
+
+\section{Scope and Delimitation}
+
+This study focuses on the comparative quantitative evaluation of two
+computational systems designed to perform latent topics and sentiment analysis on
+unstructured disaster-related reports. \sysA{} is a hybrid pipeline utilizing
+Count Vectorization, Latent Dirichlet Allocation (LDA), and \xlmr{}
+contextual representations combined into a Joint Matrix as the baseline system
+of a same-measurement comparative analysis. \sysB{} utilizes \qwen, an
+open-weight large language model, operating under few-shot prompting
+conditions.
+
+The geographic scope of the study covers the province of Bulacan and the
+CAMANAVA region (Caloocan, Malabon, Navotas, and Valenzuela). The temporal
+scope of the corpus spans a five-year period from 2020 to 2025. Data collection
+is strictly limited to publicly accessible Facebook posts and comments written
+in Tagalog, English, and Taglish that meet the established inclusion criteria
+regarding natural disasters (e.g., typhoons, flooding).
+
+The evaluation framework is strictly delimited to specific mathematical and
+statistical metrics. Classification performance is measured solely using Relative-reference
+Precision, Recall, Macro-F1, and Cohen's Kappa. Joint Matrix analysis is to be
+conducted to analytically test the categorical associations of words to their
+sentiment using Chi-squared, and Cramer's V. The operational
+utility of the systems is evaluated through a purposive blind stakeholder panel
+assessed using Agreement Rates and McNemar's Test.
+
+The study does not involve real-time integration into actual DRRM command
+centers, \textbf{nor does it include the physical dispatch of rescue teams}. It performs
+social media post backend aggregation with respect to the Data Privacy Act of
+2012; all sampled posts and comments are anonymized and protect the identity
+of the Facebook users. \sysA{} features a pre-trained \xlmr{}
+(\texttt{cardiffnlp/twitter-XLM-RoBERTa-base-sentiment}) that features
+approximately one million Tagalog social media posts as part of its training
+dataset alongside vast numbers of other languages.
+
+Regarding system implementation, the backend computational pipeline is 
+encapsulated within a \textbf{localized analytical web dashboard} developed 
+using a lightweight Python-based web framework (e.g., Streamlit). This 
+dashboard is strictly delimited to an offline, local-host analytical tool 
+designed for the researchers and the expert stakeholder panel. It serves 
+to visualize the Joint Matrices, topic distributions, and sentiment clusters, 
+and acts as the digital instrument for the blind stakeholder evaluation 
+(Research Question 3). This study does not produce a publicly hosted, 
+enterprise-grade web application, nor does it include real-time cloud 
+deployment, multi-user authentication, or live integration into actual 
+LGU command centers.
+
+\section{Definition of Terms}
+
+\begin{description}[style=sameline,leftmargin=0pt]
+	\item[Agreement Rate.] A statistical metric utilized during the blind
+	stakeholder evaluation to determine the proportion of assessments in which
+	the human expert agrees with the system-generated output.
+	
+	\item[Cohen's Kappa ($\kappa$).] A statistical measure used to assess the
+	inter-system non-probabilistic classification agreement between \sysA{} and
+	\sysB, factoring in the possibility of agreement occurring by chance.
+	
+	\item[F1-Score / Macro-F1.] A metric that balances precision and recall by
+	taking their harmonic mean. Macro-F1 calculates the score for each ternary
+	sentiment category (Negative, Neutral, Positive) and assigns equal weight to
+	evaluate overall classification performance.
+	
+	\item[Qwen3.] An open-weight large language model family developed by
+	Alibaba Group that features dense and mixture-of-experts architectures with
+	built-in hybrid thinking modes.
+	
+	\item[Joint Matrix.] The novel computational architecture in \sysA{} that
+	mathematically concatenates lexical representations (Count Vectorization),
+	probabilistic topic distributions (LDA), and contextual word embeddings
+	(\xlmr) into a single unified matrix for sentiment classification.
+	
+	\item[Latent Dirichlet Allocation (LDA).] A Bayesian probabilistic
+	generative model used in \sysA{} to derive underlying topic-related
+	representations and thematic clusters from the processed disaster documents.
+	
+	\item[McNemar's Test.] A non-parametric statistical test used during the
+	stakeholder evaluation to analyze paired binary results with continuity
+	correction, assessing if there is a statistically significant marginal
+	difference between the outputs of the two systems.
+	
+	\item[XLM-RoBERTa (Robustly Optimized BERT Pretraining Approach).] A
+	transformer-based machine learning technique utilized in \sysA{} to extract
+	deep contextual language representations from the unstructured text corpus
+	that can be used in a multilingual setting.
+	
+	\item[Taglish.] A Philippine code-switching variety characterized by the
+	intra-sentential alternation of Tagalog/Filipino and English lexical and
+	syntactic elements, prevalent in unstructured social media and emergency
+	text feeds.
+	
+	\item[Few-Shot Prompting.] An inference paradigm utilized by \sysB{}
+	(Qwen3-1.7B-Instruct-Q4\_K\_M) in which the model performs sentiment and latent semantic analysis
+	based on natural-language task descriptions and is given some task-specific
+	training examples.
+	
+	\item[Sentiment Analysis.]  is the computational study of opinions,
+	evaluations, and emotions in text. In this study, each disaster-related 
+	post gets one label: Negative, Neutral, or Positive. Paired with a post’s
+	latent topic, the label shows what individuals are discussing and how 
+	they feel about it. The three-label scheme is coarse and does not 
+	separate emotions like fear and anger.
+	
+	\item[latent topics / latent topic structures.]  is the unobserved thematic
+	patterns within a large collection of unstructured text corpus. In this study
+	it is the cluster of co-occuring words that have a common theme.
+	
+	
+	\item[UMass Coherence.] A topic coherence metric that measures the
+	document-level co-occurrence of a topic's top-$N$ words. Values are negative;
+	higher values (closer to zero) indicate more coherent topics. Used in this
+	study to select $K$, the number of latent topics in Latent Dirichlet
+	Allocation.
+	
+\end{description}
