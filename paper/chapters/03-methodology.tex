@@ -1,680 +1,3 @@
-\documentclass[12pt,a4paper]{report}
-
-% ----------------------------- PACKAGES ----------------------------------
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{fontaxes}
-\usepackage{amsmath,amssymb,bm}
-\usepackage{newtxtext,newtxmath}          % Times-equivalent; fall back to \usepackage{times}
-\usepackage[letterpaper,top=1in,bottom=1in,left=1.5in,right=1in]{geometry}
-\usepackage{setspace}
-\usepackage{booktabs,tabularx,array}
-\usepackage{graphicx}
-\usepackage{longtable}
-\usepackage{enumitem}
-\usepackage{caption}
-\usepackage{titlesec}
-
-\usepackage{etoolbox}
-\usepackage[hidelinks]{hyperref}
-\usepackage{diagbox}
-
-\usepackage[style=apa, backend=biber]{biblatex}
-\addbibresource{reference.bib} 
-
-\usepackage{listings}
-\usepackage{xcolor}
-
-% ----------------------------- FORMATTING --------------------------------
-\doublespacing
-\AtBeginEnvironment{tabular}{\setstretch{1.0}}
-\AtBeginEnvironment{tabularx}{\setstretch{1.0}}
-\AtBeginEnvironment{figure}{\setstretch{1.0}}
-
-\titleformat{\chapter}[display]
-  {\normalfont\Large\bfseries\centering}
-  {CHAPTER~\Roman{chapter}}
-  {0.6cm}
-  {\centering\MakeUppercase}
-\titlespacing*{\chapter}{0pt}{0pt}{2pc}
-
-\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\itshape}{\thesubsubsection}{1em}{}
-\setcounter{tocdepth}{2}
-
-\lstset{
-	basicstyle=\ttfamily\small, % Slightly smaller font helps fit text
-	breaklines=true,            % Enables line wrapping
-	showspaces=false,           % Hides the visible space glyphs (␣)
-	showstringspaces=false,
-	xleftmargin=0pt,            % Resets left margin offset
-	xrightmargin=0pt,
-	gobble=0
-}
-
-\captionsetup[table]{position=top,font=normalsize,labelfont=bf}
-\captionsetup[figure]{font=normalsize,labelfont=bf}
-
-% ----------------------------- MACROS ------------------------------------
-\newcommand{\sysA}{\textbf{System A}}
-\newcommand{\sysB}{\textbf{System B}}
-\newcommand{\qwen}{\texttt{Qwen3-1.7B-Instruct-Q4\_K\_M}}
-\newcommand{\xlmr}{XLM-RoBERTa}
-\newcommand{\topic}[1]{\tau_{#1}}
-\newcommand{\sent}[1]{\sigma_{#1}}
-
-\begin{document}
-
-% ============================== TITLE PAGE ===============================
-\begin{titlepage}
-\centering
-{\Large\bfseries SAKLOLO: A Hybrid Semantic-Probabilistic Framework for
-Analysing Social Media Emergency Feeds in Bulacan and CAMANAVA\par}
-\vspace{2.5cm}
-
-An Undergraduate Proposal Presented to the\\
-Faculty of the College of Science\\
-Bulacan State University\\
-City of Malolos, Bulacan\\[1.2cm]
-
-In Partial Fulfillment of the Requirements for the\\
-Degree Bachelor of Science in Mathematics\\
-with Specialization in Computer Science\\[2.5cm]
-
-By\\[0.6cm]
-Alvarado, Mariel\\ %Alvarado, Mariel
-Dela Paz, Jaizel\\ %Dela Paz, Jaizel
-Jornal, Juliana Rojimherie B.\\ %Jornal, Juliana Rojimherie B.
-Landicho, William James N.\\[2.5cm] %Landicho, William James N.
-
-\end{titlepage}
-
-\tableofcontents
-
-% =========================================================================
-\chapter{The Problem and Its Background}
-% =========================================================================
-
-This chapter highlights the critical challenges currently hindering effective
-disaster management in Bulacan and CAMANAVA, specifically focusing on the
-inefficiency of traditional response mechanisms in processing the massive
-influx of unstructured digital communications during disasters and
-emergencies. This provides the contextual background and foundation for
-implementing this computational solution within the local disaster response
-infrastructure.
-
-\section{Background of the Study}
-
-During severe hydrometeorological events, local disaster management offices
-are consistently overwhelmed by a massive influx of unorganized, high-velocity
-digital communications from affected citizens. While these localized text
-feeds contain critical, actionable information regarding immediate rescue
-needs and structural damage, the sheer volume and unstructured nature of the
-data render manual processing highly inefficient. To address this information
-bottleneck, modern computational semantics relies on vector space mechanics to
-mathematically transform qualitative narrative posts into numeric matrices. As
-established by \parencite{mihunov2022}, mapping unstructured disaster text into a
-high-dimensional geometric space allows automated systems to systematically
-extract abstract semantic relationships. This mathematical transformation
-reduces chaotic crisis communications into distinct spatial coordinates,
-enabling the systematic and automated categorization of emergency surveillance
-data.
-
-Building upon this mathematical vectorization, recent computational research
-has successfully deployed probabilistic generative models to filter, group,
-and route these high-volume disaster reports in real time. Previous empirical
-studies demonstrate that algorithms such as Latent Dirichlet Allocation (LDA)
-effectively manage the linguistic noise, broken syntax, and data sparsity
-inherent in online text feeds during acute natural hazards. For instance,
-during the 2023 Hebei Floods, \parencite{zang2026} utilized LDA topic modeling to
-process unorganized short-text feeds, proving that probabilistic topic
-distributions can successfully categorize heterogeneous public discourse into
-actionable, distinct thematic clusters. By treating each text report as a
-probabilistic mixture of latent topics rather than relying on rigid
-string-matching, these models allow crisis managers to bypass information
-overload and automatically isolate urgent, localized operational needs from
-general baseline noise.
-
-While these computational frameworks have demonstrated profound efficacy in
-international applications, their deployment is most critical in regions
-facing compounding, high-frequency environmental crises. The necessity for
-automated, real-time sensemaking tools becomes acutely apparent when
-contextualizing the hyper-vulnerable geographic landscape of the Philippine
-archipelago. In an environment where municipal emergency management offices
-are repeatedly overwhelmed by simultaneous localized crises, the rapid
-algorithmic extraction of actionable disaster data is not merely a logistical
-optimization, but a fundamental requirement for survival and resilience. This
-operational urgency is directly driven by the country's severe climatic
-reality.
-
-Disaster-related risks in the Philippines are numerous, as the country is
-heavily exposed to natural disasters. It is ranked eighth as the most affected
-globally by extreme weather events, and at least seventy-four (74)\% of
-Filipinos are vulnerable to multiple hazards. Among these hazards, the most
-catastrophic are tropical cyclones, flooding, storm surges, droughts,
-earthquakes, and volcanic eruptions. Climate change has caused these events to
-increase in intensity, as over the past five years the country has experienced
-destructive typhoons. These disasters have caused economic losses and
-casualties \parencite{worldbank2023}.
-
-Key challenges in mitigating these risks are the lack of coordination and
-insufficient capacity in implementing Disaster Risk Management (DRM) programs,
-as most lack integration and cohesiveness to respond to the needs of those
-exposed to disasters. Major causes are the lack of execution capacity of
-relevant authorities to efficiently mitigate and address adverse events; the
-limited coordination between relevant authorities to tackle the increasing
-magnitude and frequency of disasters; and the overlapping functions,
-competencies, and duplications of roles causing confusion, delays, and
-resource misallocations. A core concern is that the timeline of post-disaster
-response takes a long time and delays rehabilitation and recovery
-\parencite{worldbank2023}.
-
-While social media is utilized for disaster response, the way it is utilized,
-and in what context, might point to a more nuanced landscape regarding its
-limitations and the nature of its usage by residents in a certain area. A
-literature review by \parencite{inferio2025} found that social media disaster
-response is not uniformly developed for all aspects, with man-made disasters
-not as developed compared to natural disasters in utilization, while COVID-19
-and vegetation fires have not been explored as a means for disaster response.
-
-Its utilization was heavy during response and recovery and minimal during preparation. 
-Misinformation, noise, and infrastructure limitations are a concern. It is highly effective
-in coordinating recovery and providing updates, provided they are filtered
-between the informative and the controversial \parencite{inferio2025}---possibly
-implying that sophisticated ways to process information and deliver actionable
-insights to stakeholders could help communities become more resilient and
-responsive in conducting disaster response.
-
-To bridge this gap, this study proposes \emph{SAKLOLO: A Hybrid
-Semantic-Probabilistic Framework for Analysing Social Media Emergency Feeds in
-Bulacan and CAMANAVA}. This framework introduces a novel hybrid architecture
-(\sysA) that combines Count Vectorization, Latent Dirichlet Allocation (LDA),
-and pre-trained \xlmr-based contextual representations into a Joint Matrix.
-This approach preserves mathematical interpretability while achieving high
-classification accuracy on chaotic, mixed-syntax Taglish text. Furthermore,
-the study conducts a rigorous comparative benchmark of this lightweight system
-against a state-of-the-art open-weight dense transformer (\sysB: Qwen3-1.7B\\
--Instruct-Q4\_K\_M) operating under few-shot prompting conditions, 
-which is also expected to yield a joint matrix.
-
-The study is focuses on modern-day climate risks and high social media
-penetration in the Philippines, as understanding the digital sentiments and
-operational needs of vulnerable communities is crucial. This automated
-processing allows for a tailored response to specific community needs rather
-than a generalized strategy, enabling informed resource allocation of goods,
-effort, and time. By benchmarking deterministic and probabilistic machine
-learning models as a relative reference against generative AI LLMs, the study ensures that
-disaster management offices can focus on their core competencies effective and well aligned 
-information processing and dissemination. Rather than manually parsing through an overwhelming
-influx of digital noise.
-
-\section{Statement of the Problem}
-
-This study evaluates and compares the performance of a hybrid joint matrix
-pipeline as the baseline (\sysA) against a state-of-the-art large language
-model joint matrix output (Qwen3-1.7B\\-Instruct-Q4\_K\_M) in processing unstructured disaster-related
-text to generate actionable sentiment classifications and latent topic
-discovery for the Bulacan and CAMANAVA regions. Specifically, it seeks to
-answer the following questions:
-
-\begin{enumerate}[label=\arabic*.]
-  \item Under a relativist comparative evaluation framework, how does \sysB{}
-        (Qwen3-1.7B-Instruct-Q4\_K\_M) perform relative to \sysA{} (LDA + \xlmr{} Joint Matrix),
-        which serves as the relative reference standard, when both categorize
-        the same corpus of disaster-related textual documents into Negative,
-        Neutral, and Positive sentiments, as measured through:
-        \begin{enumerate}[label=\alph*.]
-          \item Reference-relative Macro-F1 Score;
-          \item Inter-system agreement with Cohen's Kappa.
-        \end{enumerate}
-
-  \item Under Bivariate Analysis, to what extent do the latent topic structures from the joint matrix of
-        both systems show statistically significant association with sentiment
-        classifications, and which system produces the joint matrix with the
-        tighter topic--sentiment dependency, as measured by:
-        \begin{enumerate}[label=\alph*.]
-          \item Chi-Square to establish baseline existence of relationship between
-          latent topics and sentiment classifications via goodness of fit test;
-          \item Cramer's V to determine strength of association between the two.
-        \end{enumerate}
-
-  \item Is there a statistically significant operational difference between
-        the outputs of \sysA{} and \sysB{} when subjected to a blind
-        comparative evaluation by a purposive stakeholder panel (DRRM
-        operational officers and academic technical experts), as measured
-        through:
-        \begin{enumerate}[label=\alph*.]
-          \item Stakeholder Agreement Rate;
-          \item McNemar's Test (with continuity correction).
-        \end{enumerate}
-\end{enumerate}
-
-\section{Significance of the Study}
-
-\emph{SAKLOLO: A Hybrid Semantic-Probabilistic Framework for Analysing Social
-Media Emergency Feeds in Bulacan and CAMANAVA} is a computational information
-system for disaster response decision-making. It evaluates how unstructured
-information in disaster situations can be optimally processed using a Hybrid
-LDA + \xlmr{} Joint Matrix baseline compared against a \qwen{} joint matrix
-pipeline. By extracting meaningful information---including semantic themes and
-contextual sentiment---from unstructured emergency feeds, the study establishes
-a mathematically rigorous framework to understand a disaster and respond to it
-effectively. This study will benefit several individuals and institutions:
-
-\begin{description}[style=sameline,leftmargin=0pt]
-  \item[Bulacan and CAMANAVA Disaster Response Offices.] The study is
-  intended to aid disaster response offices in organizing and structuring the
-  unorganized disaster-related information they receive through social media
-  posts. By determining whether a lightweight hybrid architecture or a massive
-  open-weight transformer is more operationally viable for joint latent
-  semantic analysis and its respective sentiment, DRRMO employees are provided
-  with an optimized method to see what disaster-related posts exist and what
-  the sentiments regarding these posts are as received by the concerned
-  communities. This enables personnel to better understand localized field
-  problems and provides them with empirical insight when planning response
-  strategies and disseminating information.
-
-  \item[Local Government Units (LGUs).] The study assists LGUs in understand-
-  ing emergency situations occurring in their specific jurisdictions by
-  automatically structuring localized reports. Identifying the most urgent
-  issues through sentiment and latent semantic analysis helps LGUs gain
-  insights into the current state and emotions their respective citizens have
-  during natural disasters. This will aid in assessing the disaster situation
-  locally and assist LGUs in making decisions that are more aligned, and in
-  conducting messaging that takes into consideration how their citizens talk
-  about sets of words that have latent themes, and what their sentiment is
-  around those co-occurring sets of words in social media posts.
-
-  \item[Emergency Responders.] The study may be beneficial to emergency
-  responders by providing disaster-related information in a more organized
-  format. As opposed to reviewing social media posts as isolated and
-  unorganized streams of information, responders can evaluate co-occurring
-  words, their sentiments, and how their respective joint matrices relate to
-  each other. This organized intelligence enables emergency responders to make
-  highly informed, emotionally intelligent, and community-aligned messaging
-  that aids disaster response.
-
-  \item[Researchers and Future Developers.] The study acts as a mathematical
-  and computational foundation for those interested in natural language
-  processing within high-stress, low-resource languages (Taglish).
-  Specifically, the novel joint matrix approach combining LDA topic
-  probabilities with \xlmr{} contextual embeddings provides reproducible
-  evidence on hybrid architecture performance versus dense large language
-  models. The integration of Bayesian inference, information theory, and
-  comparative deep learning establishes a robust baseline for future researchers
-  pursuing text optimization in Philippine disaster management.
-\end{description}
-
-\section{Scope and Delimitation}
-
-This study focuses on the comparative quantitative evaluation of two
-computational systems designed to perform latent topics and sentiment analysis on
-unstructured disaster-related reports. \sysA{} is a hybrid pipeline utilizing
-Count Vectorization, Latent Dirichlet Allocation (LDA), and \xlmr{}
-contextual representations combined into a Joint Matrix as the baseline system
-of a same-measurement comparative analysis. \sysB{} utilizes \qwen, an
-open-weight large language model, operating under few-shot prompting
-conditions.
-
-The geographic scope of the study covers the province of Bulacan and the
-CAMANAVA region (Caloocan, Malabon, Navotas, and Valenzuela). The temporal
-scope of the corpus spans a five-year period from 2020 to 2025. Data collection
-is strictly limited to publicly accessible Facebook posts and comments written
-in Tagalog, English, and Taglish that meet the established inclusion criteria
-regarding natural disasters (e.g., typhoons, flooding).
-
-The evaluation framework is strictly delimited to specific mathematical and
-statistical metrics. Classification performance is measured solely using Relative-reference
-Precision, Recall, Macro-F1, and Cohen's Kappa. Joint Matrix analysis is to be
-conducted to analytically test the categorical associations of words to their
-sentiment using Chi-squared, and Cramer's V. The operational
-utility of the systems is evaluated through a purposive blind stakeholder panel
-assessed using Agreement Rates and McNemar's Test.
-
-The study does not involve real-time integration into actual DRRM command
-centers, \textbf{nor does it include the physical dispatch of rescue teams}. It performs
-social media post backend aggregation with respect to the Data Privacy Act of
-2012; all sampled posts and comments are anonymized and protect the identity
-of the Facebook users. \sysA{} features a pre-trained \xlmr{}
-(\texttt{cardiffnlp/twitter-XLM-RoBERTa-base-sentiment}) that features
-approximately one million Tagalog social media posts as part of its training
-dataset alongside vast numbers of other languages.
-
-Regarding system implementation, the backend computational pipeline is 
-encapsulated within a \textbf{localized analytical web dashboard} developed 
-using a lightweight Python-based web framework (e.g., Streamlit). This 
-dashboard is strictly delimited to an offline, local-host analytical tool 
-designed for the researchers and the expert stakeholder panel. It serves 
-to visualize the Joint Matrices, topic distributions, and sentiment clusters, 
-and acts as the digital instrument for the blind stakeholder evaluation 
-(Research Question 3). This study does not produce a publicly hosted, 
-enterprise-grade web application, nor does it include real-time cloud 
-deployment, multi-user authentication, or live integration into actual 
-LGU command centers.
-
-\section{Definition of Terms}
-
-\begin{description}[style=sameline,leftmargin=0pt]
-  \item[Agreement Rate.] A statistical metric utilized during the blind
-  stakeholder evaluation to determine the proportion of assessments in which
-  the human expert agrees with the system-generated output.
-
-  \item[Cohen's Kappa ($\kappa$).] A statistical measure used to assess the
-  inter-system non-probabilistic classification agreement between \sysA{} and
-  \sysB, factoring in the possibility of agreement occurring by chance.
-
-  \item[F1-Score / Macro-F1.] A metric that balances precision and recall by
-  taking their harmonic mean. Macro-F1 calculates the score for each ternary
-  sentiment category (Negative, Neutral, Positive) and assigns equal weight to
-  evaluate overall classification performance.
-
-  \item[Qwen3.] An open-weight large language model family developed by
-  Alibaba Group that features dense and mixture-of-experts architectures with
-  built-in hybrid thinking modes.
-
-  \item[Joint Matrix.] The novel computational architecture in \sysA{} that
-  mathematically concatenates lexical representations (Count Vectorization),
-  probabilistic topic distributions (LDA), and contextual word embeddings
-  (\xlmr) into a single unified matrix for sentiment classification.
-
-  \item[Latent Dirichlet Allocation (LDA).] A Bayesian probabilistic
-  generative model used in \sysA{} to derive underlying topic-related
-  representations and thematic clusters from the processed disaster documents.
-
-  \item[McNemar's Test.] A non-parametric statistical test used during the
-  stakeholder evaluation to analyze paired binary results with continuity
-  correction, assessing if there is a statistically significant marginal
-  difference between the outputs of the two systems.
-
-  \item[XLM-RoBERTa (Robustly Optimized BERT Pretraining Approach).] A
-  transformer-based machine learning technique utilized in \sysA{} to extract
-  deep contextual language representations from the unstructured text corpus
-  that can be used in a multilingual setting.
-
-  \item[Taglish.] A Philippine code-switching variety characterized by the
-  intra-sentential alternation of Tagalog/Filipino and English lexical and
-  syntactic elements, prevalent in unstructured social media and emergency
-  text feeds.
-
-  \item[Few-Shot Prompting.] An inference paradigm utilized by \sysB{}
-  (Qwen3-1.7B-Instruct-Q4\_K\_M) in which the model performs sentiment and latent semantic analysis
-  based on natural-language task descriptions and is given some task-specific
-  training examples.
-  
-  \item[Sentiment Analysis.]  is the computational study of opinions,
-   evaluations, and emotions in text. In this study, each disaster-related 
-   post gets one label: Negative, Neutral, or Positive. Paired with a post’s
-   latent topic, the label shows what individuals are discussing and how 
-   they feel about it. The three-label scheme is coarse and does not 
-   separate emotions like fear and anger.
-   
-   \item[latent topics / latent topic structures.]  is the unobserved thematic
-   patterns within a large collection of unstructured text corpus. In this study
-   it is the cluster of co-occuring words that have a common theme.
-  
-
-  \item[UMass Coherence.] A topic coherence metric that measures the
-  document-level co-occurrence of a topic's top-$N$ words. Values are negative;
-  higher values (closer to zero) indicate more coherent topics. Used in this
-  study to select $K$, the number of latent topics in Latent Dirichlet
-  Allocation.
-  
-\end{description}
-
-% =========================================================================
-\chapter{Theoretical Framework}
-% =========================================================================
-
-This chapter outlines the foundations supporting the development of
-\emph{SAKLOLO: A Hybrid Semantic-Probabilistic Framework for Analysing Social
-Media Emergency Feeds in Bulacan and CAMANAVA}. It is grounded in Vector Space
-Semantics, the Distributional Hypothesis, and Bayesian Generative Theory,
-justifying the probabilistic extraction of semantic structures from
-unstructured disaster text. The literature review discusses Count
-Vectorization mechanics, contextual language representations (\xlmr),
-generative large language models (LLMs), and Latent Dirichlet Allocation (LDA)
-applications in crisis environments. A synthesis highlights gaps in processing
-mixed-language (Taglish) emergency feeds and guides the proposed mathematical
-joint matrix model.
-
-\section{Related Theories}
-
-The conceptual foundation of this research is grounded in Sensemaking Theory,
-which asserts that in digital crisis environments, offloading the initial
-chaotic, high-velocity data to automated systems allows human responders to
-bypass information overload and focus directly on high-level resource
-allocation \parencite{pezanowski2022}. To mathematically achieve this automated
-sensemaking, the computational framework relies on the Distributional Hypothesis
-in computational semantics. \parencite{balkir2016} explain that this hypothesis
-assumes words occurring in similar contexts inherently share similar semantic
-meanings. This provides the theoretical justification for mapping text into
-vector spaces. It theorizes that even highly disorganized human crisis
-communication contains latent geometric patterns, allowing related disaster
-concepts to naturally cluster together when analyzed algebraically.
-
-Complementing this geometric assumption is the statistical principle of
-Exchangeability, rooted in De Finetti's theorem. \parencite{blei2003} utilized
-this theory to establish that when modeling text data, the joint probability of
-a sequence of terms is invariant to their specific grammatical order. This
-provides the core theoretical justification for the ``bag-of-words'' approach
-used in probabilistic topic modeling. Because the theory assumes that documents
-are the end result of a probabilistic generative process rather than rigid
-grammatical structures, the proposed system is mathematically validated in
-ignoring the broken syntax and informal structures typical of emergency posts,
-focusing purely on the statistical distribution of variables to uncover hidden
-situational categories.
-
-\section{Review of Related Literature}
-
-\subsection{Computational Frameworks in International Disaster Literature}
-
-The theoretical foundational framework for processing unstructured crisis
-communications relies on computational linear algebra, vector space modeling,
-and probabilistic generative models. According to \parencite{mihunov2022}, vector
-space mechanics represent qualitative narrative posts as numeric constructs in
-high-dimensional matrices to enable systematic computation during disasters.
-Within this space, a document--term matrix captures documents across unique
-vocabulary tokens, where raw text is mathematically transformed using Count
-Vectorization to systematically extract critical crisis keywords for downstream
-processing.
-
-Complementing these deterministic vector decompositions, probabilistic
-frameworks model the underlying semantic structure of text.
-\parencite{blei2003} introduced Latent Dirichlet Allocation (LDA) as a Bayesian
-generative probabilistic model that views each document as a multinomial
-distribution over latent topics, which are themselves multinomial
-distributions over vocabulary words governed by Dirichlet priors. Expanding on
-this by bridging probabilistic topic models with deep learning,
-\parencite{zang2026} highlights the integration of LDA with contextual transformer
-architectures (such as BERT). Inferring hidden topic assignment variables
-alongside deep contextual embeddings from observed social text feeds allows for
-highly accurate, granular identification and tracking of emergent situational
-themes as rapid disaster events unfold.
-
-\subsection{Social Media Utilization in Philippine Disaster Risk Reduction}
-
-A literature review on the role of social media in disaster response in the
-Philippines found that it was heavily employed in response to typhoons and
-earthquakes, but other disasters such as COVID-19, floods, and vegetation
-fires are not fully explored. The review indicated that the usage of social
-media was heavy during response and recovery but minimal during preparation.
-Because misinformation, noise, and infrastructure limitations remain a concern
-for its utilization as a reliable disaster response tool, a hybrid
-computational approach is recommended. Social media was found to be highly
-effective in coordinating recovery and updates, provided the data is
-computationally filtered to separate the informative from the controversial
-\parencite{inferio2025}.
-
-The Philippines has four thematic areas of Risk Reduction and Management.
-Disaster Prevention and Mitigation is aimed at strengthening community
-resilience by minimizing exposure to risks and increasing recovery capacity.
-Disaster Preparedness involves strengthening community and institutional
-capacity via collaborative policies and systems. Disaster Response focuses on
-the reduction of preventable casualties and ensures the basic needs of
-communities are met and restored rapidly. Finally, Disaster Rehabilitation and
-Recovery deals with the restoration of livelihoods, economic opportunities, and
-essential infrastructure that supports the physical and psychological
-rehabilitation of those affected \parencite{inferio2025}.
-
-The North Manila Bay Delta consists of the downstream part of the rivers of the Pampanga River Basin, including the coastal area. The wider basin has a catchment area of $10,000\text{ km}^2$ and is roughly divided into three river systems. These are the Pampanga main river system (about $8,000\text{ km}^2$), the Angat River system (about $1,085\text{ km}^2$), and the Pasac river system (about $1,371\text{ km}^2$), which originates from Mt. Pinatubo and is connected to the Pampanga River by the Bebe-San Esteban Cut-off Channel \parencite{RoyalHaskoningDHV}.
-
-This delta covers almost $3,000\text{ km}^2$ of the southern central valley of Luzon, stretching from Pampanga to Bataan, Bulacan, and the CAMANAVA area of Metro Manila. The plains are so flat and close to sea level that the 1-meter elevation line extends 10 to $20\text{ km}$ inland, so even a small rise in relative sea level translates to a large encroachment of the sea. The region is also a major rice, sugar, and fish producer, and groundwater is its main source of fresh water for households, industries, fishponds, and farms \parencite{Rodolfo2003}.
-
-\subsection{Hydrometeorological Characteristics}
-
-The coast is tide-dominated and has a mixed, predominantly diurnal tide with an average range of $1.2\text{ meters}$ during spring tide and $0.4\text{ meters}$ during neap tide. During the southwest monsoon from June to September, the tidal amplitude can increase by 80 percent, and wind waves of over $3\text{ meters}$ may occur. The wet season runs from June to November, with average monthly rainfall of 180 to $410\text{ mm}$. The area is affected on average by one to two cyclone-related storm surges per year, and rainfall at the peak of the cyclone period can reach $400\text{ mm}$ a day. The relative sea-level rise in Manila Bay is on average 1.5 to $2.5\text{ cm}$ per year, and land subsidence caused by groundwater over-extraction is occurring in several areas \parencite{RoyalHaskoningDHV}.
-
-\subsection{Linguistic Context and Geographic Scope Selection}
-
-There are four main Tagalog dialects: Northern Tagalog Dialects of Bulacan (Bulacan \& Nueva Ecija) and Bataan (Bataan \& Zambales), Central Tagalog Dialects of Laguna (Laguna \& Rizal) and Metro Manila, Southern Tagalog Dialects of Batangas (Cavite \& Batangas), Lubang (Mindoro), and Tayabas (Aurora, Camarines Norte, Camarines Sur, \& Quezon), and lastly Tagalog Dialects of Marinduque \parencite{Adriano2022}.
-
-The North Manila Bay Delta shares common hydrometeorological traits of natural disaster frequencies and structural instances. It consists of minor parts of Bataan, Pampanga, Bulacan, and CAMANAVA. Bataan was omitted from this study due to minor inclusions on the delta; while Pampanga was omitted due to not being included in major Tagalog dialects and having a different linguistic profile among its speakers. That leaves Bulacan and CAMANAVA as the geographic scope of the study due to sharing the same hydrometeorological profile and relatively similar linguistic profile of Tagalog (Northern and Central dialect), English, and Taglish.
-
-\section{Review of Related Studies}
-
-\subsection{Global Evaluations of Text Processing in Disaster Management}
-
-Empirical implementations across Asian and global disaster contexts demonstrate
-the practicality of combining probabilistic topic modeling with
-transformer-based deep learning to process high-velocity unstructured social
-text feeds. \parencite{zang2026} utilized the LDA topic modeling algorithm
-alongside prompt-BERT models to process unorganized short-text feeds during the
-2023 Hebei Floods in China, proving that hybrid architectures effectively
-categorize heterogeneous social discourse into actionable thematic clusters for
-crisis managers.
-
-Evaluating short-text social streams during major hydrometeorological events
-further highlights the necessity of strict statistical metric validation.
-\parencite{anggara2025} applied LDA topic modeling to Twitter data during the 2024
-West Sumatra flash floods, demonstrating that evaluating topic coherence
-scores ($C_U$) across various topic ranks ($K$) isolates the optimal matrix
-structure, ensuring distinct and semantically meaningful categories without
-topic overlap.
-
-In Western disaster management contexts, feature extraction and topic modeling
-have proven vital for real-time situational awareness. \parencite{mihunov2022} used
-LDA to analyze disaster impact feeds during Hurricane Harvey, successfully
-isolating 9 high-priority target topic vectors out of 24 computed themes to
-directly map physical infrastructure damage, power grid outages, and localized
-civilian entrapment locations.
-
-Further demonstrating the efficacy of localized text extraction during severe
-flooding in Southeast Asia, \parencite{rahmadan2020} investigated the Jakarta flash
-flood domain by applying Latent Dirichlet Allocation (LDA) to high-velocity
-Twitter streams. Their research successfully clustered unstructured text feeds
-by localized impact, utilizing the algorithm to map explicit target tokens that
-detailed specific flooded neighborhoods, severe water depth thresholds, and
-immediate rescue dispatch needs. Because the hydrology and social media usage
-in Jakarta closely mirror the urban--rural challenges found in Philippine
-municipalities, this study proves that probabilistic generative models can
-segment baseline social media noise from urgent environmental disaster events
-to directly support local municipal response.
-
-\subsection{Local Applications of Topic Modeling and Sentiment Analysis in
-Crisis Studies}
-
-In a local context, Visayan scholars from the University of San Carlos of Cebu
-and Cebu Technological University utilized Latent Dirichlet Allocation (LDA)
-and the Hierarchical Dirichlet Process (HDP) to model a qualitative risk
-assessment for disaster risk reduction response. They attained qualitative data
-via the disaster risk reduction suggestions of Malasakit, a crowd-sourced
-disaster initiative across barangays focusing on how to service vulnerable
-populations \parencite{gorro2021}.
-
-Before conducting the LDA, they performed data cleaning to remove special
-characters, stop words, and strings under four letters. They then vectorized
-their entries as a computational prerequisite. For LDA, they measured
-perplexity scores to determine how stable the machine learning model was in the
-face of uncertainty, where a lower score indicated better performance. After
-fitting the models, they discovered the general structural trends: solid waste
-management, relief and emergency planning, and early warning systems were the
-most heavily weighted topic sets \parencite{gorro2021}. This study provides a
-quantitative approach to determining the optimal number of topics based on
-perplexity scores, which is a valuable methodological addition to local
-studies.
-
-Another local study utilized LDA in the context of the COVID-19 pandemic in
-Cagayan Valley, placing a specific emphasis on sentiment analysis. The study
-utilized Facebook posts from government agencies between March and June 2020,
-applying standard preprocessing protocols. Using a Java package called Mallet,
-they fed the data into an LDA model to extract core topics. The generated topic
-sets went through labeling to identify common themes with the help of the
-Municipal Disaster Risk Reduction and Management Office (MDRRMO) of Saguday,
-Quirino, utilizing six annotated tests judged by multiple public and private
-sector experts. The study identified five overarching themes capturing public
-sentiment: COVID-19 testing, relief operations, contact tracing, government
-programs, and community quarantine \parencite{pagudpud2020}.
-
-A separate study conducted by Silliman University researchers in Dumaguete City
-sourced qualitative data from Twitter (X) to conduct topic modeling and
-document clustering regarding localized sentiments. Utilizing the Twitter4j
-API, the program gathered 99,942 tweets between 2015 and 2016. After
-preprocessing the mixed-language texts (Tagalog and English) utilizing
-string-searching and dictionary-matching algorithms (Aho--Corasick and
-Damerau--Levenshtein Distance), 22,633 valid tweets remained for training and
-testing \parencite{montenegro2018}. The researchers utilized Gibbs Sampling to
-incorporate observed data into the LDA sampling process. Finally, they
-conducted sentiment analysis via Support Vector Machines (SVM) to classify the
-texts into positive, negative, or neutral sentiments. While the SVM approach
-proved functional, it highlights the methodological progression toward modern
-hybrid architectures and joint matrices that provide deeper contextual
-understanding than classical SVMs \parencite{montenegro2018}.
-
-\subsection{Related Undergraduate Theses in Bulacan State University}
-
-Bulacan State University has been instrumental in the development of
-technological applications related to disaster management through various
-undergraduate studies. An example of this is the study entitled
-\emph{LokaMatika: Two-Way Location Sharing and Automated Emergency Response
-Systems with Trilateration and Kinematics} \parencite{manalo2024}. This study
-designed a mobile application utilizing Dart and Flutter that allows two-way
-location sharing to help users report and track the locations of vulnerable
-individuals during emergencies. The researchers utilized ISO/IEC 25010 to
-evaluate software quality with 243 respondents.
-
-Another related study is \emph{READI: A Modern Way of Saving Lives Using
-Mobile Application: Real-Time Emergency Alerts and Disaster Information}
-\parencite{deguzman2019}. The researchers developed a mobile application providing
-real-time emergency alerts and awareness materials to the public, emphasizing
-the importance of mobile technology in improving communication during
-emergencies.
-
-While both studies successfully provided a technological basis for disaster
-management, they focused strictly on the manual emergency response and
-communication aspects. Neither study attempted to implement natural language
-processing pipelines, such as contextual Joint Matrices or generative AI Large
-Language Models (LLMs), to automatically analyze, cluster, and score sentiments
-on the unstructured text data inherent to disaster communications.
-
-\section{Synthesis of Literature and Studies, Research Gaps, and Justification}
-
-Literature at the international, national, and institutional levels
-demonstrates the effective use of probabilistic modeling, specifically Latent
-Dirichlet Allocation (LDA) and contextual transformers, in processing
-unstructured data into highly interpretable thematic clusters.
-
-Although existing studies have demonstrated significant advancements, critical
-computational gaps remain. The institutional studies reviewed rely primarily on
-sensor data, manual user inputs, and GPS hardware, leaving them unequipped to
-automatically parse high-velocity, multilingual disaster reports. Conversely,
-international studies successfully integrate Natural Language Processing (NLP)
-and contextual embeddings, but these methodologies have yet to be rigorously
-benchmarked for localized Philippine deployment. Local Disaster Risk Reduction
-and Management Offices (LDRRMOs) currently lack the computational
-infrastructure to process mixed-syntax Taglish text at scale.
-
-The present study seeks to bridge this gap through a novel comparative
-methodology. Instead of relying on classical classifiers or manual GPS
-tracking, the proposed framework introduces a Joint Matrix architecture
-integrating LDA topic probabilities with \xlmr{} contextual embeddings to
-preserve interpretability while mapping urgent distress signals. By benchmarking
-this hybrid system against a state-of-the-art open-weight dense large language
-model (Qwen3-1.7B-Instruct) operating under few-shot conditions, this research
-provides the necessary empirical validation to integrate advanced, automated
-semantic and sentiment modeling of natural disaster-related social media posts.
-
-% =========================================================================
 \chapter{Research Methodology}
 % =========================================================================
 
@@ -729,7 +52,7 @@ document is processed by both systems under their respective procedures. This
 allows the resulting sentiments of both to be compared directly.
 
 \subsection{Research Question 1: Relativist Comparative Classification
-Performance}
+	Performance}
 
 The first question of the study evaluates the sentiment classification
 performance of \sysA{} and \sysB{} under a relativist comparative evaluation
@@ -742,14 +65,14 @@ Each document is assigned one of the three sentiment categories: Negative,
 Neutral, or Positive. Four metrics are computed:
 
 \begin{itemize}
-  \item \textbf{Reference-relative Precision, Recall, and Macro-F1.} These are
-  asymmetric metrics computed for \sysB{} against \sysA{} as the relative
-  reference. They measure the extent to which \sysB{} reproduces \sysA's
-  classifications.
-  \item \textbf{Inter-system agreement with Cohen's Kappa.} This is a
-  symmetric, chance-corrected measure of agreement between the two systems.
-  Unlike the reference-relative metrics, it does not privilege either system as
-  the reference.
+	\item \textbf{Reference-relative Precision, Recall, and Macro-F1.} These are
+	asymmetric metrics computed for \sysB{} against \sysA{} as the relative
+	reference. They measure the extent to which \sysB{} reproduces \sysA's
+	classifications.
+	\item \textbf{Inter-system agreement with Cohen's Kappa.} This is a
+	symmetric, chance-corrected measure of agreement between the two systems.
+	Unlike the reference-relative metrics, it does not privilege either system as
+	the reference.
 \end{itemize}
 
 Both systems are applied to the same prepared corpus and yield a $3 \times 3$
@@ -764,7 +87,7 @@ open-weight LLM under few-shot prompting conditions reproduces what a
 lightweight hybrid pipeline---treated as the relative reference---produces.
 
 \subsection{Research Question 2: Joint Matrix Latent Topic Structure and
-Sentiment Classification Relationship Analysis}
+	Sentiment Classification Relationship Analysis}
 
 The second question of the study evaluates whether the latent topic structures
 and sentiment classifications from the joint matrix of both \sysA{} and \sysB{}
@@ -834,10 +157,10 @@ evaluation in which their identities are concealed, and their outputs are
 assessed under the same evaluation conditions.
 
 \begin{figure}[htbp]
-  \centering
-   \includegraphics[width=0.7\textwidth]{figures/fig3_1_pipeline.png}
-  \caption{Overall Research Pipeline}
-  \label{fig:pipeline}
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/fig3_1_pipeline.png}
+	\caption{Overall Research Pipeline}
+	\label{fig:pipeline}
 \end{figure}
 
 This framework therefore is a common-input and comparative-analysis sequence.
@@ -913,7 +236,7 @@ English, and Taglish.
 		
 	\end{longtable}
 } % end
- \small
+\small
 
 Data collection will be a semi-automated manual extraction procedure supported
 by a web scraper browser extension to aid in extracting the textual data from
@@ -1100,28 +423,28 @@ language and machine language \parencite{kozhevnikov2020}.
 Vectorization is a function that maps a text document into a numerical vector
 in a high-dimensional space. Let
 \[
-  \mathcal{D} = \{d_1, d_2, \dots, d_N\}
+\mathcal{D} = \{d_1, d_2, \dots, d_N\}
 \]
 be a set of $N$ documents, and let
 \[
-  V = \{w_1, w_2, \dots, w_{|V|}\}
+V = \{w_1, w_2, \dots, w_{|V|}\}
 \]
 be the vocabulary of $|V|$ unique words. Then vectorization is a function
 \begin{equation}
-  \phi : \mathcal{D} \longrightarrow \mathbb{R}^{|V|}
-  \label{eq:vecmap}
+	\phi : \mathcal{D} \longrightarrow \mathbb{R}^{|V|}
+	\label{eq:vecmap}
 \end{equation}
 such that each document $d_i \in \mathcal{D}$ is mapped to a vector
 \begin{equation}
-  \phi(d_i) = \bigl[x_{i1},\, x_{i2},\, \dots,\, x_{i|V|}\bigr]
-  \label{eq:vecdoc}
+	\phi(d_i) = \bigl[x_{i1},\, x_{i2},\, \dots,\, x_{i|V|}\bigr]
+	\label{eq:vecdoc}
 \end{equation}
 where $x_{ij}$ represents the weight or value of word $w_j$ in document $d_i$.
 For count vectorization, the value $x_{ij}$ is simply the raw frequency of word
 $w_j$ in document $d_i$:
 \begin{equation}
-  x_{ij} = \operatorname{count}(w_j, d_i)
-  \label{eq:countvec}
+	x_{ij} = \operatorname{count}(w_j, d_i)
+	\label{eq:countvec}
 \end{equation}
 
 \noindent For example, given the vocabulary
@@ -1129,17 +452,17 @@ $V = \{\text{``Word 1''}, \text{``Word 2''}, \text{``Word 3''},
 \text{``Word 4''}\}$:
 
 \begin{table}[htbp]
-  \centering
-  \caption{Illustrative Count Vectorization Matrix}
-  \label{tab:countvec}
-  \begin{tabular}{lcccc}
-    \toprule
-    \textbf{Document} & \textbf{Word 1} & \textbf{Word 2} & \textbf{Word 3} & \textbf{Word 4} \\
-    \midrule
-    $d_1$ & 1 & 1 & 1 & 1 \\
-    $d_2$ & 1 & 1 & 1 & 0 \\
-    \bottomrule
-  \end{tabular}
+	\centering
+	\caption{Illustrative Count Vectorization Matrix}
+	\label{tab:countvec}
+	\begin{tabular}{lcccc}
+		\toprule
+		\textbf{Document} & \textbf{Word 1} & \textbf{Word 2} & \textbf{Word 3} & \textbf{Word 4} \\
+		\midrule
+		$d_1$ & 1 & 1 & 1 & 1 \\
+		$d_2$ & 1 & 1 & 1 & 0 \\
+		\bottomrule
+	\end{tabular}
 \end{table}
 
 \noindent such that $\phi(d_1) = [1,1,1,1]$ and $\phi(d_2) = [1,1,1,0]$.
@@ -1153,57 +476,57 @@ words. Its generative process follows that, for each document $d$ in the
 corpus:
 
 \begin{enumerate}[label=\arabic*.]
-  \item Choose $\theta_d \sim \operatorname{Dirichlet}(\alpha)$.
-  \item Choose $\phi_k \sim \operatorname{Dirichlet}(\beta)$ for each topic
-        $k \in \{1,\dots,K\}$.
-  \item For each of the $N_d$ words $w_{d,n}$:
-        \begin{enumerate}[label=\alph*.]
-          \item Choose a topic $z_{d,n} \sim \operatorname{Multinomial}(\theta_d)$.
-          \item Choose a word $w_{d,n} \sim p(w_{d,n} \mid z_{d,n}, \beta)$, a
-                multinomial probability conditioned on the topic.
-        \end{enumerate}
+	\item Choose $\theta_d \sim \operatorname{Dirichlet}(\alpha)$.
+	\item Choose $\phi_k \sim \operatorname{Dirichlet}(\beta)$ for each topic
+	$k \in \{1,\dots,K\}$.
+	\item For each of the $N_d$ words $w_{d,n}$:
+	\begin{enumerate}[label=\alph*.]
+		\item Choose a topic $z_{d,n} \sim \operatorname{Multinomial}(\theta_d)$.
+		\item Choose a word $w_{d,n} \sim p(w_{d,n} \mid z_{d,n}, \beta)$, a
+		multinomial probability conditioned on the topic.
+	\end{enumerate}
 \end{enumerate}
 
 Each document draws its overall topic mixture $\theta_d$ from a Dirichlet
 distribution parameterized by $\alpha$:
 \begin{equation}
-  \theta_d \sim \operatorname{Dirichlet}(\alpha)
-  \label{eq:lda-theta}
+	\theta_d \sim \operatorname{Dirichlet}(\alpha)
+	\label{eq:lda-theta}
 \end{equation}
 
 Given the parameters $\alpha$ and $\beta$, the joint distribution of a topic
 mixture $\theta_d$, a set of $K$ topics $\phi$, and a set of $N_d$ words
 $\mathbf{w}_d$ is given as
 \begin{equation}
-  p(\mathbf{w}_d, \mathbf{z}_d, \theta_d \mid \alpha, \beta)
-  = p(\theta_d \mid \alpha)
-    \prod_{n=1}^{N_d}
-    p(z_{d,n} \mid \theta_d)\,
-    p(w_{d,n} \mid z_{d,n}, \beta)
-  \label{eq:lda-joint}
+	p(\mathbf{w}_d, \mathbf{z}_d, \theta_d \mid \alpha, \beta)
+	= p(\theta_d \mid \alpha)
+	\prod_{n=1}^{N_d}
+	p(z_{d,n} \mid \theta_d)\,
+	p(w_{d,n} \mid z_{d,n}, \beta)
+	\label{eq:lda-joint}
 \end{equation}
 where $z_{d,n}$ is simply one of the unique topics such that
 $z_{d,n} \in \{1,\dots,K\}$. Integrating over $\theta_d$ and summing over
 $\mathbf{z}_d$, we obtain the marginal distribution of a document:
 \begin{equation}
-  p(\mathbf{w}_d \mid \alpha, \beta)
-  = \int p(\theta_d \mid \alpha)
-    \left[
-      \prod_{n=1}^{N_d}
-      \sum_{z_{d,n}=1}^{K}
-      p(z_{d,n} \mid \theta_d)\,
-      p(w_{d,n} \mid z_{d,n}, \beta)
-    \right]
-    d\theta_d
-  \label{eq:lda-marginal}
+	p(\mathbf{w}_d \mid \alpha, \beta)
+	= \int p(\theta_d \mid \alpha)
+	\left[
+	\prod_{n=1}^{N_d}
+	\sum_{z_{d,n}=1}^{K}
+	p(z_{d,n} \mid \theta_d)\,
+	p(w_{d,n} \mid z_{d,n}, \beta)
+	\right]
+	d\theta_d
+	\label{eq:lda-marginal}
 \end{equation}
 
 Finally, taking the product of the marginal probabilities of single documents,
 we obtain the probability of a corpus:
 \begin{equation}
-  p(\mathcal{D} \mid \alpha, \beta)
-  = \prod_{d=1}^{M} p(\mathbf{w}_d \mid \alpha, \beta)
-  \label{eq:lda-corpus}
+	p(\mathcal{D} \mid \alpha, \beta)
+	= \prod_{d=1}^{M} p(\mathbf{w}_d \mid \alpha, \beta)
+	\label{eq:lda-corpus}
 \end{equation}
 
 The parameters of the LDA get modified depending on their level. Overall, the
@@ -1227,10 +550,10 @@ on the internal corpus of the model, and words are calculated in order of their
 frequency within the topic; the expected outcome is negative, with values
 nearest to zero being better. To compute the UMass coherence score:
 \begin{equation}
-  C_{\mathrm{UMass}}(T_k)
-  = \sum_{m=2}^{N} \sum_{n=1}^{m-1}
-    \log \frac{D(w_m, w_n) + 1}{D(w_n)}
-  \label{eq:umass}
+	C_{\mathrm{UMass}}(T_k)
+	= \sum_{m=2}^{N} \sum_{n=1}^{m-1}
+	\log \frac{D(w_m, w_n) + 1}{D(w_n)}
+	\label{eq:umass}
 \end{equation}
 where $T_k = \{w_1, w_2, \dots, w_N\}$ is the list of $N$ probable words in
 topic $k$, $D(w_m, w_n)$ is the number of documents in the corpus containing
@@ -1271,10 +594,10 @@ multilingual NLP transformer-based models that rely on more formal training data
 such as Wikipedia and CommonCrawl \parencite{barbieri2021}.
 
 \begin{figure}[htbp]
-  \centering
-   \includegraphics[width=0.9\textwidth]{figures/fig3_2_systemA.png}
-  \caption{System A Architecture}
-  \label{fig:systemA}
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/fig3_2_systemA.png}
+	\caption{System A Architecture}
+	\label{fig:systemA}
 \end{figure}
 
 The system generates sentiment classifications using the defined ternary
@@ -1339,39 +662,39 @@ short label and a set of keywords extracted from the representative sample.
 	\centering
 	\label{ls:stage-1-prompt}
 	\begin{minipage}{0.9\textwidth}
-	\begin{lstlisting}[
-		language=Python,
-		showspaces=false,
-		showstringspaces=false,
-		caption={Stage 1 Prompt}]
-TOPIC_DISCOVERY_SYSTEM = """
-You are an expert qualitative data analyst. Your task is to analyze a batch of text documents and synthesize a canonical taxonomy of exactly {n_topics} distinct topics.
-		
-GUIDELINES:
-- Focus on the core ACTION, PROBLEM, or THEME (e.g., medical relief, structural damage, supply distribution).
-- Strictly omit all proper nouns, locations, regions, and geographic identifiers.
-- Each topic must have a short 'label' (2-4 lowercase words), and actual 'keywords' (bag-of-words) extracted directly from the texts.
-- Respond ONLY with a valid JSON array of objects. No markdown, no explanations.
-- CRITICAL: Your output MUST start with "[" and end with "]".
-		
-EXAMPLE OUTPUT:
-[
-{{"label": "rescue efforts", "keywords": ["rescue", "stranded", "volunteer", "bagal", "rescuers"]}},
-{{"label": "flood impact", "keywords": ["baha", "tubig", "lubog", "taas", "stranded"]}},
-{{"label": "health risks", "keywords": ["leptospirosis", "sintomas", "check-up", "baho"]}}
-]
-/no_think
-"""
-		
-TOPIC_DISCOVERY_USER = """
-Here is a representative sample of {n_docs} documents from the dataset:
-		
-{documents_block}
-		
-Generate the JSON array of exactly {n_topics} topics based on the themes present in these documents.
-JSON Output:
-"""
-	\end{lstlisting}
+		\begin{lstlisting}[
+			language=Python,
+			showspaces=false,
+			showstringspaces=false,
+			caption={Stage 1 Prompt}]
+			TOPIC_DISCOVERY_SYSTEM = """
+			You are an expert qualitative data analyst. Your task is to analyze a batch of text documents and synthesize a canonical taxonomy of exactly {n_topics} distinct topics.
+			
+			GUIDELINES:
+			- Focus on the core ACTION, PROBLEM, or THEME (e.g., medical relief, structural damage, supply distribution).
+			- Strictly omit all proper nouns, locations, regions, and geographic identifiers.
+			- Each topic must have a short 'label' (2-4 lowercase words), and actual 'keywords' (bag-of-words) extracted directly from the texts.
+			- Respond ONLY with a valid JSON array of objects. No markdown, no explanations.
+			- CRITICAL: Your output MUST start with "[" and end with "]".
+			
+			EXAMPLE OUTPUT:
+			[
+			{{"label": "rescue efforts", "keywords": ["rescue", "stranded", "volunteer", "bagal", "rescuers"]}},
+			{{"label": "flood impact", "keywords": ["baha", "tubig", "lubog", "taas", "stranded"]}},
+			{{"label": "health risks", "keywords": ["leptospirosis", "sintomas", "check-up", "baho"]}}
+			]
+			/no_think
+			"""
+			
+			TOPIC_DISCOVERY_USER = """
+			Here is a representative sample of {n_docs} documents from the dataset:
+			
+			{documents_block}
+			
+			Generate the JSON array of exactly {n_topics} topics based on the themes present in these documents.
+			JSON Output:
+			"""
+		\end{lstlisting}
 	\end{minipage}
 \end{figure}
 
@@ -1395,10 +718,10 @@ fields: \texttt{sentiment} and \texttt{topic}.
 The sentiment must be exactly one of the following: \texttt{POS},
 \texttt{NEG}, or \texttt{NEU}. The prompt defines the following as:
 \begin{itemize}
-  \item \texttt{POS}: the text expresses joy, gratitude, hope, relief, or praise;
-  \item \texttt{NEG}: the text expresses anger, sadness, fear, frustration, or criticism;
-  \item \texttt{NEU}: the text is purely informational, factual, asking for
-        help, or expresses a balanced or mixed view.
+	\item \texttt{POS}: the text expresses joy, gratitude, hope, relief, or praise;
+	\item \texttt{NEG}: the text expresses anger, sadness, fear, frustration, or criticism;
+	\item \texttt{NEU}: the text is purely informational, factual, asking for
+	help, or expresses a balanced or mixed view.
 \end{itemize}
 
 \begin{figure}[htbp]
@@ -1410,38 +733,38 @@ The sentiment must be exactly one of the following: \texttt{POS},
 			showspaces=false,
 			showstringspaces=false,
 			caption={Stage 2 Prompt}]
-JOINT_SYSTEM = """
-You are an expert analyst classifying social media posts. You must output TWO labels: SENTIMENT and TOPIC.
+			JOINT_SYSTEM = """
+			You are an expert analyst classifying social media posts. You must output TWO labels: SENTIMENT and TOPIC.
 			
-SENTIMENT must be exactly one of: "POS", "NEG", "NEU".
-- POS: The text expresses joy, gratitude, hope, relief, or praise.
-- NEG: The text expresses anger, sadness, fear, frustration, or criticism.
-- NEU: The text is purely informational, factual, or expresses a balanced/mixed view. Do not assume factual requests are negative.
+			SENTIMENT must be exactly one of: "POS", "NEG", "NEU".
+			- POS: The text expresses joy, gratitude, hope, relief, or praise.
+			- NEG: The text expresses anger, sadness, fear, frustration, or criticism.
+			- NEU: The text is purely informational, factual, or expresses a balanced/mixed view. Do not assume factual requests are negative.
 			
-TOPIC must be exactly one of the 'label' values from the provided taxonomy list.
+			TOPIC must be exactly one of the 'label' values from the provided taxonomy list.
 			
-Respond ONLY with a valid JSON object. No markdown, no explanations.
-FORMAT:
-{{"sentiment": "LABEL", "topic": "exact topic label from list"}}
-/no_think
-"""
+			Respond ONLY with a valid JSON object. No markdown, no explanations.
+			FORMAT:
+			{{"sentiment": "LABEL", "topic": "exact topic label from list"}}
+			/no_think
+			"""
 			
-JOINT_USER = """Available taxonomy (label and description): {topic_list_with_descriptions}
+			JOINT_USER = """Available taxonomy (label and description): {topic_list_with_descriptions}
 			
-Examples:
-Text: "Salamat sa mga rescuers! Ligtas na kami."
-JSON: {{"sentiment": "POS", "topic": "rescue efforts"}}
+			Examples:
+			Text: "Salamat sa mga rescuers! Ligtas na kami."
+			JSON: {{"sentiment": "POS", "topic": "rescue efforts"}}
 			
-Text: "Base sa PAGASA, tuloy-tuloy ang ulan hanggang weekend. Maghanda po."
-JSON: {{"sentiment": "NEU", "topic": "flood warning"}}
+			Text: "Base sa PAGASA, tuloy-tuloy ang ulan hanggang weekend. Maghanda po."
+			JSON: {{"sentiment": "NEU", "topic": "flood warning"}}
 			
-Text: "Nakakagalit! Ang bagal ng rescue. Ilang oras na kaming stranded."
-JSON: {{"sentiment": "NEG", "topic": "flood impact"}}
+			Text: "Nakakagalit! Ang bagal ng rescue. Ilang oras na kaming stranded."
+			JSON: {{"sentiment": "NEG", "topic": "flood impact"}}
 			
-Text to classify:"{text}"
+			Text to classify:"{text}"
 			
-JSON Response:
-"""
+			JSON Response:
+			"""
 		\end{lstlisting}
 	\end{minipage}
 \end{figure}
@@ -1453,10 +776,10 @@ discovered taxonomy. As in Stage 1, the model is instructed to output only
 valid JSON with no markdown or explanations.
 
 \begin{figure}[htbp]
-  \centering
-   \includegraphics[width=0.9\textwidth]{figures/fig3_3_systemB.png}
-    \caption{System B Architecture}
-  \label{fig:systemB}
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/fig3_3_systemB.png}
+	\caption{System B Architecture}
+	\label{fig:systemB}
 \end{figure}
 
 Both systems are therefore applied to the same processed corpus but retain their
@@ -1481,20 +804,20 @@ with $M$ topics, and $S = \{\sent{1}, \dots, \sent{N}\}$ be the column variable
 of sentiment classifications with $N$ classes. Then an $M \times N$ contingency
 table with marginal totals is defined as
 \begin{equation}
-  J =
-  \begin{pmatrix}
-    j_{11}   & j_{12}   & \cdots & j_{1N}   & n_{1N} \\
-    j_{21}   & j_{22}   & \cdots & j_{2N}   & n_{2N} \\
-    \vdots   & \vdots   & \ddots & \vdots   & \vdots \\
-    j_{M1}   & j_{M2}   & \cdots & j_{MN}   & n_{MN} \\
-    n_{M1}      & n_{M2}      & \cdots & n_{MN}      & n
-  \end{pmatrix}
-  \label{eq:jointmatrix}
+	J =
+	\begin{pmatrix}
+		j_{11}   & j_{12}   & \cdots & j_{1N}   & n_{1N} \\
+		j_{21}   & j_{22}   & \cdots & j_{2N}   & n_{2N} \\
+		\vdots   & \vdots   & \ddots & \vdots   & \vdots \\
+		j_{M1}   & j_{M2}   & \cdots & j_{MN}   & n_{MN} \\
+		n_{M1}      & n_{M2}      & \cdots & n_{MN}      & n
+	\end{pmatrix}
+	\label{eq:jointmatrix}
 \end{equation}
 where each cell entry is defined as
 \begin{equation}
-  j_{ij} = \bigl|\{\, d \in \mathcal{D} : t(d) = \topic{i} \;\wedge\; s(d) = \sent{j} \,\}\bigr|
-  \label{eq:cellentry}
+	j_{ij} = \bigl|\{\, d \in \mathcal{D} : t(d) = \topic{i} \;\wedge\; s(d) = \sent{j} \,\}\bigr|
+	\label{eq:cellentry}
 \end{equation}
 with $t(d)$ representing the assigned latent topic of document $d$ and $s(d)$
 representing its assigned sentiment classification.
@@ -1685,18 +1008,18 @@ for Research Question 1. Both systems share the same sentiment categories---
 Negative, Neutral, and Positive---yielding a $3 \times 3$ classification matrix:
 
 \begin{table}[htbp]
-  \centering
-  \caption{Reference-Relative Confusion Matrix (\sysA{} as Reference, \sysB{} as Comparison)}
-  \label{tab:confusion}
-  \begin{tabular}{l|ccc}
-    \toprule
-    \backslashbox{\textbf{\sysA{}}}{\textbf{\sysB{}}} & \textbf{Negative} & \textbf{Neutral} & \textbf{Positive} \\
-    \midrule
-    \textbf{Negative} & $a_{11}$ & $a_{12}$ & $a_{13}$ \\
-    \textbf{Neutral}  & $a_{21}$ & $a_{22}$ & $a_{23}$ \\
-    \textbf{Positive} & $a_{31}$ & $a_{32}$ & $a_{33}$ \\
-    \bottomrule
-  \end{tabular}
+	\centering
+	\caption{Reference-Relative Confusion Matrix (\sysA{} as Reference, \sysB{} as Comparison)}
+	\label{tab:confusion}
+	\begin{tabular}{l|ccc}
+		\toprule
+		\backslashbox{\textbf{\sysA{}}}{\textbf{\sysB{}}} & \textbf{Negative} & \textbf{Neutral} & \textbf{Positive} \\
+		\midrule
+		\textbf{Negative} & $a_{11}$ & $a_{12}$ & $a_{13}$ \\
+		\textbf{Neutral}  & $a_{21}$ & $a_{22}$ & $a_{23}$ \\
+		\textbf{Positive} & $a_{31}$ & $a_{32}$ & $a_{33}$ \\
+		\bottomrule
+	\end{tabular}
 \end{table}
 
 \noindent where rows represent \sysA, columns represent \sysB, diagonal cells
@@ -1706,8 +1029,8 @@ cells represent divergent classifications.
 \paragraph{Precision.} Precision is an indicator of how accurately a system has
 identified instances of a specified sentiment category. Precision is defined as
 \begin{equation}
-  P = \frac{TP}{TP + FP}
-  \label{eq:precision}
+	P = \frac{TP}{TP + FP}
+	\label{eq:precision}
 \end{equation}
 where $TP$ is the number of True Positives and $FP$ is the number of False
 Positives \parencite{googledevnd}. These variables can be obtained via the confusion
@@ -1718,8 +1041,8 @@ sentiment category relative to \sysA.
 \paragraph{Recall.} Recall is an indication of whether a system can find all
 the references to a specific sentiment category. Recall is defined as
 \begin{equation}
-  R = \frac{TP}{TP + FN}
-  \label{eq:recall}
+	R = \frac{TP}{TP + FN}
+	\label{eq:recall}
 \end{equation}
 where $TP$ stands for the number of true positive classifications and $FN$ is
 the number of false negative classifications. Recall is crucial to the
@@ -1731,8 +1054,8 @@ by taking their harmonic mean. This score gives a well-rounded view of how well
 a classification model is performing, factoring in both false positives and
 false negatives \parencite{sklearnnd}:
 \begin{equation}
-  F_1 = 2 \cdot \frac{P \cdot R}{P + R}
-  \label{eq:f1}
+	F_1 = 2 \cdot \frac{P \cdot R}{P + R}
+	\label{eq:f1}
 \end{equation}
 The F1-Score will be calculated for each sentiment category: Negative, Neutral,
 and Positive.
@@ -1741,8 +1064,8 @@ and Positive.
 classification performance across the three sentiment categories. It calculates
 the F1-Score for each category and gives equal weight to each category:
 \begin{equation}
-  \text{Macro-}F_1 = \frac{1}{3} \sum_{c=1}^{3} F_{1,c}
-  \label{eq:macrof1}
+	\text{Macro-}F_1 = \frac{1}{3} \sum_{c=1}^{3} F_{1,c}
+	\label{eq:macrof1}
 \end{equation}
 A higher Macro-F1 score signals that both the precision and recall of the
 classification model are performing well across all three sentiment categories.
@@ -1755,8 +1078,8 @@ event like a natural disaster, which can evoke a broad range of sentiment.
 between the classifications of the two systems. This metric takes into account
 the possibility of agreement by chance \parencite{mchugh2012}:
 \begin{equation}
-  \kappa = \frac{p_o - p_e}{1 - p_e}
-  \label{eq:kappa}
+	\kappa = \frac{p_o - p_e}{1 - p_e}
+	\label{eq:kappa}
 \end{equation}
 where $p_o$ represents the observed proportion of agreement and $p_e$ represents
 the expected proportion of agreement by chance. This provides a comparative
@@ -1786,7 +1109,7 @@ interpretation of whether \sysB{} can produce classification outcomes in
 alignment with \sysA.
 
 \subsection{Research Question 2: Joint Matrix Latent Topic Structure and
-Sentiment Classification Relationship Analysis}
+	Sentiment Classification Relationship Analysis}
 
 Regarding Research Question 2, an assessment is conducted to determine whether a
 relationship exists between the respective joint matrices of \sysA{} and \sysB{}
@@ -1830,18 +1153,18 @@ or fail to reject the null hypothesis, we first compute the chi-square statistic
 no association exists or that an association exists \parencite{singh2020}. In this
 study, we state that:
 \begin{itemize}
-  \item $H_0$: There is no relationship between what crisis issue is discussed
-        (Topic) and the emotion behind it (Sentiment).
-  \item $H_1$: There is a systematic relationship between topics and sentiments,
-        which may indicate that the semantic profiles of Facebook posts align
-        with their sentiment profiles.
+	\item $H_0$: There is no relationship between what crisis issue is discussed
+	(Topic) and the emotion behind it (Sentiment).
+	\item $H_1$: There is a systematic relationship between topics and sentiments,
+	which may indicate that the semantic profiles of Facebook posts align
+	with their sentiment profiles.
 \end{itemize}
 
 The formula to attain $\chi^2$ is
 \begin{equation}
-  \chi^2 = \sum_{i=1}^{R} \sum_{j=1}^{C}
-           \frac{\left(O_{ij} - E_{ij}\right)^2}{E_{ij}}
-  \label{eq:chisq}
+	\chi^2 = \sum_{i=1}^{R} \sum_{j=1}^{C}
+	\frac{\left(O_{ij} - E_{ij}\right)^2}{E_{ij}}
+	\label{eq:chisq}
 \end{equation}
 where $R$ is the number of rows of the joint matrix (the latent topics), $C$ is
 the number of columns of the joint matrix (the sentiment classifications),
@@ -1851,15 +1174,15 @@ sentiment classification $j$---and $E_{ij}$ are the expected frequencies, or
 the calculated marginal totals of the matrix if the null hypothesis is true. To
 attain $E_{ij}$, the formula is
 \begin{equation}
-  E_{ij} = \frac{R_i \, C_j}{n}
-  \label{eq:expected}
+	E_{ij} = \frac{R_i \, C_j}{n}
+	\label{eq:expected}
 \end{equation}
 
 For determining thresholds, we need to test $\chi^2$ against the chi-square
 distribution table; to attain that, we first need the degrees of freedom $df$:
 \begin{equation}
-  df = (R - 1)(C - 1)
-  \label{eq:df}
+	df = (R - 1)(C - 1)
+	\label{eq:df}
 \end{equation}
 After this, a Python function is used to determine the critical value; it takes
 the contingency table as its input, and if the associated $p$-value is less
@@ -1872,8 +1195,8 @@ possible frequencies. It is an expansion of Phi ($\phi$) for two variables that
 exceed binary frequencies. It inherits the same interpretability of results,
 which is 0 for no association to 1 for complete dependence. The formula is
 \begin{equation}
-  V = \sqrt{\frac{\chi^2 / n}{\min(R - 1,\; C - 1)}}
-  \label{eq:cramersv}
+	V = \sqrt{\frac{\chi^2 / n}{\min(R - 1,\; C - 1)}}
+	\label{eq:cramersv}
 \end{equation}
 which yields the $V$ used to determine whether the joint matrix of the two
 systems possesses a weak or strong association \parencite{benshachar2023}. To
@@ -1881,24 +1204,24 @@ determine whether the relationship between the two variables has strong
 dependence, we attain the degrees of freedom of the smaller dimension of the
 joint matrix:
 \begin{equation}
-  df^{*} = \min(R - 1,\; C - 1)
-  \label{eq:dast}
+	df^{*} = \min(R - 1,\; C - 1)
+	\label{eq:dast}
 \end{equation}
 As the sentiment classification will be the smallest dimension---assuming the
 latent topics exceed 3---$df^{*} = 2$, and the thresholds to interpret the
 results, given a $V$, are shown in Table~\ref{tab:cramersv}.
 
 \begin{table}[htbp]
-  \centering
-  \caption{Interpretation Thresholds for Cramer's V}
-  \label{tab:cramersv}
-  \begin{tabular}{cccc}
-    \toprule
-    \textbf{$df^{*}$} & \textbf{Small} & \textbf{Medium} & \textbf{Large} \\
-    \midrule
-    2 & 0.07 & 0.21 & 0.35 \\
-    \bottomrule
-  \end{tabular}
+	\centering
+	\caption{Interpretation Thresholds for Cramer's V}
+	\label{tab:cramersv}
+	\begin{tabular}{cccc}
+		\toprule
+		\textbf{$df^{*}$} & \textbf{Small} & \textbf{Medium} & \textbf{Large} \\
+		\midrule
+		2 & 0.07 & 0.21 & 0.35 \\
+		\bottomrule
+	\end{tabular}
 \end{table}
 
 This gives us an acceptable threshold that will deem the joint matrices of the
@@ -1922,8 +1245,8 @@ assessment outcomes will be considered. Each evaluator is expected to evaluate
 proportion of stakeholder evaluations in which the assessment agrees with the
 specified reference or comparison outcome. Agreement Rate is calculated as
 \begin{equation}
-  AR = \frac{N_{\text{agree}}}{N_{\text{total}}} \times 100\%
-  \label{eq:agreement}
+	AR = \frac{N_{\text{agree}}}{N_{\text{total}}} \times 100\%
+	\label{eq:agreement}
 \end{equation}
 A higher Agreement Rate indicates greater consistency among the stakeholder
 assessments.
@@ -1933,8 +1256,8 @@ will be examined using McNemar's Test, which is suitable for systematic
 comparisons when identical assessors evaluate two systems in two categories.
 The test statistic incorporates continuity correction:
 \begin{equation}
-  \chi^2_{\text{McNemar}} = \frac{\left(\lvert b - c \rvert - 1\right)^2}{b + c}
-  \label{eq:mcnemar}
+	\chi^2_{\text{McNemar}} = \frac{\left(\lvert b - c \rvert - 1\right)^2}{b + c}
+	\label{eq:mcnemar}
 \end{equation}
 In the calculation, $b$ indicates cases where \sysA{} succeeds while \sysB{}
 fails, and $c$ indicates cases where \sysB{} succeeds while \sysA{} fails. This
@@ -1995,57 +1318,57 @@ To execute the blind comparative evaluation between the lightweight hybrid model
 divided equally into two specialized cohorts.
 
 \begin{table}[htbp]
-  \centering
-  \caption{Cohort A and Cohort B Descriptions}
-  \label{tab:cohorts}
-  \begin{tabularx}{\textwidth}{XX}
-    \toprule
-    \textbf{Cohort A: DRRM Operational Officers ($n = 5$--$10$)} &
-    \textbf{Cohort B: Academic and Technical Experts ($n = 5$--$10$)} \\
-    \midrule
-    \textit{Source.} Active personnel, incident commanders, and communication
-    dispatchers from the Provincial and Municipal Disaster Risk Reduction and
-    Management Offices (DRRMOs) of the Bulacan and CAMANAVA corridors. &
-    \textit{Source.} Faculty members and researchers specializing in Applied
-    Mathematics, Computer Science, and Data Analytics, specifically targeting
-    the Mathematics Department of the College of Science and the allied faculty
-    of the CICT at Bulacan State University. \\
-    \addlinespace
-    \textit{Operational Role.} These practitioners evaluate the practical
-    applicability, operational fidelity, and functional alignment derived from
-    the models without knowing which system generated the output. They provide
-    judgment on whether the extracted sentiment and disaster urgency accurately
-    reflect actual field conditions. &
-    \textit{Operational Role.} These experts assess the mathematical validity
-    and thematic coherence of the extracted topic probabilities and contextual
-    embeddings, ensuring the algorithms operate within accepted standards of
-    information theory and machine learning rigor. \\
-    \bottomrule
-  \end{tabularx}
+	\centering
+	\caption{Cohort A and Cohort B Descriptions}
+	\label{tab:cohorts}
+	\begin{tabularx}{\textwidth}{XX}
+		\toprule
+		\textbf{Cohort A: DRRM Operational Officers ($n = 5$--$10$)} &
+		\textbf{Cohort B: Academic and Technical Experts ($n = 5$--$10$)} \\
+		\midrule
+		\textit{Source.} Active personnel, incident commanders, and communication
+		dispatchers from the Provincial and Municipal Disaster Risk Reduction and
+		Management Offices (DRRMOs) of the Bulacan and CAMANAVA corridors. &
+		\textit{Source.} Faculty members and researchers specializing in Applied
+		Mathematics, Computer Science, and Data Analytics, specifically targeting
+		the Mathematics Department of the College of Science and the allied faculty
+		of the CICT at Bulacan State University. \\
+		\addlinespace
+		\textit{Operational Role.} These practitioners evaluate the practical
+		applicability, operational fidelity, and functional alignment derived from
+		the models without knowing which system generated the output. They provide
+		judgment on whether the extracted sentiment and disaster urgency accurately
+		reflect actual field conditions. &
+		\textit{Operational Role.} These experts assess the mathematical validity
+		and thematic coherence of the extracted topic probabilities and contextual
+		embeddings, ensuring the algorithms operate within accepted standards of
+		information theory and machine learning rigor. \\
+		\bottomrule
+	\end{tabularx}
 \end{table}
 
 \begin{table}[htbp]
-  \centering
-  \caption{Summary of Study Participants}
-  \label{tab:participants}
-  \begin{tabularx}{\textwidth}{XXXXX}
-    \toprule
-    \textbf{Participant Group} & \textbf{Target Size ($n$)} &
-    \textbf{Sampling Method} & \textbf{Target Affiliation} &
-    \textbf{Research Function} \\
-    \midrule
-    DRRM Practitioner Panel & 5--10 & Purposive &
-    Bulacan and CAMANAVA DRRM Offices &
-    Blind evaluation of system outputs; assesses operational applicability and relevance. \\
-    \addlinespace
-    Academic Technical Panel & 5--10 & Purposive &
-    Mathematics and Computer Science Faculty (College of Science / CICT) &
-    Technical validation of thematic coherence, joint embeddings, and
-    comparative algorithmic quality. \\
-    \addlinespace
-    \textbf{Total Panel} & \textbf{10--20} & \textbf{Purposive} & --- & --- \\
-    \bottomrule
-  \end{tabularx}
+	\centering
+	\caption{Summary of Study Participants}
+	\label{tab:participants}
+	\begin{tabularx}{\textwidth}{XXXXX}
+		\toprule
+		\textbf{Participant Group} & \textbf{Target Size ($n$)} &
+		\textbf{Sampling Method} & \textbf{Target Affiliation} &
+		\textbf{Research Function} \\
+		\midrule
+		DRRM Practitioner Panel & 5--10 & Purposive &
+		Bulacan and CAMANAVA DRRM Offices &
+		Blind evaluation of system outputs; assesses operational applicability and relevance. \\
+		\addlinespace
+		Academic Technical Panel & 5--10 & Purposive &
+		Mathematics and Computer Science Faculty (College of Science / CICT) &
+		Technical validation of thematic coherence, joint embeddings, and
+		comparative algorithmic quality. \\
+		\addlinespace
+		\textbf{Total Panel} & \textbf{10--20} & \textbf{Purposive} & --- & --- \\
+		\bottomrule
+	\end{tabularx}
 \end{table}
 
 In software engineering and machine learning benchmark literature, evaluating
@@ -2080,7 +1403,7 @@ across observations.
 This study observes ethical considerations for the safety of participants and
 maintains the integrity of this paper throughout the development of
 \emph{SAKLOLO: A Hybrid Semantic-Probabilistic Framework for Analysing Social
-Media Emergency Feeds in Bulacan and CAMANAVA}. The researchers will follow
+	Media Emergency Feeds in Bulacan and CAMANAVA}. The researchers will follow
 ethical guidelines such as collecting data from identified sources, obtaining
 consent, ensuring the confidentiality of participants and voluntary
 participation, using social media responsibly, and maintaining integrity in
@@ -2090,57 +1413,52 @@ participants in this study. The study adheres to the following ethical
 principles:
 
 \begin{description}[style=nextline,leftmargin=0pt]
-  \item[Data Privacy and Confidentiality.] Republic Act No. 10173, or the Data
-  Privacy Act of 2012, establishes the rights of individuals needed to protect
-  their personal information, and the organization is responsible for the
-  personal information of participants \parencite{ra10173}. The needed
-  disaster-related report data will be processed only if needed, solely for
-  this study. The study will exclude unnecessary personal information. The
-  study will focus on collecting disaster-related information from identified
-  sources such as social media and DRRM reports in Bulacan and CAMANAVA. This
-  data will be filtered to remove irrelevant data and personal information for
-  the privacy and accuracy of the study. All collected data are for academic
-  research and model validation purposes only \parencite{npc2016}.
-
-  \item[Voluntary Participation and Informed Consent.] Participants will be
-  informed about the purpose and procedure of this study prior to their
-  involvement. Participants in this study are voluntary; they have the right to
-  decline to participate in this study without penalty. To ensure accuracy and
-  prevent biases during evaluation, a protocol will be established wherein
-  evaluators will be anonymized without being informed whether the predictions
-  were from the LLM baseline model or the hybrid pipeline system
-  \parencite{belmont1979}.
-
-  \item[Confidentiality of Participants.] The identity of participants and
-  personal information of stakeholders will be kept confidential in this study.
-  The evaluation process will use a blind evaluation procedure so that the
-  system does not reveal the identity of evaluators. Possible data that can
-  identify participants will be excluded from the results to prevent biases and
-  to protect the participants. In accordance with the Data Privacy Act of 2012
-  \parencite{ra10173, npc2016}, the identity of participants shall be protected
-  against alteration and unauthorized access.
-
-  \item[Responsible Use of Social Media Data.] Only data relevant to the study
-  will be collected, such as disaster-related data from publicly accessible
-  social media of DRRM offices. The usernames of commenters from social media
-  and other personal identifiers will be excluded from the data collection
-  process. The researchers ensure that social media will be used responsibly
-  and solely for academic purposes, not to harm anyone. Moreover, all collected
-  data from social media will be anonymized and processed in accordance with
-  ethical research standards \parencite{npc2016}.
-
-  \item[Research Integrity.] The researchers of this study uphold transparency,
-  honesty, and objectivity throughout the development of the study. All data
-  related to this study, such as evaluations and results, will be properly
-  collected and studied accurately without falsification and fabrication. This
-  study will be developed ethically and honestly, and results will be presented
-  with integrity whether the outcome is expected or not \parencite{belmont1979}.
-  This study ensures reliability, credibility, and transparency. Moreover,
-  citations to all sources such as DRRM reports, social media posts, and other
-  materials will be properly acknowledged within the paper.
+	\item[Data Privacy and Confidentiality.] Republic Act No. 10173, or the Data
+	Privacy Act of 2012, establishes the rights of individuals needed to protect
+	their personal information, and the organization is responsible for the
+	personal information of participants \parencite{ra10173}. The needed
+	disaster-related report data will be processed only if needed, solely for
+	this study. The study will exclude unnecessary personal information. The
+	study will focus on collecting disaster-related information from identified
+	sources such as social media and DRRM reports in Bulacan and CAMANAVA. This
+	data will be filtered to remove irrelevant data and personal information for
+	the privacy and accuracy of the study. All collected data are for academic
+	research and model validation purposes only \parencite{npc2016}.
+	
+	\item[Voluntary Participation and Informed Consent.] Participants will be
+	informed about the purpose and procedure of this study prior to their
+	involvement. Participants in this study are voluntary; they have the right to
+	decline to participate in this study without penalty. To ensure accuracy and
+	prevent biases during evaluation, a protocol will be established wherein
+	evaluators will be anonymized without being informed whether the predictions
+	were from the LLM baseline model or the hybrid pipeline system
+	\parencite{belmont1979}.
+	
+	\item[Confidentiality of Participants.] The identity of participants and
+	personal information of stakeholders will be kept confidential in this study.
+	The evaluation process will use a blind evaluation procedure so that the
+	system does not reveal the identity of evaluators. Possible data that can
+	identify participants will be excluded from the results to prevent biases and
+	to protect the participants. In accordance with the Data Privacy Act of 2012
+	\parencite{ra10173, npc2016}, the identity of participants shall be protected
+	against alteration and unauthorized access.
+	
+	\item[Responsible Use of Social Media Data.] Only data relevant to the study
+	will be collected, such as disaster-related data from publicly accessible
+	social media of DRRM offices. The usernames of commenters from social media
+	and other personal identifiers will be excluded from the data collection
+	process. The researchers ensure that social media will be used responsibly
+	and solely for academic purposes, not to harm anyone. Moreover, all collected
+	data from social media will be anonymized and processed in accordance with
+	ethical research standards \parencite{npc2016}.
+	
+	\item[Research Integrity.] The researchers of this study uphold transparency,
+	honesty, and objectivity throughout the development of the study. All data
+	related to this study, such as evaluations and results, will be properly
+	collected and studied accurately without falsification and fabrication. This
+	study will be developed ethically and honestly, and results will be presented
+	with integrity whether the outcome is expected or not \parencite{belmont1979}.
+	This study ensures reliability, credibility, and transparency. Moreover,
+	citations to all sources such as DRRM reports, social media posts, and other
+	materials will be properly acknowledged within the paper.
 \end{description}
-
-
-\printbibliography
-
-\end{document}
