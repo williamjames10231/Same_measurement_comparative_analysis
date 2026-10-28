@@ -1,20 +1,19 @@
 \chapter{Research Methodology}
-% =========================================================================
 
 This chapter details the research methodology employed to evaluate and compare
 the performance of two disaster-related sentiment and semantic analysis models:
-\sysA, a hybrid LDA + \xlmr{} Joint Matrix System, and \sysB, \qwen, within
+\sysA, a hybrid LDA + \xlmr{} Joint Matrix System, and \sysB, Qwen3-1.7B-Instruct-Q4\_K\_M, within
 the context of the Bulacan and CAMANAVA areas from 2020 to 2025. It establishes
 a comparative quantitative evaluative research design, detailing the data
 collection and semi-automated preprocessing of the social media corpus, the
 architectural frameworks of both systems, and the common measurement metrics
-used to address the three core research questions. Finally, it outlines the
+used to address the two core research questions. Finally, it outlines the
 purposive selection of the expert stakeholder panel and the ethical guidelines
 ensuring participant privacy and data integrity.
 
-\section{Methods of Research Used}
+\section*{Methods of Research Used}
 
-\subsection{Overall Research Design}
+\subsection*{Overall Research Design}
 
 This study utilizes a comparative quantitative evaluative research design to
 evaluate the performance of two disaster-related sentiment and semantic
@@ -51,59 +50,23 @@ The study will apply a common measurement approach to the eligible corpus. Each
 document is processed by both systems under their respective procedures. This
 allows the resulting sentiments of both to be compared directly.
 
-\subsection{Research Question 1: Relativist Comparative Classification
-	Performance}
+\subsection*{Research Question 1: Joint Matrix Latent Topic Structure and Sentiment Classification Relationship Analysis}
 
-The first question of the study evaluates the sentiment classification
-performance of \sysA{} and \sysB{} under a relativist comparative evaluation
-framework. In this framework, no absolute ground truth is posited. Instead,
-\sysA---whose system components (\xlmr) were pretrained on human-annotated
-sentiment data---is designated as the relative reference, and \sysB{} is
-evaluated against it on the same corpus of disaster-related documents.
-
-Each document is assigned one of the three sentiment categories: Negative,
-Neutral, or Positive. Four metrics are computed:
-
-\begin{itemize}
-	\item \textbf{Reference-relative Precision, Recall, and Macro-F1.} These are
-	asymmetric metrics computed for \sysB{} against \sysA{} as the relative
-	reference. They measure the extent to which \sysB{} reproduces \sysA's
-	classifications.
-	\item \textbf{Inter-system agreement with Cohen's Kappa.} This is a
-	symmetric, chance-corrected measure of agreement between the two systems.
-	Unlike the reference-relative metrics, it does not privilege either system as
-	the reference.
-\end{itemize}
-
-Both systems are applied to the same prepared corpus and yield a $3 \times 3$
-matrix in which rows represent \sysA{} classifications and columns represent
-\sysB{} classifications. Diagonal cells indicate agreement; off-diagonal cells
-are disagreements. The confusion matrix is the basis of all reference-relative
-performance metrics.
-
-The relativist framing is intentional, as the study does not claim that
-\sysA's outputs are objectively correct. It asks whether a state-of-the-art
-open-weight LLM under few-shot prompting conditions reproduces what a
-lightweight hybrid pipeline---treated as the relative reference---produces.
-
-\subsection{Research Question 2: Joint Matrix Latent Topic Structure and
-	Sentiment Classification Relationship Analysis}
-
-The second question of the study evaluates whether the latent topic structures
+The first question of the study evaluates whether the latent topic structures
 and sentiment classifications from the joint matrix of both \sysA{} and \sysB{}
 demonstrate a measurable association with one another, and how this association
-describes the dynamics between latent topics and sentiment classifications and
+describes the dynamics between topics and sentiment classifications and
 the strength of their relationships analytically. The study implements a
 chi-square significance test to measure whether the relationship between the
-latent topics and sentiment classifications exists, and a relationship strength
-test with Cramer's V to measure the true strength of association between latent
+topics and sentiment classifications exists, and a relationship strength
+test with Fisher's Exact Test to measure the true strength of association between
 topics and sentiment classifications and how big and impactful this is.
 
 The independent relationship analysis of both systems is to be conducted with
-the data inputs and $n$ specifications of potential latent topic themes to
+the data inputs and $n$ specifications of potential latent topic topics to
 create an equally sized joint matrix or contingency table. The analysis shall
 report relevant relationship measurements of performance: the Chi-Square
-Statistic and Cramer's V. The comparison emphasis is on determining
+Statistic and Fisher's Exact Test. The comparison emphasis is on determining
 analytically the existence of a statistical relationship in their respective
 joint matrices and the strength of their association independently produced by
 both systems. Then they will be independently assessed against their
@@ -113,9 +76,9 @@ frequently together and how people feel about them, before comparing the two
 systems again for further insights. Thresholds apply exclusively to independent
 analysis.
 
-\subsection{Research Question 3: Sampled Comparative Evaluation}
+\subsection*{Research Question 2: Sampled Comparative Evaluation}
 
-The third question of the study examines both \sysA{} and \sysB{} through a
+The second question of the study examines both \sysA{} and \sysB{} through a
 common evaluation corpus. The objective is to attain a representative output of
 the two systems. It is to be structured to ensure representation of outcome
 patterns where the two systems agree, where they disagree, and cases
@@ -125,13 +88,13 @@ The sampled documents from both systems are to be blindly evaluated by
 stakeholders. This assessment will focus on their own assessment of the same
 documents and their agreement or disagreement when presented in two blind tests
 sampled from evaluated outputs that do not specify which is made by \sysA{} and
-which is made by \sysB. It will be a check-or-cross test. The two systems will
+which is made by \sysB. It will be a assessment with human stakeholders. The two systems will
 be evaluated individually in terms of stakeholder agreement rate and McNemar's
 test. They will be evaluated independently and together when appropriate for
 further insights. Acceptability thresholds are to be applied appropriately to
 non-comparative measures.
 
-\subsection{Evaluation Framework}
+\subsection*{Evaluation Framework}
 
 The study utilises a same-measurement comparative evaluation framework in which
 \sysA{} and \sysB{} are applied to the same corpus of disaster-related textual
@@ -170,7 +133,7 @@ insights and findings. This allows the study to evaluate the independent ability
 of each system and the relative performance of one over the other with respect
 to the mathematical assumptions of each evaluation framework.
 
-\section{Data Sources and Corpus}
+\section*{Data Sources and Corpus}
 
 The textual data will be collected primarily from publicly accessible Facebook
 posts and comments related to disasters occurring in Bulacan and CAMANAVA
@@ -324,20 +287,20 @@ of newer agencies and wider public government pages. The timeframe of
 2020-2025 was chosen to obtain relevant qualitative data that is relatively
 not out of date and is feasible to attain.
 
-\subsection{Inclusion Criteria}
+\subsection*{Inclusion Criteria}
 
 Facebook posts or comments are to be included if they satisfy the following
 criteria: they are publicly accessible; they are related to a disaster,
-disaster event, disaster impact, response, recovery, or other related themes;
+disaster event, disaster impact, response, recovery, or other related topics;
 they are relevant to Bulacan or CAMANAVA; they fall within the 2020--2025
 study period; they contain textual content suitable for sentiment and semantic
 analysis; and they are written in Tagalog, English, or Taglish.
 
-\subsection{Exclusion Criteria}
+\subsection*{Exclusion Criteria}
 
 Facebook posts or comments are to be excluded when they are not publicly
 accessible; when they are not related to a disaster, disaster event, disaster
-impact, response, recovery, or other related themes; when they fall outside the
+impact, response, recovery, or other related topics; when they fall outside the
 scope of Bulacan or CAMANAVA; when they fall outside the 2020--2025 study
 period; when they contain no textual content suitable for sentiment and
 semantic analysis; when they consist entirely of spam, advertisements,
@@ -354,7 +317,7 @@ mentions, hashtags, private information, or emojis.
 		\textbf{\#} & \textbf{Dimension} & \textbf{Inclusion Criteria} & \textbf{Exclusion Criteria} \\
 		\midrule
 		1 & Accessibility      & Publicly accessible & Not publicly accessible \\
-		2 & Topical relevance  & Related to disaster, disaster impact, response, recovery, or related themes & Unrelated to disasters or related themes \\
+		2 & Topical relevance  & Related to disaster, disaster impact, response, recovery, or related topics & Unrelated to disasters or related topics \\
 		3 & Geographic scope   & Relevant to Bulacan or CAMANAVA & Outside the scope of Bulacan or CAMANAVA \\
 		4 & Time frame         & Within the 2020--2025 study period & Outside the 2020--2025 study period \\
 		5 & Text suitability   & Text suitable for sentiment and semantic analysis & No suitable textual content \\
@@ -368,9 +331,9 @@ mentions, hashtags, private information, or emojis.
 
 Together, the resulting eligible records constitute the common corpus used by
 both \sysA{} and \sysB{} under their individual procedures, so that differences
-in sentiment and latent topic outputs can be examined under a common data basis.
+in sentiment and topic outputs can be examined under a common data basis.
 
-\section{Data Preprocessing}
+\section*{Data Preprocessing}
 
 The collected common corpus is to undergo preprocessing before being submitted
 to \sysA{} and \sysB, with the intention of removing irrelevant content while
@@ -385,7 +348,7 @@ the study. Record consolidation is to be done afterward to remove remaining
 duplicates. Finally, the corpus is to be subjected to textual completeness and
 analytical suitability checks before being fed to the two systems.
 
-\section{Comparative Systems}
+\section*{Comparative Systems}
 
 This study evaluates two computational systems for disaster-related sentiment
 and latent topic analysis: \sysA, a hybrid LDA--\xlmr{} Joint Matrix System, and
@@ -396,7 +359,7 @@ measurement framework of the study. This arrangement allows the study to
 distinguish differences arising from the analytical approaches of the systems
 while maintaining a common basis for comparison.
 
-\subsection{System A: LDA-XLM-RoBERTa Joint Matrix System}
+\subsection*{System A: LDA-XLM-RoBERTa Joint Matrix System}
 
 \sysA{} employs a hybrid approach that combines Count Vectorization, Latent
 Dirichlet Allocation (LDA), and \xlmr-based contextual representations into a
@@ -418,60 +381,14 @@ can understand and analyze each word individually, followed by identifying
 unique words from the preprocessed text. This serves as the reference that maps
 text into a numerical vector. The text is then converted into numerical vectors
 for the machine learning model to process. It acts as a bridge between human
-language and machine language \parencite{kozhevnikov2020}.
-
-Vectorization is a function that maps a text document into a numerical vector
-in a high-dimensional space. Let
-\[
-\mathcal{D} = \{d_1, d_2, \dots, d_N\}
-\]
-be a set of $N$ documents, and let
-\[
-V = \{w_1, w_2, \dots, w_{|V|}\}
-\]
-be the vocabulary of $|V|$ unique words. Then vectorization is a function
-\begin{equation}
-	\phi : \mathcal{D} \longrightarrow \mathbb{R}^{|V|}
-	\label{eq:vecmap}
-\end{equation}
-such that each document $d_i \in \mathcal{D}$ is mapped to a vector
-\begin{equation}
-	\phi(d_i) = \bigl[x_{i1},\, x_{i2},\, \dots,\, x_{i|V|}\bigr]
-	\label{eq:vecdoc}
-\end{equation}
-where $x_{ij}$ represents the weight or value of word $w_j$ in document $d_i$.
-For count vectorization, the value $x_{ij}$ is simply the raw frequency of word
-$w_j$ in document $d_i$:
-\begin{equation}
-	x_{ij} = \operatorname{count}(w_j, d_i)
-	\label{eq:countvec}
-\end{equation}
-
-\noindent For example, given the vocabulary
-$V = \{\text{``Word 1''}, \text{``Word 2''}, \text{``Word 3''},
-\text{``Word 4''}\}$:
-
-\begin{table}[htbp]
-	\centering
-	\caption{Illustrative Count Vectorization Matrix}
-	\label{tab:countvec}
-	\begin{tabular}{lcccc}
-		\toprule
-		\textbf{Document} & \textbf{Word 1} & \textbf{Word 2} & \textbf{Word 3} & \textbf{Word 4} \\
-		\midrule
-		$d_1$ & 1 & 1 & 1 & 1 \\
-		$d_2$ & 1 & 1 & 1 & 0 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-\noindent such that $\phi(d_1) = [1,1,1,1]$ and $\phi(d_2) = [1,1,1,0]$.
+language and machine language \parencite{kozhevnikov2020}. Vectorization is a function that maps a text document into a numerical vector
+in a high-dimensional space. 
 
 \subsubsection{Latent Dirichlet Allocation (LDA)}
 
 Latent Dirichlet Allocation is a generative probabilistic model of a corpus. The
 assumption is that each document is represented as a random mixture over
-latent topics, and each of these topics is characterized by a distribution of
+topics, and each of these topics is characterized by a distribution of
 words. Its generative process follows that, for each document $d$ in the
 corpus:
 
@@ -488,48 +405,7 @@ corpus:
 \end{enumerate}
 
 Each document draws its overall topic mixture $\theta_d$ from a Dirichlet
-distribution parameterized by $\alpha$:
-\begin{equation}
-	\theta_d \sim \operatorname{Dirichlet}(\alpha)
-	\label{eq:lda-theta}
-\end{equation}
-
-Given the parameters $\alpha$ and $\beta$, the joint distribution of a topic
-mixture $\theta_d$, a set of $K$ topics $\phi$, and a set of $N_d$ words
-$\mathbf{w}_d$ is given as
-\begin{equation}
-	p(\mathbf{w}_d, \mathbf{z}_d, \theta_d \mid \alpha, \beta)
-	= p(\theta_d \mid \alpha)
-	\prod_{n=1}^{N_d}
-	p(z_{d,n} \mid \theta_d)\,
-	p(w_{d,n} \mid z_{d,n}, \beta)
-	\label{eq:lda-joint}
-\end{equation}
-where $z_{d,n}$ is simply one of the unique topics such that
-$z_{d,n} \in \{1,\dots,K\}$. Integrating over $\theta_d$ and summing over
-$\mathbf{z}_d$, we obtain the marginal distribution of a document:
-\begin{equation}
-	p(\mathbf{w}_d \mid \alpha, \beta)
-	= \int p(\theta_d \mid \alpha)
-	\left[
-	\prod_{n=1}^{N_d}
-	\sum_{z_{d,n}=1}^{K}
-	p(z_{d,n} \mid \theta_d)\,
-	p(w_{d,n} \mid z_{d,n}, \beta)
-	\right]
-	d\theta_d
-	\label{eq:lda-marginal}
-\end{equation}
-
-Finally, taking the product of the marginal probabilities of single documents,
-we obtain the probability of a corpus:
-\begin{equation}
-	p(\mathcal{D} \mid \alpha, \beta)
-	= \prod_{d=1}^{M} p(\mathbf{w}_d \mid \alpha, \beta)
-	\label{eq:lda-corpus}
-\end{equation}
-
-The parameters of the LDA get modified depending on their level. Overall, the
+distribution parameterized by $\alpha$ Given the parameters $\alpha$ and $\beta$. The parameters of the LDA get modified depending on their level. Overall, the
 model has three levels: corpus level, document level, and word level. The
 parameters $\alpha$ and $\beta$ are corpus-level parameters and are sampled once
 in the process of generating a corpus. The variables $\theta_d$ are
@@ -539,7 +415,7 @@ per word in each document \parencite{blei2003}.
 
 \subsubsection{Latent Dirichlet Allocation (LDA) $K$-Topic Selection}
 
-The number of $K$ latent topics was selected empirically through a coherence
+The number of $K$ topics was selected empirically through a coherence
 sweep across $K \in \{2,3,\dots,K_{\max}\}$. For each value of $K$, the model
 was fitted on the prepared corpus with a fixed random state of 42, batch
 learning, and 100 maximum iterations, and the mean UMass Coherence score and
@@ -561,10 +437,7 @@ both $w_m$ and $w_n$, and $D(w_n)$ is the number of documents containing $w_n$.
 This metric relies on co-occurrence statistics gathered from the corpus being
 modeled and is domain specific \parencite{mimno2011}.
 
-Because the sentiment category has exactly three categories, the degrees of
-freedom contribution of Cramer's V is fixed at 2 as long as $K \geq 3$. This
-ensures that Cramer's V values are comparable across different values of $K$
-and across both systems. The selected $K$---the UMass coherence score nearest to
+Because the sentiment category has exactly three categories. The selected $K$---the UMass coherence score nearest to
 zero among the sampled values---will be the selected amount of $K$-topics for
 the LDA configuration and the amount of topics for \sysB's Stage 1, to preserve
 the matched dimensionality of their joint matrices required for the comparative
@@ -574,7 +447,7 @@ evaluation framework.
 
 LDA only gives us a platform to conduct latent semantic analysis; it only
 allows us to see which words co-occur relative to a given corpus. It does not
-tell us whether people talk about these sets of words or themes negatively,
+tell us whether people talk about these sets of words or topics negatively,
 positively, or neutrally. Sentiment analysis utilizing language models in
 multilingual settings makes this possible. XLM-T is a transformer-based model
 that is an extension of \xlmr{} trained on social media posts on X (formerly
@@ -601,11 +474,11 @@ such as Wikipedia and CommonCrawl \parencite{barbieri2021}.
 \end{figure}
 
 The system generates sentiment classifications using the defined ternary
-sentiment categories of Negative, Neutral, and Positive, as well as the latent
+sentiment categories of Negative, Neutral, and Positive, as well as the
 topics and their respective words. These outputs are fixed before the
 comparative evaluation.
 
-\subsection{System B: \texttt{Qwen3-1.7B-Instruct-Q4\_K\_M}}
+\subsection*{System B: \texttt{Qwen3-1.7B-Instruct-Q4\_K\_M}}
 
 \sysB{} employs \qwen{} as a few-shot language model for disaster-related
 sentiment and latent topic analysis. Unlike \sysA, which is a hybrid approach
@@ -627,7 +500,7 @@ show strong Taglish performance. Quantization saves memory at a possible cost
 in accuracy.
 
 
-The prompting procedure specifies the required sentiment categories and latent topics
+The prompting procedure specifies the required sentiment categories and topics
 output format to ensure consistency and that comparative analysis assumptions
 are respected. For sentiment analysis, the system produces one of the three
 defined categories: Negative, Neutral, or Positive.
@@ -654,7 +527,7 @@ measurement framework.
 In the first stage, a representative sample of 200 documents is drawn from the
 prepared corpus. This representative sample is presented to the model with
 instructions to synthesize a canonical taxonomy of distinct $K$ topics. The
-prompt directs the model to focus on core actions, problems, or themes rather
+prompt directs the model to focus on core actions, problems, or topics rather
 than proper nouns, locations, or geographic identifiers. Each topic must have a
 short label and a set of keywords extracted from the representative sample.
 
@@ -662,38 +535,37 @@ short label and a set of keywords extracted from the representative sample.
 	\centering
 	\label{ls:stage-1-prompt}
 	\begin{minipage}{0.9\textwidth}
-		\begin{lstlisting}[
-			language=Python,
+		\begin{lstlisting}[language=Python,
 			showspaces=false,
 			showstringspaces=false,
 			caption={Stage 1 Prompt}]
-			TOPIC_DISCOVERY_SYSTEM = """
-			You are an expert qualitative data analyst. Your task is to analyze a batch of text documents and synthesize a canonical taxonomy of exactly {n_topics} distinct topics.
+TOPIC_DISCOVERY_SYSTEM ="""
+You are an expert qualitative data analyst. Your task is to analyze a batch of text documents and synthesize a canonical taxonomy of exactly {n_topics} distinct topics.
 			
-			GUIDELINES:
-			- Focus on the core ACTION, PROBLEM, or THEME (e.g., medical relief, structural damage, supply distribution).
-			- Strictly omit all proper nouns, locations, regions, and geographic identifiers.
-			- Each topic must have a short 'label' (2-4 lowercase words), and actual 'keywords' (bag-of-words) extracted directly from the texts.
-			- Respond ONLY with a valid JSON array of objects. No markdown, no explanations.
-			- CRITICAL: Your output MUST start with "[" and end with "]".
+GUIDELINES:
+- Focus on the core ACTION, PROBLEM, or THEME (e.g., medical relief, structural damage, supply distribution).
+- Strictly omit all proper nouns, locations, regions, and geographic identifiers.
+- Each topic must have a short 'label' (2-4 lowercase words), and actual 'keywords' (bag-of-words) extracted directly from the texts.
+- Respond ONLY with a valid JSON array of objects. No markdown, no explanations.
+- CRITICAL: Your output MUST start with "[" and end with "]".
 			
-			EXAMPLE OUTPUT:
-			[
-			{{"label": "rescue efforts", "keywords": ["rescue", "stranded", "volunteer", "bagal", "rescuers"]}},
-			{{"label": "flood impact", "keywords": ["baha", "tubig", "lubog", "taas", "stranded"]}},
-			{{"label": "health risks", "keywords": ["leptospirosis", "sintomas", "check-up", "baho"]}}
-			]
-			/no_think
-			"""
+EXAMPLE OUTPUT:
+[
+{{"label": "rescue efforts", "keywords": ["rescue", "stranded", "volunteer", "bagal", "rescuers"]}},
+{{"label": "flood impact", "keywords": ["baha", "tubig", "lubog", "taas", "stranded"]}},
+{{"label": "health risks", "keywords": ["leptospirosis", "sintomas", "check-up", "baho"]}}
+]
+/no_think
+"""
 			
-			TOPIC_DISCOVERY_USER = """
-			Here is a representative sample of {n_docs} documents from the dataset:
+TOPIC_DISCOVERY_USER = """
+Here is a representative sample of {n_docs} documents from the dataset:
 			
-			{documents_block}
+{documents_block}
 			
-			Generate the JSON array of exactly {n_topics} topics based on the themes present in these documents.
-			JSON Output:
-			"""
+Generate the JSON array of exactly {n_topics} topics based on the themes present in these documents.
+JSON Output:
+"""
 		\end{lstlisting}
 	\end{minipage}
 \end{figure}
@@ -715,8 +587,8 @@ Stage 1 and a small set of few-shot examples demonstrating the sentiment
 decision rule. The model is required to output a single JSON object with two
 fields: \texttt{sentiment} and \texttt{topic}.
 
-The sentiment must be exactly one of the following: \texttt{POS},
-\texttt{NEG}, or \texttt{NEU}. The prompt defines the following as:
+The sentiment must be exactly one of the following: \texttt{POS(Positive)},
+\texttt{NEG(Negative)}, or \texttt{NEU(Neutral)}. The prompt defines the following as:
 \begin{itemize}
 	\item \texttt{POS}: the text expresses joy, gratitude, hope, relief, or praise;
 	\item \texttt{NEG}: the text expresses anger, sadness, fear, frustration, or criticism;
@@ -733,38 +605,38 @@ The sentiment must be exactly one of the following: \texttt{POS},
 			showspaces=false,
 			showstringspaces=false,
 			caption={Stage 2 Prompt}]
-			JOINT_SYSTEM = """
-			You are an expert analyst classifying social media posts. You must output TWO labels: SENTIMENT and TOPIC.
+JOINT_SYSTEM = """
+You are an expert analyst classifying social media posts. You must output TWO labels: SENTIMENT and TOPIC.
 			
-			SENTIMENT must be exactly one of: "POS", "NEG", "NEU".
-			- POS: The text expresses joy, gratitude, hope, relief, or praise.
-			- NEG: The text expresses anger, sadness, fear, frustration, or criticism.
-			- NEU: The text is purely informational, factual, or expresses a balanced/mixed view. Do not assume factual requests are negative.
+SENTIMENT must be exactly one of: "POS", "NEG", "NEU".
+- POS: The text expresses joy, gratitude, hope, relief, or praise.
+- NEG: The text expresses anger, sadness, fear, frustration, or criticism.
+- NEU: The text is purely informational, factual, or expresses a balanced/mixed view. Do not assume factual requests are negative.
 			
-			TOPIC must be exactly one of the 'label' values from the provided taxonomy list.
+TOPIC must be exactly one of the 'label' values from the provided taxonomy list.
 			
-			Respond ONLY with a valid JSON object. No markdown, no explanations.
-			FORMAT:
-			{{"sentiment": "LABEL", "topic": "exact topic label from list"}}
-			/no_think
-			"""
+Respond ONLY with a valid JSON object. No markdown, no explanations.
+FORMAT:
+{{"sentiment": "LABEL", "topic": "exact topic label from list"}}
+/no_think
+"""
 			
-			JOINT_USER = """Available taxonomy (label and description): {topic_list_with_descriptions}
+JOINT_USER = """Available taxonomy (label and description): {topic_list_with_descriptions}
 			
-			Examples:
-			Text: "Salamat sa mga rescuers! Ligtas na kami."
-			JSON: {{"sentiment": "POS", "topic": "rescue efforts"}}
+Examples:
+Text: "Salamat sa mga rescuers! Ligtas na kami."
+JSON: {{"sentiment": "POS", "topic": "rescue efforts"}}
 			
-			Text: "Base sa PAGASA, tuloy-tuloy ang ulan hanggang weekend. Maghanda po."
-			JSON: {{"sentiment": "NEU", "topic": "flood warning"}}
+Text: "Base sa PAGASA, tuloy-tuloy ang ulan hanggang weekend. Maghanda po."
+JSON: {{"sentiment": "NEU", "topic": "flood warning"}}
 			
-			Text: "Nakakagalit! Ang bagal ng rescue. Ilang oras na kaming stranded."
-			JSON: {{"sentiment": "NEG", "topic": "flood impact"}}
+Text: "Nakakagalit! Ang bagal ng rescue. Ilang oras na kaming stranded."
+JSON: {{"sentiment": "NEG", "topic": "flood impact"}}
 			
-			Text to classify:"{text}"
+Text to classify:"{text}"
 			
-			JSON Response:
-			"""
+JSON Response:
+"""
 		\end{lstlisting}
 	\end{minipage}
 \end{figure}
@@ -786,7 +658,7 @@ Both systems are therefore applied to the same processed corpus but retain their
 individual internal procedures. Their outputs are to be subjected to the same
 evaluation framework for independent assessment and comparative analysis.
 
-\section{End Products of System A and System B: The Joint Matrix}
+\section*{End Products of System A and System B: The Joint Matrix}
 
 In order for both systems to undergo the same measurement comparative analysis,
 both their latent topic matrices and their sentiment classification matrices
@@ -799,30 +671,30 @@ counts, and percentages of two categorical variables. Formally, the table
 variables define the rows and columns, one variable defining the rows of the
 table and another variable defining the columns of the table \parencite{ncssnd}.
 
-Let $T = \{\topic{1}, \dots, \topic{M}\}$ be the row variable of latent topics
+Let $T = \{\topic{1}, \dots, \topic{M}\}$ be the row variable of topics
 with $M$ topics, and $S = \{\sent{1}, \dots, \sent{N}\}$ be the column variable
 of sentiment classifications with $N$ classes. Then an $M \times N$ contingency
 table with marginal totals is defined as
 \begin{equation}
 	J =
 	\begin{pmatrix}
-		j_{11}   & j_{12}   & \cdots & j_{1N}   & n_{1N} \\
-		j_{21}   & j_{22}   & \cdots & j_{2N}   & n_{2N} \\
+		j_{11}   & j_{12}   & \cdots & j_{1n}   & n_{1n} \\
+		j_{21}   & j_{22}   & \cdots & j_{2n}   & n_{2n} \\
 		\vdots   & \vdots   & \ddots & \vdots   & \vdots \\
-		j_{M1}   & j_{M2}   & \cdots & j_{MN}   & n_{MN} \\
-		n_{M1}      & n_{M2}      & \cdots & n_{MN}      & n
+		j_{m1}   & j_{m2}   & \cdots & j_{mn}   & n_{mn} \\
+		n_{m1}      & n_{m2}      & \cdots & n_{mn}      & n
 	\end{pmatrix}
 	\label{eq:jointmatrix}
 \end{equation}
 where each cell entry is defined as
 \begin{equation}
-	j_{ij} = \bigl|\{\, d \in \mathcal{D} : t(d) = \topic{i} \;\wedge\; s(d) = \sent{j} \,\}\bigr|
+	j_{mn} = \bigl|\{\, d \in \mathcal{D} : t(d) = \topic{m} \;\wedge\; s(d) = \sent{n} \,\}\bigr|
 	\label{eq:cellentry}
 \end{equation}
 with $t(d)$ representing the assigned latent topic of document $d$ and $s(d)$
 representing its assigned sentiment classification.
 
-\section{Measurement and Evaluation}
+\section*{Measurement and Evaluation}
 
 The information collected from the two systems will be processed, coded, and
 analysed with suitable performance measures that correspond to the three
@@ -832,7 +704,7 @@ framework to ensure comparative integrity in the evaluation results. Each
 statistic will be run separately on each system prior to comparing and making
 relative findings.
 
-\subsection{System Implementation: The Analytical Dashboard}
+\subsection*{System Implementation: The Analytical Dashboard}
 
 To operationalize the backend computational pipelines of System A and System B for both analytical visualization
 and stakeholder evaluation, a localized web dashboard is developed. While the core processing relies on heavy backend machine learning operations (LDA, XLM-RoBERTa, and Qwen3 interface), the dashboard provides a graphical user interface (GUI) that translates these mathematical output into interactive visual analytics.
@@ -856,21 +728,20 @@ The dashboard will have these primary modules:
 	classifications without parsing raw code.
 	
 	\item \textbf{Blind Evaluation Instrument Module.} To execute Research 
-	Question 3, the dashboard features a specialized evaluation interface. 
+	Question 2, the dashboard features a specialized evaluation interface. 
 	It randomly samples documents from the corpus and presents the 
 	system-generated sentiment and topic classifications side-by-side in a 
 	blinded format (labeled only as ``Output X'' and ``Output Y''). The 
 	stakeholder panel (Cohort A and B) interacts directly with this web 
-	interface, utilizing a check-or-cross GUI to record their agreement or 
+	interface, utilizing a assessment format GUI to record their agreement or 
 	disagreement. The dashboard automatically logs these interactions into 
-	a secure database for the subsequent McNemar's Test and Agreement Rate 
-	computations.
+	a secure database for the subsequent McNemar's Test and other computations.
 \end{enumerate}
 
 By utilizing a lightweight python web framework, the dashboard ensures the the system remains entirely dependent on local backend environment satisfying the need for
 an interactive visual analytical system.
 
-\subsection{Decision Support System (DSS)}
+\subsection*{Decision Support System (DSS)}
 
 Decision Support System (DSS) was first introduced as a system designed to aid decision makers in semi-structured issues that algorithms cannot resolve. It served to increase the managers capabilities rather than replace them in the decision making process. DSS provides a quantitative basis that supports managerial decisions instead of solely relying on personal intuition and experience~\cite{Rashidi2018}.
 
@@ -882,7 +753,7 @@ A standard Decision Support System framework consists of four primary components
 	\item \textbf{Problem-Processing System (PPS):} Acts to resolve the problem.
 \end{enumerate}
 
-To integrate latent topics and sentiment analysis into a DSS, unstructured text is collected from sources such as Twitter, Amazon, and Google Reviews. Preprocessing is applied to remove URLs, hashtags, usernames, special characters, stop words, and fake news. Topic modeling techniques, such as Latent Dirichlet Allocation (LDA), are then utilized to identify the discussed topics.
+To integrate topics and sentiment analysis into a DSS, unstructured text is collected from sources such as Twitter, Amazon, and Google Reviews. Preprocessing is applied to remove URLs, hashtags, usernames, special characters, stop words, and fake news. Topic modeling techniques, such as Latent Dirichlet Allocation (LDA), are then utilized to identify the discussed topics.
 
 Furthermore, sentiment analysis—using lexicon-based tools (e.g., VADER, SentiWordNet, TextBlob), machine learning models (e.g., SVM, Naive Bayes, LSTM), or hybrid approaches—is implemented to determine the sentiment associated with each topic. Two common integration methods include:
 \begin{itemize}
@@ -894,7 +765,9 @@ The resulting output is a matrix mapping topics against sentiment scores along w
 
 When implementing this framework, sentiment analysis limitations must be considered, including sarcasm and irony, domain-specific jargon, multiple sentiments within a single sentence, and the English-centric design of most existing tools, which necessitates custom training data for languages such as Filipino or Taglish. Additionally, consulting the original articles is recommended for specific implementation details~\parencite{AguilarMoreno2024}.
 
-\subsection{Waterfall Development Methodology}
+The system will utilize decision support system to help local stakeholders find topics that has to be investigated due to frequency distribution of their sentiment classifications (high levels of negative and positive sentiment but minimal neutral sentiments, high concentration of sentiment classifications sentiments towards a single class and such). It also helps local stakeholders make informed decisions on which topics should they focus their time, consultations, expertise and other resources to have an aligned response with what people talk about in social networks and how they feel talking about it.
+
+\subsection*{Waterfall Development Methodology}
 
 The Waterfall model is a plan-driven software process in which development
 moves through requirements, design, implementation, verification, and
@@ -944,7 +817,7 @@ A known weakness of Waterfall is its limited flexibility once a phase is
 complete \parencite{sommerville2016}, which is reduced here by fixing the
 requirements and metrics in advance.
 
-\subsection{System Flowchart}
+\subsection*{System Flowchart}
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/image2.png}
@@ -989,133 +862,13 @@ This figure \ref{fig:algorithm-benchmarks} demonstrates the sequential rendering
 \end{figure}
 This figure \ref{fig:blind-stakeholder-evaluation} demonstrates the sequential rendering process of the statistical evaluation modules, summarizing the data visualization for Research Questions 1, 2, and 3.
 
-
-\subsection{Research Question 1: Reference-Relative Classification Performance}
-
-The purpose of Research Question 1 is to assess the overall sentiment
-classification performance of both \sysA{} and \sysB{} as they classify the
-same set of disaster-related documents. It answers the question of whether a
-large language model with more parameters and compute can brute-force its way
-into replicating an established, specialised tool present in \sysA{} for both
-latent semantic analysis and sentiment analysis. Both \sysA{} and \sysB{} will
-assign a sentiment classification to each document in one of three categories:
-Negative, Neutral, and Positive. The classification accuracy of \sysA{} and
-\sysB{} will be measured in terms of Reference-relative Precision, Recall,
-F1-Score, Macro-F1, and Cohen's Kappa.
-
-A confusion matrix is to be constructed so that the two systems can be assessed
-for Research Question 1. Both systems share the same sentiment categories---
-Negative, Neutral, and Positive---yielding a $3 \times 3$ classification matrix:
-
-\begin{table}[htbp]
-	\centering
-	\caption{Reference-Relative Confusion Matrix (\sysA{} as Reference, \sysB{} as Comparison)}
-	\label{tab:confusion}
-	\begin{tabular}{l|ccc}
-		\toprule
-		\backslashbox{\textbf{\sysA{}}}{\textbf{\sysB{}}} & \textbf{Negative} & \textbf{Neutral} & \textbf{Positive} \\
-		\midrule
-		\textbf{Negative} & $a_{11}$ & $a_{12}$ & $a_{13}$ \\
-		\textbf{Neutral}  & $a_{21}$ & $a_{22}$ & $a_{23}$ \\
-		\textbf{Positive} & $a_{31}$ & $a_{32}$ & $a_{33}$ \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-\noindent where rows represent \sysA, columns represent \sysB, diagonal cells
-represent identical classifications across the two systems, and off-diagonal
-cells represent divergent classifications.
-
-\paragraph{Precision.} Precision is an indicator of how accurately a system has
-identified instances of a specified sentiment category. Precision is defined as
-\begin{equation}
-	P = \frac{TP}{TP + FP}
-	\label{eq:precision}
-\end{equation}
-where $TP$ is the number of True Positives and $FP$ is the number of False
-Positives \parencite{googledevnd}. These variables can be obtained via the confusion
-matrix of the two systems. Precision is a crucial metric for the comparative
-framework, as it gives insight into how well \sysB{} classifies a given
-sentiment category relative to \sysA.
-
-\paragraph{Recall.} Recall is an indication of whether a system can find all
-the references to a specific sentiment category. Recall is defined as
-\begin{equation}
-	R = \frac{TP}{TP + FN}
-	\label{eq:recall}
-\end{equation}
-where $TP$ stands for the number of true positive classifications and $FN$ is
-the number of false negative classifications. Recall is crucial to the
-comparative framework as it allows us to see how well \sysB{} classifies a
-negative sentiment category relative to \sysA.
-
-\paragraph{F1-Score.} The F1-Score merges Precision and Recall into one metric
-by taking their harmonic mean. This score gives a well-rounded view of how well
-a classification model is performing, factoring in both false positives and
-false negatives \parencite{sklearnnd}:
-\begin{equation}
-	F_1 = 2 \cdot \frac{P \cdot R}{P + R}
-	\label{eq:f1}
-\end{equation}
-The F1-Score will be calculated for each sentiment category: Negative, Neutral,
-and Positive.
-
-\paragraph{Macro-F1.} Macro-F1 will be used to determine the overall
-classification performance across the three sentiment categories. It calculates
-the F1-Score for each category and gives equal weight to each category:
-\begin{equation}
-	\text{Macro-}F_1 = \frac{1}{3} \sum_{c=1}^{3} F_{1,c}
-	\label{eq:macrof1}
-\end{equation}
-A higher Macro-F1 score signals that both the precision and recall of the
-classification model are performing well across all three sentiment categories.
-Macro-F1 allows the comparative framework to give insight into the overall
-classification performance measure of \sysB{} against \sysA, covering all three
-ternary categories: Negative, Positive, and Neutral---highly relevant for an
-event like a natural disaster, which can evoke a broad range of sentiment.
-
-\paragraph{Cohen's Kappa.} Cohen's Kappa will be used to evaluate the agreement
-between the classifications of the two systems. This metric takes into account
-the possibility of agreement by chance \parencite{mchugh2012}:
-\begin{equation}
-	\kappa = \frac{p_o - p_e}{1 - p_e}
-	\label{eq:kappa}
-\end{equation}
-where $p_o$ represents the observed proportion of agreement and $p_e$ represents
-the expected proportion of agreement by chance. This provides a comparative
-framework to assess confidence that the insights from the performance measures
-are not merely due to chance for both \sysA{} and \sysB.
-
-\subsubsection{Acceptability Thresholds}
-
-The values for Reference-Relative Precision, Recall, F1-Score, Macro-F1, and
-Cohen's Kappa for both \sysA{} and \sysB{} will be evaluated with \sysA{} as the
-reference classification. These values will then be interpreted with
-acceptability thresholds to reach a conclusion on their classification
-performance.
-
-A Reference-relative F1-Score and Macro-F1 of at least 0.70 will be considered
-an acceptable level of classification performance, indicating that \sysB{} has
-attained enough balance between precision and recall relative to \sysA{} across
-sentiment categories. This threshold is adequate for noisy domains with
-ambiguous ground truths; a threshold of 0.70 is deemed strong in this context
-\parencite{openlayer2026}.
-
-A Cohen's Kappa of at least 0.60 will be considered acceptable inter-system
-agreement between \sysA{} and \sysB, as it is considered the threshold for
-adequate agreement, and confidence may be placed in the outcomes
-\parencite{mchugh2012}. These performance measures will be evaluated for
-interpretation of whether \sysB{} can produce classification outcomes in
-alignment with \sysA.
-
-\subsection{Research Question 2: Joint Matrix Latent Topic Structure and
+\subsection*{Research Question 1: Joint Matrix Latent Topic Structure and
 	Sentiment Classification Relationship Analysis}
 
-Regarding Research Question 2, an assessment is conducted to determine whether a
+Regarding Research Question 1, an assessment is conducted to determine whether a
 relationship exists between the respective joint matrices of \sysA{} and \sysB{}
-and how strong the association is between their joint matrices' latent topic
-structures and sentiment classifications. This must be done to analytically
-justify that the two systems have the ability to capture the latent topics and
+and how strong the association is between their joint matrices' topics and sentiment classifications. This must be done to analytically
+justify that the two systems have the ability to capture the topics and
 sentiments of Facebook posts during natural disasters, and their quantifiable
 measures of performance in doing so.
 
@@ -1126,14 +879,14 @@ relationships. It aims at examining the relationship between two variables to
 gain insight into whether such a relationship exists, how strong it is, and
 whether it is positive or negative. By examining this, it allows a
 quantifiable understanding of two variables \parencite{bennd}. Since our joint
-matrix is composed of latent topics and sentiment classifications, this can be
+matrix is composed of topics and sentiment classifications, this can be
 interpreted as two variables that the study seeks to analytically determine
 whether their joint matrix is significantly associated.
 
-Within this investigation, the system-generated latent topics and sentiment
+Within this investigation, the system-generated topics and sentiment
 classifications from the joint matrices of both systems will serve as the two
 variables evaluated for bivariate analysis. Prior to performing further
-bivariate analysis using the Chi-Square Statistic and Cramer's V, the output
+bivariate analysis using the Chi-Square Statistic and Fisher's Exact Test, the output
 must be in the form of a cross-tabulation to create a structured framework of
 computation in matrix format. The joint matrix itself is a form of bivariate
 analysis, as it is a cross-tabulation or contingency table that allows us to
@@ -1150,23 +903,13 @@ exists, we set the null hypothesis that no association exists and the
 alternative hypothesis that an association exists. To decide whether to reject
 or fail to reject the null hypothesis, we first compute the chi-square statistic
 ($\chi^2$) and obtain the critical value to determine whether we conclude that
-no association exists or that an association exists \parencite{singh2020}. In this
-study, we state that:
-\begin{itemize}
-	\item $H_0$: There is no relationship between what crisis issue is discussed
-	(Topic) and the emotion behind it (Sentiment).
-	\item $H_1$: There is a systematic relationship between topics and sentiments,
-	which may indicate that the semantic profiles of Facebook posts align
-	with their sentiment profiles.
-\end{itemize}
-
-The formula to attain $\chi^2$ is
+no association exists or that an association exists.The formula to attain $\chi^2$ is
 \begin{equation}
 	\chi^2 = \sum_{i=1}^{R} \sum_{j=1}^{C}
 	\frac{\left(O_{ij} - E_{ij}\right)^2}{E_{ij}}
 	\label{eq:chisq}
 \end{equation}
-where $R$ is the number of rows of the joint matrix (the latent topics), $C$ is
+where $R$ is the number of rows of the joint matrix (the topics), $C$ is
 the number of columns of the joint matrix (the sentiment classifications),
 $O_{ij}$ are the observed frequencies in the joint matrix---the actual raw count
 of Facebook posts that either of the two systems assigns to latent topic $i$ and
@@ -1189,48 +932,34 @@ the contingency table as its input, and if the associated $p$-value is less
 than the chosen significance level, the null hypothesis is rejected and the
 joint matrix is deemed to have a significant association \parencite{singh2020}.
 
-\paragraph{Cramer's V.} Cramer's V is utilised to test the strength of
-association on contingency tables of two variables that are more than binary in
-possible frequencies. It is an expansion of Phi ($\phi$) for two variables that
-exceed binary frequencies. It inherits the same interpretability of results,
-which is 0 for no association to 1 for complete dependence. The formula is
+\paragraph{Fisher's Exact Test.} 
+The Chi-Square tests needs to be applied with caution for contingency tables that might have cells that has low frequencies as the statistical model itself has a continous distribution while the underlying data might be discontinuous. It is stated that for Chi-Square test to be applied several assumptions are to be followed:
+\begin{enumerate}
+	\item all cells of the contingency table must be $>1$
+	\item atleast 80\% of all cells should be $>5$
+\end{enumerate}
+
+This limitations by the Chi-Square was addressed by the Fisher's Exact Test. It utilizes the hyper-geometric distribution to calculate the probabilities. When utilizing this model it is conservative in achieving a fixed significance level due to the hyper-geometric distribution being highly discrete in small samples. The model can be extended beyond the 2x2 contingency table by utilizing the Freeman-Halton extension\parencite{mays2026fisher}.
+
 \begin{equation}
-	V = \sqrt{\frac{\chi^2 / n}{\min(R - 1,\; C - 1)}}
-	\label{eq:cramersv}
+	P = \frac{\prod_{i=1}^{R} R_i! \prod_{j=1}^{C} C_j!}{n! \prod_{i=1}^{R} \prod_{j=1}^{C} x_{ij}!}	
+	\label{eq:fisher}
 \end{equation}
-which yields the $V$ used to determine whether the joint matrix of the two
-systems possesses a weak or strong association \parencite{benshachar2023}. To
-determine whether the relationship between the two variables has strong
-dependence, we attain the degrees of freedom of the smaller dimension of the
-joint matrix:
-\begin{equation}
-	df^{*} = \min(R - 1,\; C - 1)
-	\label{eq:dast}
-\end{equation}
-As the sentiment classification will be the smallest dimension---assuming the
-latent topics exceed 3---$df^{*} = 2$, and the thresholds to interpret the
-results, given a $V$, are shown in Table~\ref{tab:cramersv}.
 
-\begin{table}[htbp]
-	\centering
-	\caption{Interpretation Thresholds for Cramer's V}
-	\label{tab:cramersv}
-	\begin{tabular}{cccc}
-		\toprule
-		\textbf{$df^{*}$} & \textbf{Small} & \textbf{Medium} & \textbf{Large} \\
-		\midrule
-		2 & 0.07 & 0.21 & 0.35 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
+Conditioned on fixed row totals $R_i$ and columns total $C_j$. It also has $N$ as grand total of the table and $n_{ij}$ for the count in cell $(i,j)$ \parencite{metricgate2026freeman}.
 
-This gives us an acceptable threshold that will deem the joint matrices of the
-two systems as having a significant strength of association: $V$ must exceed
-0.07 \parencite{casrai2026}.
+\subsubsection{Acceptability Thresholds}
 
-\subsection{Research Question 3: Blind Stakeholder Evaluation}
+The resulting performance measures will be examined to confirm whether a relationship exists on the topics and sentiment classifications within the joint matrix of both \sysA{} and \sysB{}.
 
-Research Question 3 evaluates the stakeholder assessment regarding the outputs
+A $p < 0.05$ conventional rejects the null hypothesis for both Chi-Square and Fisher's Exact Test implying there is a relationship between variables and population \parencite{mays2026fisher}. This performance measures will be applied
+independently to both \sysA{} and \sysB{} before a relative comparative
+analysis that evaluates their relative performance with one another.
+
+
+\subsection*{Research Question 2: Blind Stakeholder Evaluation}
+
+Research Question 2 evaluates the stakeholder assessment regarding the outputs
 generated by \sysA{} and \sysB. From the common evaluation corpus, a randomly
 selected sample will be examined through a blind evaluation procedure in which
 the order of the systems' outcomes will be randomized. A simple majority rule
@@ -1240,16 +969,6 @@ evaluation takes place, agreement, differences in ratings, and paired
 assessment outcomes will be considered. Each evaluator is expected to evaluate
 50--100 randomly sampled documents drawn from the outputs of \sysA{} and
 \sysB.
-
-\paragraph{Agreement Rate.} Agreement Rate will be utilized to determine the
-proportion of stakeholder evaluations in which the assessment agrees with the
-specified reference or comparison outcome. Agreement Rate is calculated as
-\begin{equation}
-	AR = \frac{N_{\text{agree}}}{N_{\text{total}}} \times 100\%
-	\label{eq:agreement}
-\end{equation}
-A higher Agreement Rate indicates greater consistency among the stakeholder
-assessments.
 
 \paragraph{McNemar's Test.} For stakeholder evaluation, paired binary results
 will be examined using McNemar's Test, which is suitable for systematic
@@ -1265,7 +984,7 @@ comparison aims to reveal operational differences, with the $p$-value being
 analyzed to assess the statistical significance of the differences between the
 outcomes of the two systems.
 
-\subsubsection{Acceptability Thresholds}
+\subsubsection*{Acceptability Thresholds}
 
 The resulting performance measures will be examined to confirm whether a
 statistically significant difference exists between the paired outcomes of
@@ -1274,21 +993,18 @@ statistically significant difference exists between the paired outcomes of
 An Agreement Rate of at least 70\% is deemed acceptable as high agreement in
 inter-rater reliability \parencite{stemler2004}. Meanwhile, a McNemar's Test at the
 0.05 significance level will be the minimum acceptability threshold
-\parencite{mcp2025}; that is, a system is representative of the sentiments of
-stakeholders around natural disasters in Bulacan and the CAMANAVA area, as it
-indicates no significant differences between the system and the sentiment of
-stakeholders around the documents. These performance measures will be applied
-independently to both \sysA{} and \sysB{} before a relative comparative
-analysis that evaluates their relative performance with one another.
+\parencite{mcp2025}; that is, a system has alignment of the sentiment classification and topic identification of stakeholders around natural disasters in Bulacan and the CAMANAVA area in the same sampled facebook posts or comments in the processed corpus, as it
+indicates a detection of possible differences between the system and the assessments
+stakeholders around the same sampled items. These performance measures will be applied to both \sysA{} and \sysB{}.
 
-\section{Respondents and Expert Evaluators of the Study}
+\section*{Respondents and Expert Evaluators of the Study}
 
 The development and comparative evaluation of the SAKLOLO. natural language
 processing pipeline requires highly specialized domain expertise rather than
 general population sampling. Consequently, the study utilizes a purposive
 sampling design to form a Blind Evaluation Stakeholder Panel.
 
-\subsection{Exclusion of Population-Based Sample Size Formulas}
+\subsection*{Exclusion of Population-Based Sample Size Formulas}
 
 When determining the number of evaluators for natural language processing (NLP)
 architectures, traditional probabilistic calculations (such as Cochran's or
@@ -1310,7 +1026,7 @@ to execute specific non-parametric statistical validations (such as McNemar's
 test and rank correlation coefficients) to detect genuine differences in model
 configurations without introducing data dilution.
 
-\subsection{Blind Evaluation Stakeholder Panel (System Evaluation)}
+\subsection*{Blind Evaluation Stakeholder Panel (System Evaluation)}
 
 To execute the blind comparative evaluation between the lightweight hybrid model
 (\sysA: LDA + \xlmr) and the state-of-the-art open-weight
@@ -1380,7 +1096,7 @@ preference ratio calculations, and Cohen's Kappa for inter-system
 consensus---while eliminating evaluation fatigue and ensuring reliable
 judgments.
 
-\section{Research Instrument}
+\section*{Research Instrument}
 
 The research instrument of the study is a structured blind evaluation form. It
 is meant to assess the agreement of stakeholder assessments with the outputs of
@@ -1389,16 +1105,14 @@ evaluated independently using the same sampled disaster-related textual
 documents while concealing the identity of the producing system.
 
 The stakeholder will assess whether the two presented sentiment classifications
-agree with their own assessment of the document using a check-or-cross response
-format. The same procedure is to be applied to the output of the other system in
-the same format. The evaluation form records the stakeholder's assessment for
+agree with their own assessment of the document using a multiple choice for human sentiment of the sampled content to test alignment of the respective system's alignment with human experts on that subject. The same procedure is to be applied to the topic output of the two systems in a yes or no format. The evaluation form records the stakeholder's assessment for
 each system output and the corresponding identifiers. These responses are to be
 converted into agreement observations for statistical analysis. The instrument
 is to be administered with the same instructions, response categories, and
 evaluation conditions for all participating stakeholders to maintain consistency
 across observations.
 
-\section{Ethical Considerations}
+\section*{Ethical Considerations}
 
 This study observes ethical considerations for the safety of participants and
 maintains the integrity of this paper throughout the development of
