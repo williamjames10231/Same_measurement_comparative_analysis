@@ -18,7 +18,7 @@ needs and structural damage, the sheer volume and unstructured nature of the
 data render manual processing highly inefficient. To address this information
 bottleneck, modern computational semantics relies on vector space mechanics to
 mathematically transform qualitative narrative posts into numeric matrices. As
-established by \parencite{mihunov2022}, mapping unstructured disaster text into a
+established by \textcite{mihunov2022} mapping unstructured disaster text into a
 high-dimensional geometric space allows automated systems to systematically
 extract abstract semantic relationships. This mathematical transformation
 reduces chaotic crisis communications into distinct spatial coordinates,
@@ -54,7 +54,7 @@ reality.
 
 Disaster-related risks in the Philippines are numerous, as the country is
 heavily exposed to natural disasters. It is ranked eighth as the most affected
-globally by extreme weather events, and at least seventy-four (74)\% of
+globally by extreme weather events, and at least 74\% of
 Filipinos are vulnerable to multiple hazards. Among these hazards, the most
 catastrophic are tropical cyclones, flooding, storm surges, droughts,
 earthquakes, and volcanic eruptions. Climate change has caused these events to
@@ -62,22 +62,13 @@ increase in intensity, as over the past five years the country has experienced
 destructive typhoons. These disasters have caused economic losses and
 casualties \parencite{worldbank2023}.
 
-Key challenges in mitigating these risks are the lack of coordination and
-insufficient capacity in implementing Disaster Risk Management (DRM) programs,
-as most lack integration and cohesiveness to respond to the needs of those
-exposed to disasters. Major causes are the lack of execution capacity of
-relevant authorities to efficiently mitigate and address adverse events; the
-limited coordination between relevant authorities to tackle the increasing
-magnitude and frequency of disasters; and the overlapping functions,
-competencies, and duplications of roles causing confusion, delays, and
-resource misallocations. A core concern is that the timeline of post-disaster
-response takes a long time and delays rehabilitation and recovery
-\parencite{worldbank2023}.
+Key challenges in implementing Disaster Risk Management (DRM) programs include institutional fragmentation, lack of coordination, and insufficient implementation capacity. The increasing frequency and severity of disasters further emphasize the need for integrated climate change adaptation and mitigation measures to strengthen the resilience of Local Government Units (LGUs). \textcite{worldbank2023} highlights the need to clarify the roles, responsibilities, and improved resource allocation between the National Government and LGUs to ensure the effective implementation of disaster preparedness, response, and recovery interventions.
+
 
 While social media is utilized for disaster response, the way it is utilized,
 and in what context, might point to a more nuanced landscape regarding its
 limitations and the nature of its usage by residents in a certain area. A
-literature review by \parencite{inferio2025} found that social media disaster
+literature review by \textcite{inferio2025} found that social media disaster
 response is not uniformly developed for all aspects, with man-made disasters
 not as developed compared to natural disasters in utilization, while COVID-19
 and vegetation fires have not been explored as a means for disaster response.
@@ -85,7 +76,7 @@ and vegetation fires have not been explored as a means for disaster response.
 Its utilization was heavy during response and recovery and minimal during preparation. 
 Misinformation, noise, and infrastructure limitations are a concern. It is highly effective
 in coordinating recovery and providing updates, provided they are filtered
-between the informative and the controversial \parencite{inferio2025}---possibly
+between the informative and the controversial \textcite{inferio2025}---possibly
 implying that sophisticated ways to process information and deliver actionable
 insights to stakeholders could help communities become more resilient and
 responsive in conducting disaster response.
@@ -117,7 +108,7 @@ influx of digital noise.
 
 This study evaluates and compares the performance of a hybrid joint matrix
 pipeline as the baseline (\sysA) against a state-of-the-art large language
-model joint matrix output (Qwen3-1.7B\\-Instruct-Q4\_K\_M) in processing unstructured disaster-related
+model joint matrix output (Qwen3-1.7B-Instruct-Q4\_K\_M) in processing unstructured disaster-related
 text to generate actionable sentiment classifications and topic modeling for the Bulacan and CAMANAVA regions. Specifically, it seeks to
 answer the following questions:
 
@@ -148,11 +139,11 @@ LDA + \xlmr{} Joint Matrix compared against a \qwen{} joint matrix
 pipeline. By extracting meaningful information---including semantic topics and
 contextual sentiment---from unstructured emergency feeds, the study establishes
 a mathematically rigorous framework to understand a disaster and respond to it
-effectively. This study will benefit several individuals and institutions:
+effectively. This study benefits several individuals and institutions:
 
 \begin{description}[style=sameline,leftmargin=0pt]
 	\item[Bulacan and CAMANAVA Disaster Response Offices.] The study is
-	intended to aid disaster response offices in organizing and structuring the
+	intends to aid disaster response offices in organizing and structuring the
 	unorganized disaster-related information they receive through social media
 	posts. By determining whether a lightweight hybrid architecture or a
 	open-weight Large Language Model is more operationally viable for joint latent
@@ -168,13 +159,13 @@ effectively. This study will benefit several individuals and institutions:
 	automatically structuring localized reports. Identifying the most urgent
 	issues through sentiment and latent topic analysis helps LGUs gain
 	insights into the current state and emotions their respective citizens have
-	during natural disasters. This will aid in assessing the disaster situation
+	during natural disasters. This aids in assessing the disaster situation
 	locally and assist LGUs in making decisions that are more aligned, and in
 	conducting messaging that takes into consideration how their citizens talk
 	about sets of words that have topics, and what their sentiment is
 	around those co-occurring sets of words in social media posts.
 	
-	\item[Emergency Responders.] The study may be beneficial to emergency
+	\item[Emergency Responders.] The study is beneficial to emergency
 	responders by providing disaster-related information in a more organized
 	format. As opposed to reviewing social media posts as isolated and
 	unorganized streams of information, responders can evaluate co-occurring
@@ -186,13 +177,20 @@ effectively. This study will benefit several individuals and institutions:
 	\item[Researchers and Future Developers.] The study acts as a mathematical
 	and computational foundation for those interested in natural language
 	processing within high-stress, low-resource languages (Taglish).
-	Specifically, the novel joint matrix approach combining LDA topic
-	probabilities with \xlmr{} contextual embeddings provides reproducible
+	Specifically, the novel joint matrix approach (combining LDA topic
+	probabilities with \xlmr{} contextual embeddings) provides reproducible
 	evidence on hybrid architecture performance versus dense large language
 	models. The integration of Bayesian inference, information theory, and
 	comparative deep learning establishes a robust baseline for future researchers
 	pursuing text optimization in Philippine disaster management.
 \end{description}
+
+\subsection*{Alignment with Sustainable Development Goals}
+This study primarily aligns with \textcite{unrc2020sdg} Sustainable Development Goal 11 (Sustainable Cities and Communities), particularly Target 11.5, which emphasizes reducing the adverse impacts of disasters on human lives and communities. Through the development of SAKLOLO, the study seeks to contribute to this goal by providing an analytical approach to processing and organizing disaster-related social media information. By identifying prominent discussion topics and their associated sentiment classifications, SAKLOLO aims to provide disaster response offices and other concerned stakeholders with additional information for understanding community concerns, identifying topics that warrant further investigation, and informing information dissemination and response planning. The resulting topic-sentiment relationships may also provide an analytical basis for considering which reported concerns require greater attention when planning the allocation of resources.
+
+The study also aligns with \textcite{unrc2020sdg} Sustainable Development Goal 13 (Climate Action), particularly Target 13.1, which emphasizes strengthening resilience and adaptive capacity to climate-related hazards and natural disasters. SAKLOLO supports this alignment through the automated analysis of social media reports concerning typhoons, flooding, and other hydrometeorological events. Through its Decision Support System component, the study presents organized topic and sentiment information that may provide additional context for understanding public concerns during and following disaster events. By making these patterns more accessible for examination, SAKLOLO seeks to contribute an additional analytical resource for disaster-related assessment and planning.
+
+Secondarily, the study contributes to \textcite{unrc2020sdg} Sustainable Development Goal 9 (Industry, Innovation and Infrastructure) through the development and comparative evaluation of hybrid computational and artificial intelligence approaches for processing multilingual emergency-related information. Specifically, the study examines the applicability of these approaches to Tagalog, English, and Taglish social media posts and comments within the Philippine context. Through this evaluation, the research explores the potential of combining computational and artificial intelligence techniques to analyze unstructured, multilingual information in the context of disaster-related discussions.
 
 \section*{Scope and Delimitation}
 
@@ -230,7 +228,7 @@ dataset alongside vast numbers of other languages.
 Regarding system implementation, the backend computational pipeline is 
 encapsulated within a \textbf{localized analytical web dashboard} developed 
 using a lightweight Python-based web framework (e.g., Streamlit). This 
-dashboard is strictly delimited to an offline, local-host analytical tool 
+dashboard is strictly delimited to an partially online, local-host analytical tool 
 designed for the researchers and the expert stakeholder panel. This study does not produce a publicly hosted, 
 enterprise-grade web application, nor does it include real-time cloud 
 deployment, multi-user authentication, or live integration into actual 

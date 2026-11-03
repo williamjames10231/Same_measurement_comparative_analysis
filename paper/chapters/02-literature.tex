@@ -20,7 +20,7 @@ chaotic, high-velocity data to automated systems allows human responders to
 bypass information overload and focus directly on high-level resource
 allocation \parencite{pezanowski2022}. To mathematically achieve this automated
 sensemaking, the computational framework relies on the Distributional Hypothesis
-in computational semantics. \parencite{balkir2016} explain that this hypothesis
+in computational semantics. \textcite{balkir2016} explain that this hypothesis
 assumes words occurring in similar contexts inherently share similar semantic
 meanings. This provides the theoretical justification for mapping text into
 vector spaces. It theorizes that even highly disorganized human crisis
@@ -28,7 +28,7 @@ communication contains latent geometric patterns, allowing related disaster
 concepts to naturally cluster together when analyzed algebraically.
 
 Complementing this geometric assumption is the statistical principle of
-Exchangeability, rooted in De Finetti's theorem. \parencite{blei2003} utilized
+rxchangeability, rooted in De Finetti's theorem. \textcite{blei2003} utilized
 this theory to establish that when modeling text data, the joint probability of
 a sequence of terms is invariant to their specific grammatical order. This
 provides the core theoretical justification for the ``bag-of-words'' approach
@@ -45,22 +45,19 @@ situational categories.
 
 The theoretical foundational framework for processing unstructured crisis
 communications relies on computational linear algebra, vector space modeling,
-and probabilistic generative models. According to \parencite{mihunov2022}, vector
+and probabilistic generative models. According to \textcite{mihunov2022}, vector
 space mechanics represent qualitative narrative posts as numeric constructs in
 high-dimensional matrices to enable systematic computation during disasters.
 Within this space, a document--term matrix captures documents across unique
-vocabulary tokens, where raw text is mathematically transformed using Count
-Vectorization to systematically extract critical crisis keywords for downstream
+vocabulary tokens, where raw text is mathematically transformed using \textit{count
+vectorization} to systematically extract critical crisis keywords for downstream
 processing.
 
 Complementing these deterministic vector decompositions, probabilistic
-frameworks model the underlying semantic structure of text.
-\parencite{blei2003} introduced Latent Dirichlet Allocation (LDA) as a Bayesian
+frameworks model the underlying semantic structure of text. \textcite{blei2003} introduced Latent Dirichlet Allocation (LDA) as a Bayesian
 generative probabilistic model that views each document as a multinomial
-distribution over latent topics, which are themselves multinomial
-distributions over vocabulary words governed by Dirichlet priors. Expanding on
-this by bridging probabilistic topic models with deep learning,
-\parencite{zang2026} highlights the integration of LDA with contextual transformer
+distribution over latent topics, which are themselves multinomial distributions over vocabulary words governed by Dirichlet priors. Expanding on this by bridging probabilistic topic models with deep learning,
+\textcite{zang2026} highlights the integration of LDA with contextual transformer
 architectures (such as BERT). Inferring hidden topic assignment variables
 alongside deep contextual embeddings from observed social text feeds allows for
 highly accurate, granular identification and tracking of emergent situational
@@ -91,19 +88,15 @@ Recovery deals with the restoration of livelihoods, economic opportunities, and
 essential infrastructure that supports the physical and psychological
 rehabilitation of those affected \parencite{inferio2025}.
 
-The North Manila Bay Delta consists of the downstream part of the rivers of the Pampanga River Basin, including the coastal area. The wider basin has a catchment area of $10,000\text{ km}^2$ and is roughly divided into three river systems. These are the Pampanga main river system (about $8,000\text{ km}^2$), the Angat River system (about $1,085\text{ km}^2$), and the Pasac river system (about $1,371\text{ km}^2$), which originates from Mt. Pinatubo and is connected to the Pampanga River by the Bebe-San Esteban Cut-off Channel \parencite{RoyalHaskoningDHV}.
+The North Manila Bay Delta consists of the downstream part of the rivers of the Pampanga River Basin, including the coastal area. The wider basin has a catchment area of $10,000\text{ km}^2$ and is roughly divided into three river systems. These are the Pampanga main river system (about $8,000\text{ km}^2$), the Angat River system (about $1,085\text{ km}^2$), and the Pasac river system (about $1,371\text{ km}^2$), which originates from Mt. Pinatubo and is connected to the Pampanga River by the Bebe-San Esteban Cut-off Channel \parencite{rhdhv2026northmanilabay}.
 
 This delta covers almost $3,000\text{ km}^2$ of the southern central valley of Luzon, stretching from Pampanga to Bataan, Bulacan, and the CAMANAVA area of Metro Manila. The plains are so flat and close to sea level that the 1-meter elevation line extends 10 to $20\text{ km}$ inland, so even a small rise in relative sea level translates to a large encroachment of the sea. The region is also a major rice, sugar, and fish producer, and groundwater is its main source of fresh water for households, industries, fishponds, and farms \parencite{Rodolfo2003}.
-
-\subsection*{Hydrometeorological Characteristics}
-
-The coast is tide-dominated and has a mixed, predominantly diurnal tide with an average range of $1.2\text{ meters}$ during spring tide and $0.4\text{ meters}$ during neap tide. During the southwest monsoon from June to September, the tidal amplitude can increase by 80 percent, and wind waves of over $3\text{ meters}$ may occur. The wet season runs from June to November, with average monthly rainfall of 180 to $410\text{ mm}$. The area is affected on average by one to two cyclone-related storm surges per year, and rainfall at the peak of the cyclone period can reach $400\text{ mm}$ a day. The relative sea-level rise in Manila Bay is on average 1.5 to $2.5\text{ cm}$ per year, and land subsidence caused by groundwater over-extraction is occurring in several areas \parencite{RoyalHaskoningDHV}.
 
 \subsection*{Linguistic Context and Geographic Scope Selection}
 
 There are four main Tagalog dialects: Northern Tagalog Dialects of Bulacan (Bulacan \& Nueva Ecija) and Bataan (Bataan \& Zambales), Central Tagalog Dialects of Laguna (Laguna \& Rizal) and Metro Manila, Southern Tagalog Dialects of Batangas (Cavite \& Batangas), Lubang (Mindoro), and Tayabas (Aurora, Camarines Norte, Camarines Sur, \& Quezon), and lastly Tagalog Dialects of Marinduque \parencite{Adriano2022}.
 
-The North Manila Bay Delta shares common hydrometeorological traits of natural disaster frequencies and structural instances. It consists of minor parts of Bataan, Pampanga, Bulacan, and CAMANAVA. Bataan was omitted from this study due to minor inclusions on the delta; while Pampanga was omitted due to not being included in major Tagalog dialects and having a different linguistic profile among its speakers. That leaves Bulacan and CAMANAVA as the geographic scope of the study due to sharing the same hydrometeorological profile and relatively similar linguistic profile of Tagalog (Northern and Central dialect), English, and Taglish.
+The North Manila Bay Delta shares common hydrometeorological traits of natural disaster frequencies and structural instances. It consists of minor parts of Bataan, Pampanga, Bulacan, and CAMANAVA. Bataan is omitted from this study due to minor inclusions on the delta; while Pampanga is omitted due to not being included in major Tagalog dialects and having a different linguistic profile among its speakers. That leaves Bulacan and CAMANAVA as the geographic scope of the study due to sharing the same hydrometeorological profile and relatively similar linguistic profile of Tagalog (Northern and Central dialect), English, and Taglish.
 
 \section*{Review of Related Studies}
 
@@ -112,7 +105,7 @@ The North Manila Bay Delta shares common hydrometeorological traits of natural d
 Empirical implementations across Asian and global disaster contexts demonstrate
 the practicality of combining probabilistic topic modeling with
 transformer-based deep learning to process high-velocity unstructured social
-text feeds. \parencite{zang2026} utilized the LDA topic modeling algorithm
+text feeds. \textcite{zang2026} utilized the LDA topic modeling algorithm
 alongside prompt-BERT models to process unorganized short-text feeds during the
 2023 Hebei Floods in China, proving that hybrid architectures effectively
 categorize heterogeneous social discourse into actionable thematic clusters for
@@ -120,21 +113,21 @@ crisis managers.
 
 Evaluating short-text social streams during major hydrometeorological events
 further highlights the necessity of strict statistical metric validation.
-\parencite{anggara2025} applied LDA topic modeling to Twitter data during the 2024
+\textcite{anggara2025} applied LDA topic modeling to Twitter data during the 2024
 West Sumatra flash floods, demonstrating that evaluating topic coherence
 scores ($C_U$) across various topic ranks ($K$) isolates the optimal matrix
 structure, ensuring distinct and semantically meaningful categories without
 topic overlap.
 
 In Western disaster management contexts, feature extraction and topic modeling
-have proven vital for real-time situational awareness. \parencite{mihunov2022} used
+have proven vital for real-time situational awareness. \textcite{mihunov2022} used
 LDA to analyze disaster impact feeds during Hurricane Harvey, successfully
 isolating 9 high-priority target topic vectors out of 24 computed themes to
 directly map physical infrastructure damage, power grid outages, and localized
 civilian entrapment locations.
 
 Further demonstrating the efficacy of localized text extraction during severe
-flooding in Southeast Asia, \parencite{rahmadan2020} investigated the Jakarta flash
+flooding in Southeast Asia, \textcite{rahmadan2020} investigated the Jakarta flash
 flood domain by applying Latent Dirichlet Allocation (LDA) to high-velocity
 Twitter streams. Their research successfully clustered unstructured text feeds
 by localized impact, utilizing the algorithm to map explicit target tokens that

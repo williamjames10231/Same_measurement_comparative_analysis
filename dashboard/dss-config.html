@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAKLOLO | DSS Configuration</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/saklolo.css">
+</head>
+<body data-system="A" data-mode="admin">
+<div class="app">
+
+  <!-- ========== SIDEBAR NAVIGATION ========== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand__logo" src="SAKLOLO.png" alt="SAKLOLO Logo" onerror="this.style.display='none'">
+      <div>
+        <strong class="brand__name">SAKLOLO</strong>
+        <small class="brand__sub">Bulacan + CAMANAVA</small>
+      </div>
+    </div>
+
+    <div class="rs-mode">
+      <div class="rs-mode__seg" role="radiogroup" aria-label="View mode">
+        <a href="index.html">Responder</a>
+        <a href="admin.html" class="is-on" aria-checked="true">Admin</a>
+      </div>
+      <p class="rs-clock" id="rs-clock"></p>
+    </div>
+<nav class="nav" aria-label="Dashboard views">
+      <a class="nav__item nav__item--admin" href="admin.html#view-feeds">Data Feed Integration</a>
+      <a class="nav__item nav__item--admin" href="admin.html#view-live-feed">Raw Live Feed</a>
+      <a class="nav__item nav__item--admin" href="admin.html#view-topics">NLP Topic Analytics</a>
+      <a class="nav__item nav__item--admin" href="blind-eval.html">Blind Stakeholder Evaluation ↗</a>
+      <a class="nav__item nav__item--admin is-active" href="dss-config.html" aria-current="page">DSS Config &amp; Audit Log</a>
+    </nav>
+
+<!-- ========== GLOBAL SYSTEM TOGGLE ========== -->
+<div class="sys-toggle">
+  <span class="sys-toggle__label">Active Model</span>
+  <div class="sys-toggle__track" id="sys-toggle" data-active="A" role="radiogroup" aria-label="Active model">
+    <span class="sys-toggle__thumb" aria-hidden="true"></span>
+    <button type="button" class="sys-toggle__opt is-active" role="radio" aria-checked="true"  data-system="A">System A <small>Hybrid</small></button>
+    <button type="button" class="sys-toggle__opt"           role="radio" aria-checked="false" data-system="B">System B <small>LLM</small></button>
+  </div>
+</div>
+    <div class="sidebar__footer">
+      <span class="dot dot--ok"></span> Pipeline online
+      <small>Hybrid: LDA + RoBERTa + Qwen 3.5</small>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+    <section id="view-admin-dss" class="view" role="tabpanel">
+      <header class="view__header">
+        <h1>DSS Configuration &amp; Audit Log</h1>
+        <p>Administrator-side TOPSIS configuration. Composite sentiment weights and per-channel weight profiles are
+           set here; responders see the resulting ranks with a read-only disclosure of these weights on the
+           Resource Allocation page. Alternatives = the six discovered topics; criteria = the Negative / Neutral /
+           Positive sentiment classifications of the corpus matrix (n = 10,194). The NLP engine follows the
+           Active Model toggle in the sidebar.</p>
+      </header>
+      <div class="rs-stack">
+        <article class="card">
+          <div class="rs-row">
+            <h2 class="card__title">Composite weights · sentiment classifications <span class="rs-tag rs-tag--live">admin-set</span></h2>
+            <button type="button" id="rs-wreset" class="rs-btn">Reset to defaults</button>
+          </div>
+          <p>Drives the responders' <b>Overall allocation priority</b> queue. Defaults are <b>equal</b>
+             (33% / 33% / 33% after normalisation — no emphasis). Every criterion is a <b>benefit</b>. Changes
+             re-rank the queue instantly and persist on this device.</p>
+          <div id="rs-sw" class="rs-w"></div>
+        </article>
+        <article class="card">
+          <div class="rs-row">
+            <h2 class="card__title">Channel weight profiles <span class="rs-tag rs-tag--live">admin-set</span></h2>
+            <button type="button" id="rs-cwreset" class="rs-btn">Reset channels</button>
+          </div>
+          <p>Each profile drives one responder sublist — consultation focus, sensitive information dissemination,
+             expertise, materials and supplies. <b>Defaults are equal (34 / 33 / 33)</b> on every channel — no
+             emphasis. Adjust only when a stakeholder briefing explicitly requires it; responders see the ranked
+             lists plus a read-only disclosure of these weights.</p>
+          <div id="rs-cw" class="rs-cw"></div>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Audit log</h2>
+          <ul id="rs-log" class="rs-log"></ul>
+        </article>
+      </div>
+    </section>
+  </main>
+</div>
+<script>window.SAK_CONFIG = { ingest: false };</script>
+<script src="assets/saklolo-core.js"></script>
+</body>
+</html>

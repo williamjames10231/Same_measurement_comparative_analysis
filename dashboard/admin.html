@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAKLOLO | Admin Research</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/saklolo.css">
+</head>
+<body data-system="A" data-mode="admin">
+<div class="app">
+
+  <!-- ========== SIDEBAR NAVIGATION ========== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand__logo" src="SAKLOLO.png" alt="SAKLOLO Logo" onerror="this.style.display='none'">
+      <div>
+        <strong class="brand__name">SAKLOLO</strong>
+        <small class="brand__sub">Bulacan + CAMANAVA</small>
+      </div>
+    </div>
+
+    <div class="rs-mode">
+      <div class="rs-mode__seg" role="radiogroup" aria-label="View mode">
+        <a href="index.html">Responder</a>
+        <a href="admin.html" class="is-on" aria-checked="true">Admin</a>
+      </div>
+      <p class="rs-clock" id="rs-clock"></p>
+    </div>
+<nav class="nav" aria-label="Dashboard views">
+      <a class="nav__item nav__item--admin is-active" href="admin.html#view-feeds" aria-current="page">Data Feed Integration</a>
+      <a class="nav__item nav__item--admin" href="admin.html#view-live-feed">Raw Live Feed</a>
+      <a class="nav__item nav__item--admin" href="admin.html#view-topics">NLP Topic Analytics</a>
+      <a class="nav__item nav__item--admin" href="blind-eval.html">Blind Stakeholder Evaluation ↗</a>
+      <a class="nav__item nav__item--admin" href="dss-config.html">DSS Config &amp; Audit Log</a>
+    </nav>
+
+<!-- ========== GLOBAL SYSTEM TOGGLE ========== -->
+<div class="sys-toggle">
+  <span class="sys-toggle__label">Active Model</span>
+  <div class="sys-toggle__track" id="sys-toggle" data-active="A" role="radiogroup" aria-label="Active model">
+    <span class="sys-toggle__thumb" aria-hidden="true"></span>
+    <button type="button" class="sys-toggle__opt is-active" role="radio" aria-checked="true"  data-system="A">System A <small>Hybrid</small></button>
+    <button type="button" class="sys-toggle__opt"           role="radio" aria-checked="false" data-system="B">System B <small>LLM</small></button>
+  </div>
+</div>
+    <div class="sidebar__footer">
+      <span class="dot dot--ok"></span> Pipeline online
+      <small>Hybrid: LDA + RoBERTa + Qwen 3.5</small>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+<section id="view-feeds" class="view" role="tabpanel">
+  <header class="view__header view__header--row">
+    <div>
+      <h1>Data Feed Integration</h1>
+      <p>Raw record inspection of the study corpus (Facebook posts & comments) — spreadsheet-style: click any column header to sort,
+         search to filter, click a row to expand the full record with every metadata field.</p>
+    </div>
+    <span class="corpus-pill"><b>10,194</b> rows · <b>16</b> metadata fields + text · showing a <b>96</b>-row sample</span>
+  </header>
+
+  <!-- Model training: launch / refresh the classification pipeline on the latest ingested batch -->
+  <article class="card train-card" id="train-card">
+    <div class="rs-row">
+      <h2 class="card__title">Model training</h2>
+      <span class="rs-tag rs-tag--live" id="tr-status">Up to date · last run Feb 9, 2026</span>
+    </div>
+    <p>Train the NLP pipeline on the latest ingested batch. The model components were trained on the frozen
+       study corpus (<b>Jul 2022 – Nov 2024 · n = 10,194</b>); this run re-fits the pipeline on the newest nightly
+       batch and re-classifies every kept item with the active model. The refreshed last-training date also shows
+       on the <a href="operations.html">Live Operations Dashboard</a> training card.</p>
+    <div class="train-grid" id="tr-stats"></div>
+    <div class="tr-run">
+      <button class="rs-btn rs-btn--prime" id="tr-run" type="button"><i class="fa-solid fa-play" aria-hidden="true"></i> Train model on latest batch</button>
+      <div class="tr-progress" id="tr-progress" hidden>
+        <div class="tr-bar"><i id="tr-bar-i"></i></div>
+        <span class="tr-phase" id="tr-phase">Preparing…</span>
+      </div>
+    </div>
+    <ul class="tr-log" id="tr-log" hidden></ul>
+  </article>
+
+  <!-- Excel-style corpus table, rendered from window.SAK.CORPUS by saklolo-core.js -->
+  <div id="rs-corpus" class="rs-stack"></div>
+</section>
+
+<section id="view-live-feed" class="view" role="tabpanel" hidden>
+  <header class="view__header view__header--row">
+    <div>
+      <h1>Raw Live Feed</h1>
+      <p>Every incoming content item (post or comment) in one spreadsheet-style table — one schema for all rows.
+         Click any column header to sort, use the search box to filter, click a row for the full record.
+         New items stream in live every few seconds and queue for the next nightly batch.</p>
+    </div>
+    <span class="driver-pill"><span class="dot dot--sys"></span>Classified by: <strong class="rs-engine"></strong></span>
+  </header>
+  <div class="rs-stack">
+    <div id="rs-feed" class="rs-stack" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="view-topics" class="view" role="tabpanel" hidden>
+  <header class="view__header">
+    <h1>NLP Topic Analytics</h1>
+    <p>Side-by-side comparison of topics from both systems over the study corpus (10,194 Facebook posts & comments).</p>
+  </header>
+
+  <!-- ===== VIEW TOGGLE: Frequency vs Normalized (drives all four tables) ===== -->
+  <div class="view-toggle" id="matrix-toggle" data-active="freq" role="group" aria-label="Topic table view">
+    <button type="button" class="view-toggle__opt is-active" data-matrix="freq" aria-pressed="true">
+      Frequency Table
+      <small>bulacan_camanava_hard_matrix_enriched.csv</small>
+    </button>
+    <button type="button" class="view-toggle__opt" data-matrix="norm" aria-pressed="false">
+      Normalized Table
+      <small>bulacan_camanava_hard_matrix_norm_enriched.csv</small>
+    </button>
+  </div>
+
+  <div class="split">
+
+    <!-- ===== LEFT: SYSTEM A ===== -->
+    <article class="card split__pane split__pane--a">
+      <div class="card__head">
+        <h2 class="card__title">System A · LDA Latent Topics</h2>
+        <span class="tag tag--a">Hybrid</span>
+      </div>
+
+      <!-- Topic × Sentiment matrix: only one .matrix is visible at a time -->
+
+<h3 class="pane-sub">Topic × Sentiment Distribution</h3>
+      <!-- Chart.js Canvas for System A -->
+      <div style="position: relative; height: 320px; width: 100%; margin-bottom: 1.5rem;">
+        <canvas id="chart-sysA"></canvas>
+      </div>
+      <div class="matrix" data-matrix="norm" data-api="/api/topics/matrix?system=A&view=norm" hidden>
+        <div class="table-scroll">
+          <table class="data-table">
+            <caption>Row-normalized · P(sentiment | topic)</caption>
+            <thead>
+              <tr><th scope="col">Topic</th><th scope="col" class="num neg">Negative</th><th scope="col" class="num neu">Neutral</th><th scope="col" class="num pos">Positive</th><th scope="col" class="num">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">T1 · Rescue / Evacuation</th><td class="num neg" style="--h:.65">0.65</td><td class="num neu" style="--h:.23">0.23</td><td class="num pos" style="--h:.12">0.12</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">T2 · Relief Goods</th><td class="num neg" style="--h:.25">0.25</td><td class="num neu" style="--h:.33">0.33</td><td class="num pos" style="--h:.42">0.42</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">T3 · Infrastructure Damage</th><td class="num neg" style="--h:.70">0.70</td><td class="num neu" style="--h:.22">0.22</td><td class="num pos" style="--h:.08">0.08</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">T4 · Flood Levels</th><td class="num neg" style="--h:.57">0.57</td><td class="num neu" style="--h:.36">0.36</td><td class="num pos" style="--h:.07">0.07</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">T5 · Power / Utilities</th><td class="num neg" style="--h:.61">0.61</td><td class="num neu" style="--h:.32">0.32</td><td class="num pos" style="--h:.07">0.07</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">T6 · Health / Medical</th><td class="num neg" style="--h:.47">0.47</td><td class="num neu" style="--h:.34">0.34</td><td class="num pos" style="--h:.19">0.19</td><td class="num total">1.00</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><th scope="row">All topics</th><td class="num">0.54</td><td class="num">0.29</td><td class="num">0.17</td><td class="num total">1.00</td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+ <!-- Topic word sets — rendered from TOPIC_WORDS (same data drives the blind evaluation) -->
+      <h3 class="pane-sub">Topic Word Sets <small>· one set per topic · shown here and judged in the Blind Stakeholder Evaluation</small></h3>
+      <div class="topic-groups" id="words-a"></div>
+      <!-- Existing probability bars (unchanged) -->
+      <h3 class="pane-sub">Topic Probability</h3>
+      <ul class="bars bars--a" data-api="/api/topics?system=A">
+        <li><span>Rescue / Evacuation</span><div class="bar" style="--p:27%"><b>0.27</b></div></li>
+        <li><span>Relief Goods</span><div class="bar" style="--p:21%"><b>0.21</b></div></li>
+        <li><span>Infrastructure Damage</span><div class="bar" style="--p:17%"><b>0.17</b></div></li>
+        <li><span>Flood Levels</span><div class="bar" style="--p:14%"><b>0.14</b></div></li>
+        <li><span>Power / Utilities</span><div class="bar" style="--p:12%"><b>0.12</b></div></li>
+        <li><span>Health / Medical</span><div class="bar" style="--p:9%"><b>0.09</b></div></li>
+      </ul>
+    </article>
+
+    <!-- ===== RIGHT: SYSTEM B ===== -->
+    <article class="card split__pane split__pane--b">
+      <div class="card__head">
+        <h2 class="card__title">System B · LLM Discovered Topics</h2>
+        <span class="tag tag--b">Qwen 3 1.7B</span>
+      </div>
+
+
+<h3 class="pane-sub">Topic × Sentiment Distribution</h3>
+      <!-- Chart.js Canvas for System B -->
+      <div style="position: relative; height: 320px; width: 100%; margin-bottom: 1.5rem;">
+        <canvas id="chart-sysB"></canvas>
+      </div>
+
+      <div class="matrix" data-matrix="norm" data-api="/api/topics/matrix?system=B&view=norm" hidden>
+        <div class="table-scroll">
+          <table class="data-table data-table--b">
+            <caption>Row-normalized · P(sentiment | topic)</caption>
+            <thead>
+              <tr><th scope="col">Topic</th><th scope="col" class="num neg">Negative</th><th scope="col" class="num neu">Neutral</th><th scope="col" class="num pos">Positive</th><th scope="col" class="num">Total</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Stranded Residents</th><td class="num neg" style="--h:.71">0.71</td><td class="num neu" style="--h:.22">0.22</td><td class="num pos" style="--h:.07">0.07</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">Food &amp; Relief Aid</th><td class="num neg" style="--h:.24">0.24</td><td class="num neu" style="--h:.33">0.33</td><td class="num pos" style="--h:.43">0.43</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">Road &amp; Bridge Damage</th><td class="num neg" style="--h:.69">0.69</td><td class="num neu" style="--h:.25">0.25</td><td class="num pos" style="--h:.06">0.06</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">Rising Water</th><td class="num neg" style="--h:.56">0.56</td><td class="num neu" style="--h:.37">0.37</td><td class="num pos" style="--h:.07">0.07</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">Power Outage</th><td class="num neg" style="--h:.58">0.58</td><td class="num neu" style="--h:.34">0.34</td><td class="num pos" style="--h:.08">0.08</td><td class="num total">1.00</td></tr>
+              <tr><th scope="row">Evacuation Centers</th><td class="num neg" style="--h:.35">0.35</td><td class="num neu" style="--h:.35">0.35</td><td class="num pos" style="--h:.30">0.30</td><td class="num total">1.00</td></tr>
+            </tbody>
+            <tfoot>
+              <tr><th scope="row">All topics</th><td class="num">0.54</td><td class="num">0.30</td><td class="num">0.16</td><td class="num total">1.00</td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- Topic word sets — rendered from TOPIC_WORDS -->
+      <h3 class="pane-sub">Topic Word Sets <small>· one set per topic</small></h3>
+      <div class="topic-groups" id="words-b"></div>
+    </article>
+
+  </div>
+</section>
+
+</main>
+</div>
+<script>window.SAK_CONFIG = { ingest: true };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="assets/saklolo-core.js"></script>
+<script>
+(() => {
+  /* Admin research page: hash router across the four research views */
+  const views = [...document.querySelectorAll('.view')];
+  function showFromHash(){
+    const id = (location.hash || '#view-feeds').slice(1);
+    const target = views.find(v => v.id === id) || views[0];
+    views.forEach(v => v.hidden = v.id !== target.id);
+    document.querySelectorAll('.nav__item').forEach(a => {
+      const on = (a.getAttribute('href') || '').endsWith('#' + target.id);
+      a.classList.toggle('is-active', on);
+      if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+    if (target.id === 'view-topics') ensureTopicCharts();
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', showFromHash);
+  showFromHash();
+
+  /* Charts render lazily: Chart.js cannot size a canvas inside a hidden view,
+     so (re)build the topic charts only when NLP Topic Analytics is shown. */
+  let chartsBuilt = false;
+  function ensureTopicCharts(){
+    if (chartsBuilt) { setMatrixView(matrixToggle.dataset.active || 'freq'); return; }
+    setTimeout(() => { initTopicCharts(); if (chartA && chartB){ chartsBuilt = true; setMatrixView('freq'); } }, 60);
+  }
+
+  /* Blind evaluation lives in the Responder portal (blind-eval.html).
+     Algorithmic benchmarks are suppressed from the UI by design (final request). */
+
+  /* Corpus records: Excel-style table (sort · search · clickable rows) */
+  if (window.SAK && document.getElementById('rs-corpus')) {
+    window.SAK.renderXlsxTable(
+      document.getElementById('rs-corpus'),
+      window.SAK.CORPUS_COLS,
+      window.SAK.CORPUS,
+      { sk:'timestamp', sd:-1, rowKey: r => r.post_id,
+        detail: r => {
+          const t = r.text.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+          return `<b>Full record</b><p class="xlsx-full">“${t}”</p>
+          <dl class="xlsx-dl">
+            <div><dt>post_id</dt><dd>${r.post_id}</dd></div>
+            <div><dt>parent_post_id</dt><dd>${r.parent_post_id}</dd></div>
+            <div><dt>row_type</dt><dd>${r.row_type}</dd></div>
+            <div><dt>timestamp</dt><dd>${r.timestamp}</dd></div>
+            <div><dt>date</dt><dd>${r.date}</dd></div>
+            <div><dt>year</dt><dd>${r.year}</dd></div>
+            <div><dt>month</dt><dd>${r.month}</dd></div>
+            <div><dt>day_of_week</dt><dd>${r.day_of_week}</dd></div>
+            <div><dt>region</dt><dd>${r.region}</dd></div>
+            <div><dt>location</dt><dd>${r.location}</dd></div>
+            <div><dt>disaster_event</dt><dd>${r.disaster_event}</dd></div>
+            <div><dt>source_type</dt><dd>${r.source_type}</dd></div>
+            <div><dt>user_id</dt><dd>${r.user_id}</dd></div>
+            <div><dt>num_reactions</dt><dd>${r.num_reactions}</dd></div>
+            <div><dt>num_comments</dt><dd>${r.num_comments}</dd></div>
+            <div><dt>num_shares</dt><dd>${r.num_shares}</dd></div>
+          </dl>`; } }
+    );
+  }
+
+  /* Topic matrix charts (frequency vs normalised) — data from the shared core */
+  const matrixToggle = document.getElementById('matrix-toggle');
+  const matrixBtns   = matrixToggle.querySelectorAll('.view-toggle__opt');
+
+  // Shared matrix data (single source of truth: saklolo-core.js)
+  const topicData = window.SAK.TOPIC_MATRIX;
+
+  // Chart instances
+  let chartA, chartB;
+
+  function initTopicCharts() {
+    if (typeof Chart === 'undefined') return;
+    
+    Chart.defaults.color = '#9fb3bb';
+    Chart.defaults.font.family = 'system-ui, -apple-system, sans-serif';
+
+    const createConfig = (sysKey) => ({
+      type: 'bar',
+      data: {
+        labels: topicData[sysKey].labels,
+        datasets: [
+          { label: 'Negative (Distress)', backgroundColor: '#ff4d4f', data: topicData[sysKey].freq.neg },
+          { label: 'Neutral (Situational)', backgroundColor: '#ffb020', data: topicData[sysKey].freq.neu },
+          { label: 'Positive (Resolved)', backgroundColor: '#35d49a', data: topicData[sysKey].freq.pos }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: 'y', // Makes it a horizontal bar chart
+        scales: {
+          x: { stacked: true, grid: { color: 'rgba(255,255,255,.06)' }, title: { display: true, text: 'Raw Report Count' } },
+          y: { stacked: true, grid: { display: false } }
+        },
+        plugins: {
+          legend: { position: 'top', labels: { boxWidth: 12 } },
+          tooltip: { mode: 'index', intersect: false }
+        }
+      }
+    });
+
+    chartA = new Chart(document.getElementById('chart-sysA'), createConfig('A'));
+    chartB = new Chart(document.getElementById('chart-sysB'), createConfig('B'));
+  }
+
+  function setMatrixView(view) { // view = 'freq' | 'norm'
+    // Update button styles
+    matrixBtns.forEach(b => {
+      const on = b.dataset.matrix === view;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-pressed', on);
+    });
+    matrixToggle.dataset.active = view;
+
+    // Update charts
+    if (chartA && chartB) {
+      ['A', 'B'].forEach(sysKey => {
+        const chart = sysKey === 'A' ? chartA : chartB;
+        chart.data.datasets[0].data = topicData[sysKey][view].neg;
+        chart.data.datasets[1].data = topicData[sysKey][view].neu;
+        chart.data.datasets[2].data = topicData[sysKey][view].pos;
+        
+        // Change X-Axis label and max value based on view
+        if (view === 'norm') {
+          chart.options.scales.x.title.text = 'Percentage (%)';
+          chart.options.scales.x.max = 100;
+        } else {
+          chart.options.scales.x.title.text = 'Raw Report Count';
+          chart.options.scales.x.max = undefined; // Let it auto-scale
+        }
+        chart.update();
+      });
+    }
+  }
+
+  matrixBtns.forEach(b => b.addEventListener('click', () => setMatrixView(b.dataset.matrix)));
+
+  /* initial build only if the topics view is the one visible on load */
+  if (!document.getElementById('view-topics').hidden) ensureTopicCharts();
+})();
+</script>
+<script>
+(() => {
+  /* Model training card (Data Feed Integration): simulated pipeline run.
+     On completion it stamps the last-training date on this device (localStorage),
+     which the Operations dashboard training card also reflects. */
+  const S = window.SAK;
+  const stats = document.getElementById('tr-stats');
+  if (!stats || !S) return;
+
+  const cells = () => {
+    const lt = S.lastTraining();
+    return [
+      ['Training date range', 'Jul 2022 – Nov 2024', 'frozen study corpus · n = 10,194 (posts + comments) · 4 disaster events'],
+      ['Last training date',  lt ? S.fmtTrainStamp(lt) : 'Feb 9, 2026', lt ? 'latest pipeline run on this device' : 'latest of the three model components'],
+      ['Incoming batch',      'ETL-2482 · Nov 2, 2026', '1,442 classified &amp; kept · next batch ETL-2483 at 3:00 AM PHT']
+    ];
+  };
+  const paint = () => { stats.innerHTML = cells().map(([l, v, d]) =>
+    `<div><small>${l}</small><b>${v}</b><span>${d}</span></div>`).join(''); };
+  paint();
+
+  const btn   = document.getElementById('tr-run'),
+        box   = document.getElementById('tr-progress'),
+        bar   = document.getElementById('tr-bar-i'),
+        phase = document.getElementById('tr-phase'),
+        tag   = document.getElementById('tr-status'),
+        logUl = document.getElementById('tr-log');
+  const lt0 = S.lastTraining();
+  if (lt0){
+    tag.textContent = 'Up to date · trained ' + S.fmtTrainStamp(lt0);
+    btn.innerHTML = '<i class="fa-solid fa-rotate" aria-hidden="true"></i> Retrain on latest batch';
+  }
+
+  const PHASES = [
+    'Pulling batch ETL-2483 — items since the 11:59 PM cutoff…',
+    'Preprocessing — cleaning, de-duplication, tokenizing…',
+    'Training — LDA topic refresh + sentiment head on the batch…',
+    'Re-classifying kept items with the active model…',
+    'Validating held-out split — Macro-F1 gate (≥ 0.80)…',
+    'Checkpoint deployed — pipeline up to date'
+  ];
+  let running = false;
+  btn.addEventListener('click', () => {
+    if (running) return;
+    running = true; btn.disabled = true;
+    box.hidden = false; logUl.hidden = false; logUl.innerHTML = '';
+    let i = 0;
+    const step = () => {
+      if (i < PHASES.length){
+        bar.style.width = Math.round((i + 1) / PHASES.length * 100) + '%';
+        phase.textContent = PHASES[i];
+        const li = document.createElement('li');
+        li.textContent = PHASES[i];
+        logUl.appendChild(li);
+        i++; setTimeout(step, 620);
+      } else {
+        const d = new Date();
+        S.setLastTraining(d);
+        tag.textContent = 'Up to date · trained ' + S.fmtTrainStamp(d);
+        phase.textContent = 'Done — model retrained on batch ETL-2483 · Macro-F1 gate passed (0.85 ≥ 0.80)';
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-rotate" aria-hidden="true"></i> Retrain on latest batch';
+        paint();
+        running = false;
+      }
+    };
+    step();
+  });
+})();
+</script>
+</body>
+</html>

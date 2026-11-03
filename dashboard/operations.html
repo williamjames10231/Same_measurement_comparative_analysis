@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAKLOLO | Live Operations Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/saklolo.css">
+</head>
+<body data-system="A" data-mode="responder">
+<div class="app">
+
+  <!-- ========== SIDEBAR NAVIGATION ========== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand__logo" src="SAKLOLO.png" alt="SAKLOLO Logo" onerror="this.style.display='none'">
+      <div>
+        <strong class="brand__name">SAKLOLO</strong>
+        <small class="brand__sub">Bulacan + CAMANAVA</small>
+      </div>
+    </div>
+
+    <div class="rs-mode">
+      <div class="rs-mode__seg" role="radiogroup" aria-label="View mode">
+        <a href="index.html" class="is-on" aria-checked="true">Responder</a>
+        <a href="admin.html">Admin</a>
+      </div>
+      <p class="rs-clock" id="rs-clock"></p>
+    </div>
+<nav class="nav" aria-label="Dashboard views">
+      <a class="nav__item nav__item--resp" href="index.html">Map of Affected Areas</a>
+      <a class="nav__item nav__item--resp is-active" href="operations.html" aria-current="page">Live Operations Dashboard</a>
+      <a class="nav__item nav__item--resp" href="allocation.html">Resource Allocation</a>
+      <a class="nav__item nav__item--resp" href="blind-eval.html">Blind Stakeholder Evaluation</a>
+      <a class="nav__item nav__item--resp" href="sitrep.html">Situation Report</a>
+    </nav>
+
+<!-- ========== GLOBAL SYSTEM TOGGLE ========== -->
+<div class="sys-toggle">
+  <span class="sys-toggle__label">Active Model</span>
+  <div class="sys-toggle__track" id="sys-toggle" data-active="A" role="radiogroup" aria-label="Active model">
+    <span class="sys-toggle__thumb" aria-hidden="true"></span>
+    <button type="button" class="sys-toggle__opt is-active" role="radio" aria-checked="true"  data-system="A">System A <small>Hybrid</small></button>
+    <button type="button" class="sys-toggle__opt"           role="radio" aria-checked="false" data-system="B">System B <small>LLM</small></button>
+  </div>
+</div>
+    <div class="sidebar__footer">
+      <span class="dot dot--ok"></span> Pipeline online
+      <small>Hybrid: LDA + RoBERTa + Qwen 3.5</small>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+    <section id="view-r-dash" class="view" role="tabpanel">
+      <header class="view__header view__header--row">
+        <div>
+          <h1>Live Operations Dashboard</h1>
+          <p>Analytics from the classified Facebook content stream (posts + comments) — what people talk about, how they feel, and
+             the TOPSIS priorities computed from the active backend model.</p>
+        </div>
+        <span class="driver-pill"><span class="dot dot--sys"></span>Classified by: <strong class="rs-engine"></strong></span>
+      </header>
+      <div class="rs-fresh" id="rs-fresh">
+        <span class="dot dot--ok"></span>
+        <b>Data as of Nov 2, 2026 · 11:59 PM PHT</b>
+        <span>— last completed nightly ingestion (batch ETL-2482, window 12:00 AM – 11:59 PM · runs nightly at 3:00 AM PHT).
+              Today's incoming items stream into the <a href="admin.html#view-live-feed">Raw Live Feed</a> (Admin) and fold into the next nightly batch.</span>
+      </div>
+      <div class="rs-stack">
+        <div class="rs-stats">
+          <article class="card rs-stat rs-lv-neutral"><i class="fa-solid fa-folder-open" aria-hidden="true"></i><b id="rs-active">0</b><span>Active content items</span></article>
+          <article class="card rs-stat rs-lv-high"><b id="rs-crit">0</b><span>High-urgency items</span></article>
+          <article class="card rs-stat rs-lv-resolved"><b id="rs-done">0</b><span>Addressed items</span></article>
+        </div>
+        <article class="card">
+          <div class="rs-row"><h2 class="card__title">Incoming data statistics</h2><span class="rs-tag rs-tag--live">nightly batch ETL-2482 · Nov 2, 2026</span></div>
+          <p>Last night's ETL pulled the day's Facebook posts and comments from the tracked LGU / NGA pages and classified each
+             item with the active model. The study corpus (<b>10,194 rows · Jul 2022 – Nov 2024</b>) stays frozen for evaluation.</p>
+          <div class="rs-ingest" id="rs-ingest"></div>
+          <p class="rs-ingest-live" id="rs-ingest-live"></p>
+        </article>
+        <article class="card">
+          <div class="rs-row"><h2 class="card__title">Current allocation priorities · TOPSIS</h2><a class="rs-btn" href="allocation.html">Full ranking</a></div>
+          <p>Top topics by closeness to the ideal sentiment profile — <b id="rs-topw"></b> <small>(equal weights by default: 33% / 33% / 33%).</small></p>
+          <div id="rs-topmini"></div>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Backend systems</h2>
+          <p>The active model classifies every incoming item (post or comment — sentiment + topic); its topic × sentiment matrix
+             feeds the TOPSIS ranks. Switch models with the <b>Active Model</b> toggle in the sidebar.</p>
+          <div id="rs-engines"></div>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Topic × Sentiment Distribution <span class="rs-tag rs-tag--live" id="rs-ops-sys"></span></h2>
+          <p>The same topic × sentiment matrix shown on <b>NLP Topic Analytics</b>, computed from the active backend
+             model — stacked share of Negative / Neutral / Positive content per discovered topic.</p>
+          <div class="rs-chartbox rs-chartbox--tall"><canvas id="rs-ops-topics" aria-label="Stacked topic by sentiment bar chart"></canvas></div>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Topic volume share</h2>
+          <p>Share of the 10,194-row corpus (Facebook posts & comments) captured by each discovered topic of the active model.</p>
+          <div class="rs-chartbox rs-chartbox--sq"><canvas id="rs-ops-share" aria-label="Doughnut chart of topic volume share"></canvas></div>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Training status</h2>
+          <p>Training date range, last training run, and the nightly ETL that keeps classification current — per model component below.</p>
+          <div id="rs-train"></div>
+        </article>
+        <article class="card">
+          <div class="rs-row"><h2 class="card__title">Triage mix</h2><small id="rs-tri-note"></small></div>
+          <div id="rs-tri" class="rs-tri" role="img" aria-label="Triage mix"></div>
+          <div class="rs-legend">
+            <span class="rs-lv-high"><i></i>High urgency</span><span class="rs-lv-neutral"><i></i>Situational</span><span class="rs-lv-resolved"><i></i>Resolved</span>
+          </div>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Facebook content per hour — nightly batch · Nov 2, 2026</h2>
+          <p>Posts + comments ingested between 12:00 AM and 11:59 PM PHT on Nov 2 (batch ETL-2482), by hour and triage level.
+             Today's items stream into the Raw Live Feed and are folded into the next nightly run.</p>
+          <div class="rs-chartbox"><canvas id="rs-chart" aria-label="Line chart of Facebook content per hour"></canvas></div>
+        </article>
+      </div>
+    </section>
+  </main>
+</div>
+<script>window.SAK_CONFIG = { ingest: true };</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="assets/saklolo-core.js"></script>
+</body>
+</html>

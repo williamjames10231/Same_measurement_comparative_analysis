@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAKLOLO | Resource Allocation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/saklolo.css">
+</head>
+<body data-system="A" data-mode="responder">
+<div class="app">
+
+  <!-- ========== SIDEBAR NAVIGATION ========== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand__logo" src="SAKLOLO.png" alt="SAKLOLO Logo" onerror="this.style.display='none'">
+      <div>
+        <strong class="brand__name">SAKLOLO</strong>
+        <small class="brand__sub">Bulacan + CAMANAVA</small>
+      </div>
+    </div>
+
+    <div class="rs-mode">
+      <div class="rs-mode__seg" role="radiogroup" aria-label="View mode">
+        <a href="index.html" class="is-on" aria-checked="true">Responder</a>
+        <a href="admin.html">Admin</a>
+      </div>
+      <p class="rs-clock" id="rs-clock"></p>
+    </div>
+<nav class="nav" aria-label="Dashboard views">
+      <a class="nav__item nav__item--resp" href="index.html">Map of Affected Areas</a>
+      <a class="nav__item nav__item--resp" href="operations.html">Live Operations Dashboard</a>
+      <a class="nav__item nav__item--resp is-active" href="allocation.html" aria-current="page">Resource Allocation</a>
+      <a class="nav__item nav__item--resp" href="blind-eval.html">Blind Stakeholder Evaluation</a>
+      <a class="nav__item nav__item--resp" href="sitrep.html">Situation Report</a>
+    </nav>
+
+<!-- ========== GLOBAL SYSTEM TOGGLE ========== -->
+<div class="sys-toggle">
+  <span class="sys-toggle__label">Active Model</span>
+  <div class="sys-toggle__track" id="sys-toggle" data-active="A" role="radiogroup" aria-label="Active model">
+    <span class="sys-toggle__thumb" aria-hidden="true"></span>
+    <button type="button" class="sys-toggle__opt is-active" role="radio" aria-checked="true"  data-system="A">System A <small>Hybrid</small></button>
+    <button type="button" class="sys-toggle__opt"           role="radio" aria-checked="false" data-system="B">System B <small>LLM</small></button>
+  </div>
+</div>
+    <div class="sidebar__footer">
+      <span class="dot dot--ok"></span> Pipeline online
+      <small>Hybrid: LDA + RoBERTa + Qwen 3.5</small>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+    <section id="view-r-queue" class="view" role="tabpanel">
+      <header class="view__header view__header--row">
+        <div>
+          <h1>Resource Allocation (TOPSIS)</h1>
+          <p>Built on topic modelling (what people talk about) and sentiment classification (how they talk about it).
+             TOPSIS ranks the six discovered topics so responders can allocate resources — which topics to focus on
+             in consultations, where sensitive information dissemination, expertise and materials are needed most.
+             <b>By default every list uses equal weights</b> (33% / 33% / 33% after normalisation — no emphasis); a
+             human confirms each allocation, and stakeholders can build their own free sublist below.</p>
+        </div>
+        <span class="driver-pill"><span class="dot dot--sys"></span>Ranked from: <strong class="rs-engine"></strong></span>
+      </header>
+      <div class="rs-stack">
+        <div id="rs-queue" class="rs-stack"></div>
+        <article class="card">
+          <h2 class="card__title">Channel sublists · where each resource goes first</h2>
+          <p>Each allocation channel re-weights the same sentiment criteria to answer a different resource question —
+             consultation focus, sensitive information dissemination, expertise, materials and supplies. Defaults are
+             <b>equal weights (34 / 33 / 33)</b> across every channel — no emphasis unless the administrator explicitly
+             sets one in <a href="dss-config.html">DSS Configuration</a>. The chips on every card disclose the
+             weights (responders see them read-only).</p>
+          <div id="rs-cranks" class="rs-cranks"></div>
+        </article>
+        <article class="card">
+          <div class="rs-row">
+            <h2 class="card__title">Free sublist · your own prioritisation</h2>
+            <button type="button" id="rs-freereset" class="rs-btn">Reset to equal</button>
+          </div>
+          <p>Set your own composite weights for the three sentiment criteria — the TOPSIS rank recomputes live and is
+             kept on this device. Defaults are equal (33% / 33% / 33%). This is the stakeholder-defined list: it does
+             not change what responders or the administrator see elsewhere.</p>
+          <div id="rs-free" class="rs-w"></div>
+          <div id="rs-franks" class="rs-stack"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+</div>
+<script>window.SAK_CONFIG = { ingest: false };</script>
+<script src="assets/saklolo-core.js"></script>
+</body>
+</html>

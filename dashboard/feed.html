@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAKLOLO | Raw Live Feed</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/saklolo.css">
+</head>
+<body data-system="A" data-mode="responder">
+<div class="app">
+
+  <!-- ========== SIDEBAR NAVIGATION ========== -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand__logo" src="SAKLOLO.png" alt="SAKLOLO Logo" onerror="this.style.display='none'">
+      <div>
+        <strong class="brand__name">SAKLOLO</strong>
+        <small class="brand__sub">Bulacan + CAMANAVA</small>
+      </div>
+    </div>
+
+    <div class="rs-mode">
+      <div class="rs-mode__seg" role="radiogroup" aria-label="View mode">
+        <a href="index.html" class="is-on" aria-checked="true">Responder</a>
+        <a href="admin.html">Admin</a>
+      </div>
+      <p class="rs-clock" id="rs-clock"></p>
+    </div>
+<nav class="nav" aria-label="Dashboard views">
+      <a class="nav__item nav__item--resp" href="index.html">Map of Affected Areas</a>
+      <a class="nav__item nav__item--resp" href="operations.html">Live Operations Dashboard</a>
+      <a class="nav__item nav__item--resp is-active" href="feed.html" aria-current="page">Raw Live Feed</a>
+      <a class="nav__item nav__item--resp" href="allocation.html">Resource Allocation</a>
+      <a class="nav__item nav__item--resp" href="sitrep.html">Situation Report</a>
+    </nav>
+
+<!-- ========== GLOBAL SYSTEM TOGGLE ========== -->
+<div class="sys-toggle">
+  <span class="sys-toggle__label">Active Model</span>
+  <div class="sys-toggle__track" id="sys-toggle" data-active="A" role="radiogroup" aria-label="Active model">
+    <span class="sys-toggle__thumb" aria-hidden="true"></span>
+    <button type="button" class="sys-toggle__opt is-active" role="radio" aria-checked="true"  data-system="A">System A <small>Hybrid</small></button>
+    <button type="button" class="sys-toggle__opt"           role="radio" aria-checked="false" data-system="B">System B <small>LLM</small></button>
+  </div>
+</div>
+    <div class="sidebar__footer">
+      <span class="dot dot--ok"></span> Pipeline online
+      <small>Hybrid: LDA + RoBERTa + Qwen 3.5</small>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main">
+<section id="view-r-feed" class="view" role="tabpanel">
+      <header class="view__header view__header--row">
+        <div>
+          <h1>Raw Live Feed</h1>
+          <p>Raw citizen reports as ingested — auto-classified by the active backend model.</p>
+        </div>
+        <span class="driver-pill"><span class="dot dot--sys"></span>Classified by: <strong class="rs-engine"></strong></span>
+      </header>
+      <div class="rs-stack">
+        <div id="rs-filters" class="rs-chips">
+          <button type="button" class="rs-chip" data-f="all">All</button>
+          <button type="button" class="rs-chip" data-f="high">High urgency</button>
+          <button type="button" class="rs-chip" data-f="neutral">Situational</button>
+          <button type="button" class="rs-chip" data-f="resolved">Resolved</button>
+        </div>
+        <div id="rs-feed" class="rs-stack" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+</div>
+<script>window.SAK_CONFIG = { ingest: true };</script>
+<script src="assets/saklolo-core.js"></script>
+</body>
+</html>
