@@ -109,6 +109,13 @@ using performance measures associated with Research Question 1. Second, a random
 evaluation in which their identities are concealed, and their outputs are
 assessed under the same evaluation conditions.
 
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/fig3_1_pipeline.png}
+	\caption{Overall Research Pipeline}
+	\label{fig:pipeline}
+\end{figure}
+
 This framework therefore is a common-input and comparative-analysis sequence.
 Each system is evaluated either together or independently relative to
 mathematical viability and consistency of measures of performance to gain
@@ -392,7 +399,7 @@ while maintaining a common basis for comparison.
 \subsection*{System A: LDA-XLM-RoBERTa Joint Matrix System}
 
 \sysA{} employs a hybrid approach that combines the topics that Latent
-Dirichlet Allocation (LDA) found, and the sentiment classifications XLM-RoBERTa produced on the corpus into a  
+Dirichlet Allocation (LDA) found, and the sentiment classifications XLM-RoBERTa produced on the corpus into a
 joint matrix of topic-sentiment classifications contingency table.
 
 \subsubsection{Count Vectorization}
@@ -404,9 +411,9 @@ punctuation, URLs, numbers and text conversions to lowercase. The
 model processes them by splitting the documents into words so that the model
 can understand and analyze each word individually, followed by identifying
 unique words from the preprocessed text that maps
-text into a numerical vector \parencite{kozhevnikov2020}. 
+text into a numerical vector \parencite{kozhevnikov2020}.
 
-Vectorization is a function that maps a text document into a numerical vector in a high-dimensional space. This count vectorization is necessary as it is a valid input of LDA. 
+Vectorization is a function that maps a text document into a numerical vector in a high-dimensional space. This count vectorization is necessary as it is a valid input of LDA.
 
 \subsubsection{Latent Dirichlet Allocation (LDA)}
 
@@ -437,7 +444,7 @@ document-level variables and are sampled once per document. Finally, the
 variables $z_{d,n}$ and $w_{d,n}$ are word-level variables and are sampled once
 per word in each document \parencite{blei2003}.
 
-LDA was utilized in System A as a way to discover the 
+LDA was utilized in System A as a way to discover the
 topics that people talked about based on the co-occurring words in the given corpus.
 
 \subsubsection{Latent Dirichlet Allocation (LDA) $K$-Topic Selection}
@@ -545,6 +552,45 @@ prompt \hyperlink{lk:stage-1-prompt}{1} directs the model to focus on core actio
 than proper nouns, locations, or geographic identifiers. Each topic must have a
 short label and a set of keywords extracted from the representative sample.
 
+\begin{figure}[htbp]
+	\centering
+	\label{ls:stage-1-prompt}
+	\begin{minipage}{0.9\textwidth}
+		\begin{lstlisting}[language=Python,
+			showspaces=false,
+			showstringspaces=false,
+			caption={Stage 1 Prompt}]
+TOPIC_DISCOVERY_SYSTEM ="""
+You are an expert qualitative data analyst. Your task is to analyze a batch of text documents and synthesize a canonical taxonomy of exactly {n_topics} distinct topics.
+
+GUIDELINES:
+- Focus on the core ACTION, PROBLEM, or THEME (e.g., medical relief, structural damage, supply distribution).
+- Strictly omit all proper nouns, locations, regions, and geographic identifiers.
+- Each topic must have a short 'label' (2-4 lowercase words), and actual 'keywords' (bag-of-words) extracted directly from the texts.
+- Respond ONLY with a valid JSON array of objects. No markdown, no explanations.
+- CRITICAL: Your output MUST start with "[" and end with "]".
+
+EXAMPLE OUTPUT:
+[
+{{"label": "rescue efforts", "keywords": ["rescue", "stranded", "volunteer", "bagal", "rescuers"]}},
+{{"label": "flood impact", "keywords": ["baha", "tubig", "lubog", "taas", "stranded"]}},
+{{"label": "health risks", "keywords": ["leptospirosis", "sintomas", "check-up", "baho"]}}
+]
+/no_think
+"""
+
+TOPIC_DISCOVERY_USER = """
+Here is a representative sample of {n_docs} documents from the dataset:
+
+{documents_block}
+
+Generate the JSON array of exactly {n_topics} topics based on the themes present in these documents.
+JSON Output:
+"""
+		\end{lstlisting}
+	\end{minipage}
+\end{figure}
+
 The model returns a JSON array of topic objects. The prompt enforces strict
 JSON output with no markdown or explanations. This discovered taxonomy is
 validated for structural completeness before being used in Stage 2. The final
@@ -636,6 +682,9 @@ relative findings.
 
 \subsection*{System Implementation: The Analytical Dashboard}
 
+To operationalize the backend computational pipelines of System A and System B for both analytical visualization
+and stakeholder evaluation, a localized web dashboard is developed. While the core processing relies on heavy backend machine learning operations (LDA, XLM-RoBERTa, and Qwen3 interface), the dashboard provides a graphical user interface (GUI) that translates these mathematical output into interactive visual analytics.
+
 Guided by sensemaking theory, the backend computational pipelines are encapsulated within a localized analytical web dashboard. While System A and System B perform the heavy mathematical workload of vectorization and probabalistic modeling. The dashboard provides the necessary visual interface for human-in-the-loop validation. It translates abstract joint matrices and evaluated corpus into interactive charts and blinded evaluation forms, enabling local stakeholders to visually verify the alignment between disaster topics and community sentiments.
 
 The dashboard will have these primary modules:
@@ -655,8 +704,8 @@ The dashboard will have these primary modules:
 	classifications without parsing raw code.
 	
 	\item \textbf{Decision Support System Module.} Uses TOPSIS to evaluate and rank topics based on sentiment distributions and stakeholder-defined weighting, helping local stakeholders identify which topics warrant further investigation and prioritization of resources.
-	
-	\item \textbf{Blind Evaluation Instrument Module.} To execute Research 
+
+	\item \textbf{Blind Evaluation Instrument Module.} To execute Research
 	Question 2, the dashboard features a specialized evaluation interface. 
 	It randomly samples documents from the corpus and presents the 
 	system-generated sentiment and topic classifications side-by-side in a 
@@ -678,6 +727,7 @@ Technique for Order Performance by Similarity to Ideal
 Solution (TOPSIS) is one type of DSS. It attempts to calculate alternative values by calculating the positive ideal value which is far from the negative ideal value. The positive ideal value is obtained from
 maximizing the value of the score and minimizing the value of the cost.A negative criteria value maximizes the cost but minimizes the score. It can be said that the positive ideal solution is all the best score of the criteria, while the negative ideal solution is the bad score of the criteria \parencite{daniati2021topsis}. In the context of this study the topics will be the possible alternatives while the sentiment classifications will be the criteria relative to the specifications and weighing emphasis.Steps into conducting a TOPSIS decision support system is as follows:
 
+A standard Decision Support System framework consists of four primary components:
 \begin{enumerate}
 	\item building a performance decision matrix and its subsequent normalized values. This was already done in the joint matrix part of the pipelines for both systems.
 	\item applying the weighing to the normalized decision matrix.
@@ -694,22 +744,22 @@ maximizing the value of the score and minimizing the value of the cost.A negativ
 	positive ideal solution and the negative ideal solution using n
 	dimensional Euclidean distance.
 	\begin{equation*}
-		D_{m}^+ = \sqrt{\sum_{k=1}^{n} (j_{mk} - A_{k}^+)^2}	
+		D_{m}^+ = \sqrt{\sum_{k=1}^{n} (j_{mk} - A_{k}^+)^2}
 	\end{equation*}
 	\begin{equation*}
-		D_{m}^- = \sqrt{\sum_{k=1}^{n} (j_{mk} - A_{k}^-)^2} 
+		D_{m}^- = \sqrt{\sum_{k=1}^{n} (j_{mk} - A_{k}^-)^2}
 	\end{equation*}
-	This will give us the distance of all alternative decisions relative to the positive ideal solution and negative ideal solution 
+	This will give us the distance of all alternative decisions relative to the positive ideal solution and negative ideal solution
 	\item Calculates the relative proximity to the ideal
 	solution as follows:
 	\begin{equation*}
 		R_m = \frac{D_{m}^-}{D_{m}^{+} + D_{m}^-}, (m = 1,2,..,\text{total rows})
-	\end{equation*}	
+	\end{equation*}
 \end{enumerate}
 
 After calculating the alternative proximity and the value of $R_m$, the next step is to rank the alternatives and sort the values of $R_m$. The alternative with the highest score is the top choice (topic) given the criteria (sentiment classifications) that is to be emphasized. a value closer to 1 implies the alternative choice is nearer to the positive ideal solution and farther from the negative ideal solution. A value closer to 0 is the opposite \parencite{daniati2021topsis}.
 
-This is utilized as the DSS component of the front-end system as it is used to potentially help local stakeholders find topics that has to be investigated due to frequency distribution of their sentiment classifications (high levels of negative and positive sentiment but minimal neutral sentiments, high concentration of sentiment classifications sentiments towards a single class and such) the TOPSIS methodology allows this to be done systematically with a unified algorithm regardless of weighing of the criteria. 
+This is utilized as the DSS component of the front-end system as it is used to potentially help local stakeholders find topics that has to be investigated due to frequency distribution of their sentiment classifications (high levels of negative and positive sentiment but minimal neutral sentiments, high concentration of sentiment classifications sentiments towards a single class and such) the TOPSIS methodology allows this to be done systematically with a unified algorithm regardless of weighing of the criteria.
 
 It also helps local stakeholders make informed decisions on which topics should they focus their time, consultations, expertise and other resources to have an aligned response with what people talk about in social networks and how they feel talking about it.
 
@@ -761,6 +811,27 @@ requirements and metrics in advance.
 	\label{fig:Master_navigation}
 \end{figure}
 
+The system is a single page application,
+that utilizes the sidebar to trigger state changes that will direct the user to their respective sub-modules.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/image5.png}
+	\caption{View Command}
+	\label{fig:view command}
+\end{figure}
+
+This figure \ref{fig:view command}  outlines the initialization sequence for the Leaflet maps, dynamic OSM boundary fetching, and the rendering of the SAKLOLO evaluation framework.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/image1.png}
+	\caption{Data Feed Integration}
+	\label{fig:data_feed_integration}
+\end{figure}
+
+This figure \ref{fig:data_feed_integration} details the extraction and dynamic DOM mapping of the 10,194-report corpus, displaying how conditional styling is applied based on raw metadata attributes.
+
 \begin{figure}[htbp]
 	\centering
 	\newpage
@@ -768,6 +839,7 @@ requirements and metrics in advance.
 	\caption{blind evaluation}
 	\label{fig:algorithm-benchmarks}
 \end{figure}
+This figure \ref{fig:algorithm-benchmarks} demonstrates the sequential rendering process of the statistical evaluation modules, summarizing the data visualization for Research Questions 1, 2, and 3.
 
 \begin{figure}[htbp]
 	\centering
@@ -776,6 +848,7 @@ requirements and metrics in advance.
 	\caption{TOPSIS layer}
 	\label{fig:blind-stakeholder-evaluation}
 \end{figure}
+This figure \ref{fig:blind-stakeholder-evaluation} demonstrates the sequential rendering process of the statistical evaluation modules, summarizing the data visualization for Research Questions 1, 2, and 3.
 
 
 \subsection*{Research Question 1: Joint Matrix Latent Topic Structure and
